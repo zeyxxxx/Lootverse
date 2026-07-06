@@ -1,1 +1,15 @@
-/target/
+# Maven / build
+target/
+bin/
+*.class
+
+# Eclipse
+.settings/
+.classpath
+.project
+
+# Log
+*.log
+
+# File locali con password o configurazioni personali
+db.properties
