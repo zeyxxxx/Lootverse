@@ -1,4 +1,4 @@
-package model.Prodotto;
+package model.prodotto;
 
 	import java.sql.Connection;
 	import java.sql.PreparedStatement;
@@ -13,11 +13,7 @@ import model.DriverManagerConnectionPool;
 
 	    private static final String TABLE_NAME = "prodotto";
 
-	    /**
-	     * Recupera tutti i prodotti presenti nel database.
-	     * @return Una collezione di oggetti ProdottoBean
-	     * @throws SQLException
-	     */
+	    
 	    public synchronized Collection<ProdottoBean> doRetrieveAll() throws SQLException {
 	        Connection connection = null;
 	        PreparedStatement preparedStatement = null;
@@ -37,7 +33,7 @@ import model.DriverManagerConnectionPool;
 	                bean.setIdProdotto(rs.getInt("idProdotto"));
 	                bean.setPrezzo(rs.getDouble("prezzo"));
 	                bean.setDescrizione(rs.getString("descrizione"));
-	                bean.setDisponibilita(rs.getBoolean("disponibilita")); // Mappa il tinyint in boolean
+	                bean.setDisponibilita(rs.getBoolean("disponibilita")); 
 	                bean.setSconto(rs.getDouble("sconto"));
 	                bean.setIva(rs.getDouble("iva"));
 	                bean.setId_admin(rs.getInt("id_admin"));
@@ -60,12 +56,7 @@ import model.DriverManagerConnectionPool;
 	        return prodotti;
 	    }
 
-	    /**
-	     * Recupera un singolo prodotto in base al suo ID.
-	     * @param id L'identificativo del prodotto
-	     * @return L'oggetto ProdottoBean se trovato, null altrimenti
-	     * @throws SQLException
-	     */
+	    
 	    public synchronized ProdottoBean doRetrieveById(int id) throws SQLException {
 	        Connection connection = null;
 	        PreparedStatement preparedStatement = null;
@@ -106,11 +97,7 @@ import model.DriverManagerConnectionPool;
 	        return bean;
 	    }
 
-	    /**
-	     * Inserisce un nuovo prodotto nel database.
-	     * @param prodotto L'oggetto Bean contenente i dati da salvare
-	     * @throws SQLException
-	     */
+	   
 	    public synchronized void doSave(ProdottoBean prodotto) throws SQLException {
 	        Connection connection = null;
 	        PreparedStatement preparedStatement = null;
@@ -137,8 +124,7 @@ import model.DriverManagerConnectionPool;
 
 	            preparedStatement.executeUpdate();
 	            
-	            // Nota: Se hai bisogno di fare un commit manuale, scommenta la riga sotto:
-	            // connection.commit();
+	            
 
 	        } finally {
 	            try {
@@ -150,11 +136,7 @@ import model.DriverManagerConnectionPool;
 	        }
 	    }
 
-	    /**
-	     * Modifica i dati di un prodotto esistente nel database.
-	     * @param prodotto L'oggetto Bean modificato con l'ID del prodotto da aggiornare
-	     * @throws SQLException
-	     */
+	   
 	    public synchronized void doUpdate(ProdottoBean prodotto) throws SQLException {
 	        Connection connection = null;
 	        PreparedStatement preparedStatement = null;
@@ -192,12 +174,7 @@ import model.DriverManagerConnectionPool;
 	        }
 	    }
 
-	    /**
-	     * Elimina un prodotto dal database in base al suo ID.
-	     * @param id L'identificativo del prodotto da eliminare
-	     * @return true se l'eliminazione è andata a buon fine, false altrimenti
-	     * @throws SQLException
-	     */
+	   
 	    public synchronized boolean doDelete(int id) throws SQLException {
 	        Connection connection = null;
 	        PreparedStatement preparedStatement = null;

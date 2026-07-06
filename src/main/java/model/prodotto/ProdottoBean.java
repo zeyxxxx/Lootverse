@@ -1,5 +1,5 @@
 
-package model.Prodotto;
+package model.prodotto;
 
 import java.io.Serializable;
 
