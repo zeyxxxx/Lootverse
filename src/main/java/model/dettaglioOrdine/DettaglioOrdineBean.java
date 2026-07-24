@@ -1,7 +1,6 @@
 package model.dettaglioOrdine;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 public class DettaglioOrdineBean implements Serializable {
 
@@ -9,8 +8,8 @@ public class DettaglioOrdineBean implements Serializable {
 
     private int idOrdine;
     private int idProdotto;
-    private BigDecimal prezzo;
-    private BigDecimal iva;
+    private double prezzo;
+    private double iva;
     private int quantita;
 
     public DettaglioOrdineBean() {
@@ -32,19 +31,19 @@ public class DettaglioOrdineBean implements Serializable {
         this.idProdotto = idProdotto;
     }
 
-    public BigDecimal getPrezzo() {
+    public double getPrezzo() {
         return prezzo;
     }
 
-    public void setPrezzo(BigDecimal prezzo) {
+    public void setPrezzo(double prezzo) {
         this.prezzo = prezzo;
     }
 
-    public BigDecimal getIva() {
+    public double getIva() {
         return iva;
     }
 
-    public void setIva(BigDecimal iva) {
+    public void setIva(double iva) {
         this.iva = iva;
     }
 

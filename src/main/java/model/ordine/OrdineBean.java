@@ -1,7 +1,6 @@
 package model.ordine;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class OrdineBean implements Serializable {
@@ -12,7 +11,7 @@ public class OrdineBean implements Serializable {
     private int idUtente;
     private String stato;
     private LocalDate data;
-    private BigDecimal totale;
+    private double totale;
 
     public OrdineBean() {
     }
@@ -49,11 +48,11 @@ public class OrdineBean implements Serializable {
         this.data = data;
     }
 
-    public BigDecimal getTotale() {
+    public double getTotale() {
         return totale;
     }
 
-    public void setTotale(BigDecimal totale) {
+    public void setTotale(double totale) {
         this.totale = totale;
     }
 

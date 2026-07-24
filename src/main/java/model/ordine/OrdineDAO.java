@@ -1,11 +1,11 @@
 package model.ordine;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class OrdineDAO {
 
             preparedStatement = connection.prepareStatement(
                     insertSQL,
-                    PreparedStatement.RETURN_GENERATED_KEYS
+                    Statement.RETURN_GENERATED_KEYS
             );
 
             preparedStatement.setInt(1, ordine.getIdUtente());
@@ -47,11 +47,7 @@ public class OrdineDAO {
                 preparedStatement.setNull(3, Types.DATE);
             }
 
-            if (ordine.getTotale() != null) {
-                preparedStatement.setBigDecimal(4, ordine.getTotale());
-            } else {
-                preparedStatement.setBigDecimal(4, BigDecimal.ZERO);
-            }
+            preparedStatement.setDouble(4, ordine.getTotale());
 
             preparedStatement.executeUpdate();
 
@@ -294,7 +290,7 @@ public class OrdineDAO {
         }
     }
 
-    public void updateTotale(int idOrdine, BigDecimal nuovoTotale) throws SQLException {
+    public void updateTotale(int idOrdine, double nuovoTotale) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -306,7 +302,7 @@ public class OrdineDAO {
             connection = DriverManagerConnectionPool.getConnection();
 
             preparedStatement = connection.prepareStatement(updateSQL);
-            preparedStatement.setBigDecimal(1, nuovoTotale);
+            preparedStatement.setDouble(1, nuovoTotale);
             preparedStatement.setInt(2, idOrdine);
 
             preparedStatement.executeUpdate();
@@ -350,7 +346,7 @@ public class OrdineDAO {
         ordine.setIdOrdine(resultSet.getInt("idOrdine"));
         ordine.setIdUtente(resultSet.getInt("id_utente"));
         ordine.setStato(resultSet.getString("stato"));
-        ordine.setTotale(resultSet.getBigDecimal("totale"));
+        ordine.setTotale(resultSet.getDouble("totale"));
 
         Date sqlDate = resultSet.getDate("data");
 

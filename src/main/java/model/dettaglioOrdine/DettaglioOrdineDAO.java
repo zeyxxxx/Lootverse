@@ -1,6 +1,5 @@
 package model.dettaglioOrdine;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,8 +28,8 @@ public class DettaglioOrdineDAO {
 
             preparedStatement.setInt(1, dettaglio.getIdOrdine());
             preparedStatement.setInt(2, dettaglio.getIdProdotto());
-            preparedStatement.setBigDecimal(3, dettaglio.getPrezzo());
-            preparedStatement.setBigDecimal(4, dettaglio.getIva());
+            preparedStatement.setDouble(3, dettaglio.getPrezzo());
+            preparedStatement.setDouble(4, dettaglio.getIva());
             preparedStatement.setInt(5, dettaglio.getQuantita());
 
             preparedStatement.executeUpdate();
@@ -206,7 +205,7 @@ public class DettaglioOrdineDAO {
         }
     }
 
-    public BigDecimal calcolaTotaleOrdine(int idOrdine) throws SQLException {
+    public double calcolaTotaleOrdine(int idOrdine) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -224,10 +223,10 @@ public class DettaglioOrdineDAO {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                return resultSet.getBigDecimal("totale");
+                return resultSet.getDouble("totale");
             }
 
-            return BigDecimal.ZERO;
+            return 0.0;
 
         } finally {
             if (resultSet != null) {
@@ -247,8 +246,8 @@ public class DettaglioOrdineDAO {
 
         dettaglio.setIdOrdine(resultSet.getInt("id_ordine"));
         dettaglio.setIdProdotto(resultSet.getInt("id_prodotto"));
-        dettaglio.setPrezzo(resultSet.getBigDecimal("prezzo"));
-        dettaglio.setIva(resultSet.getBigDecimal("iva"));
+        dettaglio.setPrezzo(resultSet.getDouble("prezzo"));
+        dettaglio.setIva(resultSet.getDouble("iva"));
         dettaglio.setQuantita(resultSet.getInt("quantita"));
 
         return dettaglio;

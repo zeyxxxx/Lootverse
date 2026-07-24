@@ -2,6 +2,7 @@ package control.ordineServlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Collection;
 
 import javax.servlet.ServletException;
@@ -21,9 +22,6 @@ import model.ordine.OrdineDAO;
 import model.prodotto.ProdottoBean;
 import model.prodotto.ProdottoDao;
 import model.utente.UtenteBean;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
 @WebServlet("/conferma-ordine")
 public class ConfermaOrdineServlet extends HttpServlet {
@@ -72,7 +70,7 @@ public class ConfermaOrdineServlet extends HttpServlet {
                 return;
             }
 
-            BigDecimal totale = BigDecimal.ZERO;
+            double totale = 0.0;
 
             for (ContieneBean item : prodottiCarrello) {
                 ProdottoBean prodotto = prodottoDao.doRetrieveById(item.getIdProdotto());
@@ -83,10 +81,8 @@ public class ConfermaOrdineServlet extends HttpServlet {
                     return;
                 }
 
-                BigDecimal prezzoFinale = BigDecimal.valueOf(prodotto.getPrezzoFinale());
-                BigDecimal quantita = BigDecimal.valueOf(item.getQuantita());
-
-                totale = totale.add(prezzoFinale.multiply(quantita));
+                double prezzoFinale = prodotto.getPrezzoFinale();
+                totale += prezzoFinale * item.getQuantita();
             }
 
             OrdineBean ordine = new OrdineBean();
@@ -109,8 +105,8 @@ public class ConfermaOrdineServlet extends HttpServlet {
                 DettaglioOrdineBean dettaglio = new DettaglioOrdineBean();
                 dettaglio.setIdOrdine(idOrdine);
                 dettaglio.setIdProdotto(item.getIdProdotto());
-                dettaglio.setPrezzo(BigDecimal.valueOf(prodotto.getPrezzoFinale()));
-                dettaglio.setIva(BigDecimal.valueOf(prodotto.getIva()));
+                dettaglio.setPrezzo(prodotto.getPrezzoFinale());
+                dettaglio.setIva(prodotto.getIva());
                 dettaglio.setQuantita(item.getQuantita());
 
                 dettaglioOrdineDAO.doSave(dettaglio);
