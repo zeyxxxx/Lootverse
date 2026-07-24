@@ -50,6 +50,7 @@ public class DettaglioProdottoServlet extends HttpServlet {
 
         } catch (SQLException e) {
             e.printStackTrace();
+
             request.setAttribute("errore", "Errore durante il caricamento del prodotto.");
             request.getRequestDispatcher("/WEB-INF/pages/error/500.jsp").forward(request, response);
         }

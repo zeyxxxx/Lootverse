@@ -38,7 +38,6 @@ public class CatalogoServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/pages/error/500.jsp").forward(request, response);
         }
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

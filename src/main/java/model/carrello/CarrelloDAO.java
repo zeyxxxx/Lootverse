@@ -7,7 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.time.LocalDate;
-
+import java.util.ArrayList;
+import java.util.Collection;
 import model.DriverManagerConnectionPool;
 
 public class CarrelloDAO {
@@ -150,7 +151,7 @@ public class CarrelloDAO {
 
     public void aggiungiProdotto(int idCarrello, int idProdotto, int quantita) throws SQLException {
         if (quantita <= 0) {
-            throw new IllegalArgumentException("La quantità deve essere maggiore di zero.");
+            throw new IllegalArgumentException("La quantitÃ  deve essere maggiore di zero.");
         }
 
         Connection connection = null;
@@ -260,6 +261,50 @@ public class CarrelloDAO {
         }
     }
 
+    public Collection<ContieneBean> doRetrieveProdotti(int idCarrello) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        Collection<ContieneBean> prodottiCarrello = new ArrayList<>();
+
+        String selectSQL = "SELECT id_carrello, id_prodotto, quantita "
+                + "FROM " + TABLE_CONTIENE
+                + " WHERE id_carrello = ?";
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+
+            preparedStatement = connection.prepareStatement(selectSQL);
+            preparedStatement.setInt(1, idCarrello);
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                ContieneBean contiene = new ContieneBean();
+
+                contiene.setIdCarrello(resultSet.getInt("id_carrello"));
+                contiene.setIdProdotto(resultSet.getInt("id_prodotto"));
+                contiene.setQuantita(resultSet.getInt("quantita"));
+
+                prodottiCarrello.add(contiene);
+            }
+
+            return prodottiCarrello;
+
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+
+            DriverManagerConnectionPool.releaseConnection(connection);
+        }
+    }
+    
     public int contaProdotti(int idCarrello) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
