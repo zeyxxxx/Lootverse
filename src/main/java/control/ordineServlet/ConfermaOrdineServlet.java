@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,17 +29,24 @@ public class ConfermaOrdineServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    // Pattern Regex per la validazione server-side di Spedizione e Pagamento Simulato
+    private static final Pattern CARD_NUMBER_PATTERN = Pattern.compile("^\\d{16}$");
+    private static final Pattern CVV_PATTERN = Pattern.compile("^\\d{3,4}$");
+    private static final Pattern CAP_PATTERN = Pattern.compile("^\\d{5}$");
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.sendRedirect(request.getContextPath() + "/carrello");
+        // Se un utente accede in GET, lo reindirizziamo al checkout
+        response.sendRedirect(request.getContextPath() + "/checkout");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(false);
 
         if (session == null || session.getAttribute("utenteLoggato") == null) {
@@ -47,6 +55,41 @@ public class ConfermaOrdineServlet extends HttpServlet {
         }
 
         UtenteBean utente = (UtenteBean) session.getAttribute("utenteLoggato");
+
+        // 1. Lettura dei parametri inviati dal form di checkout.jsp
+        String indirizzo = trimValue(request.getParameter("indirizzo"));
+        String citta = trimValue(request.getParameter("citta"));
+        String cap = trimValue(request.getParameter("cap"));
+        String intestatario = trimValue(request.getParameter("intestatario"));
+        String numeroCarta = trimValue(request.getParameter("numeroCarta")).replaceAll("\\s+", "");
+        String cvv = trimValue(request.getParameter("cvv"));
+
+        // 2. Controlli e Validazione Server-Side
+        if (isEmpty(indirizzo) || isEmpty(citta) || isEmpty(cap) || 
+            isEmpty(intestatario) || isEmpty(numeroCarta) || isEmpty(cvv)) {
+            
+            request.setAttribute("erroreForm", "Tutti i campi di spedizione e pagamento sono obbligatori.");
+            request.getRequestDispatcher("/checkout").forward(request, response);
+            return;
+        }
+
+        if (!CAP_PATTERN.matcher(cap).matches()) {
+            request.setAttribute("erroreForm", "Il CAP inserito non è valido (deve contenere esattamente 5 cifre).");
+            request.getRequestDispatcher("/checkout").forward(request, response);
+            return;
+        }
+
+        if (!CARD_NUMBER_PATTERN.matcher(numeroCarta).matches()) {
+            request.setAttribute("erroreForm", "Il numero di carta inserito non è valido (deve essere composto da 16 cifre).");
+            request.getRequestDispatcher("/checkout").forward(request, response);
+            return;
+        }
+
+        if (!CVV_PATTERN.matcher(cvv).matches()) {
+            request.setAttribute("erroreForm", "Il codice CVV non è valido (3 o 4 cifre).");
+            request.getRequestDispatcher("/checkout").forward(request, response);
+            return;
+        }
 
         try {
             CarrelloDAO carrelloDAO = new CarrelloDAO();
@@ -85,6 +128,10 @@ public class ConfermaOrdineServlet extends HttpServlet {
                 totale += prezzoFinale * item.getQuantita();
             }
 
+            // Arrotondamento a 2 cifre decimali
+            totale = Math.round(totale * 100.0) / 100.0;
+
+            // 3. Creazione e salvataggio dell'ordine
             OrdineBean ordine = new OrdineBean();
             ordine.setIdUtente(utente.getIdUtente());
             ordine.setStato("In lavorazione");
@@ -99,6 +146,7 @@ public class ConfermaOrdineServlet extends HttpServlet {
                 throw new SQLException("ID ordine non generato correttamente.");
             }
 
+            // 4. Salvataggio dei dettagli dell'ordine
             for (ContieneBean item : prodottiCarrello) {
                 ProdottoBean prodotto = prodottoDao.doRetrieveById(item.getIdProdotto());
 
@@ -112,6 +160,7 @@ public class ConfermaOrdineServlet extends HttpServlet {
                 dettaglioOrdineDAO.doSave(dettaglio);
             }
 
+            // 5. Svuotamento del carrello
             carrelloDAO.svuotaCarrello(carrello.getIdCarrello());
 
             request.setAttribute("ordine", ordine);
@@ -123,5 +172,13 @@ public class ConfermaOrdineServlet extends HttpServlet {
             request.setAttribute("errore", "Errore durante la conferma dell'ordine.");
             request.getRequestDispatcher("/WEB-INF/pages/error/500.jsp").forward(request, response);
         }
+    }
+
+    private boolean isEmpty(String value) {
+        return value == null || value.trim().isEmpty();
+    }
+
+    private String trimValue(String value) {
+        return (value == null) ? "" : value.trim();
     }
 }

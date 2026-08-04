@@ -199,5 +199,44 @@ import model.DriverManagerConnectionPool;
 	        }
 	        return (result != 0);
 	    }
+	    
+	    public synchronized Collection<ProdottoBean> doSearchByName(String query) throws SQLException {
+	        Connection connection = null;
+	        PreparedStatement preparedStatement = null;
+	        Collection<ProdottoBean> prodotti = new LinkedList<>();
+
+	        String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE LOWER(nome) LIKE ? AND disponibilita = 1 LIMIT 10";
+
+	        try {
+	            connection = DriverManagerConnectionPool.getConnection();
+	            preparedStatement = connection.prepareStatement(selectSQL);
+	            preparedStatement.setString(1, "%" + query.toLowerCase().trim() + "%");
+
+	            ResultSet rs = preparedStatement.executeQuery();
+
+	            while (rs.next()) {
+	                ProdottoBean bean = new ProdottoBean();
+	                bean.setIdProdotto(rs.getInt("idProdotto"));
+	                bean.setPrezzo(rs.getDouble("prezzo"));
+	                bean.setDescrizione(rs.getString("descrizione"));
+	                bean.setDisponibilita(rs.getBoolean("disponibilita"));
+	                bean.setSconto(rs.getDouble("sconto"));
+	                bean.setIva(rs.getDouble("iva"));
+	                bean.setId_admin(rs.getInt("id_admin"));
+	                bean.setNome(rs.getString("nome"));
+	                bean.setMateriale(rs.getString("materiale"));
+	                bean.setColore(rs.getString("colore"));
+	                bean.setDimensione(rs.getString("dimensione"));
+
+	                prodotti.add(bean);
+	            }
+	        } finally {
+	            if (preparedStatement != null) preparedStatement.close();
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	        return prodotti;
+	    }
 	}
 
+	
+	
