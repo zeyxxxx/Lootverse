@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <jsp:include page="/WEB-INF/fragments/header.jsp" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/index.css">
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
 

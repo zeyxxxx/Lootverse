@@ -1,0 +1,30 @@
+/* ==========================================
+   STILI CAMPO TELEFONO CON PREFISSO AFFIANCATO
+   ========================================== */
+.phone-input-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+}
+
+.select-prefisso {
+    width: 160px;
+    flex-shrink: 0;
+    padding: 12px 10px;
+    background-color: var(--dark-card);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.select-prefisso:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.phone-input-container input[type="tel"] {
+    flex: 1; /* Il campo del numero occupa tutto lo spazio rimanente */
+}

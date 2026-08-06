@@ -16,10 +16,9 @@
 
     <ul class="nav-links">
         <%-- Link espliciti in Navbar --%>
-        <li><a href="${pageContext.request.contextPath}/catalogo">Catalogo</a></li>
-
         <c:choose>
             <c:when test="${not empty sessionScope.adminLoggato}">
+            	<li><a href="${pageContext.request.contextPath}/catalogo">Catalogo</a></li>
                 <li><a href="${pageContext.request.contextPath}/admin-prodotti">Gestione Prodotti</a></li>
                 <li><a href="${pageContext.request.contextPath}/admin-ordini">Gestione Ordini</a></li>
                 <li class="user-badge">Admin: ${sessionScope.adminLoggato.nome}</li>
@@ -27,6 +26,7 @@
             </c:when>
             <c:when test="${not empty sessionScope.utenteLoggato}">
                 <li><a href="${pageContext.request.contextPath}/carrello"> <span class="material-symbols-outlined">shopping_cart</span> </a></li>
+                <li><a href="${pageContext.request.contextPath}/catalogo">Catalogo</a></li>
                 <li><a href="${pageContext.request.contextPath}/lista-desideri">Wishlist ❤️</a></li>
                 <li><a href="${pageContext.request.contextPath}/storico-ordini">Miei Ordini</a></li>
                 <li class="user-badge">Ciao, ${sessionScope.utenteLoggato.nome}</li>
@@ -34,6 +34,7 @@
             </c:when>
             <c:otherwise>
                 <li><a href="${pageContext.request.contextPath}/carrello"> <span class="material-symbols-outlined">shopping_cart</span> </a></li>
+                 <li><a href="${pageContext.request.contextPath}/catalogo">Catalogo</a></li>
                 <li><a href="${pageContext.request.contextPath}/login">Accedi</a></li>
                 <li><a href="${pageContext.request.contextPath}/registrazione" class="btn-highlight">Registrati</a></li>
             </c:otherwise>
