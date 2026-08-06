@@ -26,6 +26,11 @@ public class RegistrazioneServlet extends HttpServlet {
             "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[^A-Za-z0-9\\s])(?=\\S+$).{8,16}$"
     );
 
+    // Pattern per il numero completo (es. +393123456789)
+    private static final Pattern TELEFONO_PATTERN = Pattern.compile(
+            "^\\+[0-9]{9,16}$"
+    );
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,40 +47,60 @@ public class RegistrazioneServlet extends HttpServlet {
         String nome = request.getParameter("nome");
         String cognome = request.getParameter("cognome");
         String email = request.getParameter("email");
+        String prefisso = request.getParameter("prefisso"); // ➕ Recupero prefisso
+        String telefono = request.getParameter("telefono"); // ➕ Recupero numero
         String password = request.getParameter("password");
         String confermaPassword = request.getParameter("confermaPassword");
 
         nome = trimValue(nome);
         cognome = trimValue(cognome);
         email = trimValue(email).toLowerCase();
+        prefisso = trimValue(prefisso);
+        telefono = trimValue(telefono);
+
+        // Se il prefisso non è selezionato, imposta default +39
+        if (isEmpty(prefisso)) {
+            prefisso = "+39";
+        }
+
+        // Unisce prefisso e numero (es. +393123456789)
+        String telefonoCompleto = prefisso + telefono;
 
         try {
             if (isEmpty(nome) || isEmpty(cognome) || isEmpty(email)
-                    || isEmpty(password) || isEmpty(confermaPassword)) {
+                    || isEmpty(telefono) || isEmpty(password) || isEmpty(confermaPassword)) {
 
                 request.setAttribute("erroreCampiVuoti", "Tutti i campi sono obbligatori.");
-                ripristinaCampi(request, nome, cognome, email);
+                ripristinaCampi(request, nome, cognome, email, prefisso, telefono);
                 request.getRequestDispatcher("/WEB-INF/pages/registrazione.jsp").forward(request, response);
                 return;
             }
 
             if (!EMAIL_PATTERN.matcher(email).matches()) {
                 request.setAttribute("erroreEmail", "Email non valida.");
-                ripristinaCampi(request, nome, cognome, email);
+                ripristinaCampi(request, nome, cognome, email, prefisso, telefono);
+                request.getRequestDispatcher("/WEB-INF/pages/registrazione.jsp").forward(request, response);
+                return;
+            }
+
+            // Validazione del numero telefonico completo con prefisso
+            if (!TELEFONO_PATTERN.matcher(telefonoCompleto).matches()) {
+                request.setAttribute("erroreTelefono", "Numero di telefono non valido (inserisci solo cifre).");
+                ripristinaCampi(request, nome, cognome, email, prefisso, telefono);
                 request.getRequestDispatcher("/WEB-INF/pages/registrazione.jsp").forward(request, response);
                 return;
             }
 
             if (!PASSWORD_PATTERN.matcher(password).matches()) {
                 request.setAttribute("errorePassword", "La password deve avere tra 8 e 16 caratteri, almeno una lettera, un numero e un carattere speciale.");
-                ripristinaCampi(request, nome, cognome, email);
+                ripristinaCampi(request, nome, cognome, email, prefisso, telefono);
                 request.getRequestDispatcher("/WEB-INF/pages/registrazione.jsp").forward(request, response);
                 return;
             }
 
             if (!password.equals(confermaPassword)) {
                 request.setAttribute("erroreConfermaPassword", "Le password non coincidono.");
-                ripristinaCampi(request, nome, cognome, email);
+                ripristinaCampi(request, nome, cognome, email, prefisso, telefono);
                 request.getRequestDispatcher("/WEB-INF/pages/registrazione.jsp").forward(request, response);
                 return;
             }
@@ -84,7 +109,7 @@ public class RegistrazioneServlet extends HttpServlet {
 
             if (utenteDAO.emailExists(email)) {
                 request.setAttribute("erroreGiàPresente", "Email già registrata.");
-                ripristinaCampi(request, nome, cognome, email);
+                ripristinaCampi(request, nome, cognome, email, prefisso, telefono);
                 request.getRequestDispatcher("/WEB-INF/pages/registrazione.jsp").forward(request, response);
                 return;
             }
@@ -95,6 +120,7 @@ public class RegistrazioneServlet extends HttpServlet {
             utente.setNome(nome);
             utente.setCognome(cognome);
             utente.setEmail(email);
+            utente.setTelefono(telefonoCompleto); // Salva il numero completo (es. +393123456789)
             utente.setPasswordHash(passwordHash);
 
             utenteDAO.doSave(utente);
@@ -106,7 +132,7 @@ public class RegistrazioneServlet extends HttpServlet {
             e.printStackTrace();
 
             request.setAttribute("errore", "Errore durante la registrazione. Riprova.");
-            ripristinaCampi(request, nome, cognome, email);
+            ripristinaCampi(request, nome, cognome, email, prefisso, telefono);
             request.getRequestDispatcher("/WEB-INF/pages/registrazione.jsp").forward(request, response);
         }
     }
@@ -119,13 +145,14 @@ public class RegistrazioneServlet extends HttpServlet {
         if (value == null) {
             return "";
         }
-
         return value.trim();
     }
 
-    private void ripristinaCampi(HttpServletRequest request, String nome, String cognome, String email) {
+    private void ripristinaCampi(HttpServletRequest request, String nome, String cognome, String email, String prefisso, String telefono) {
         request.setAttribute("nome", nome);
         request.setAttribute("cognome", cognome);
         request.setAttribute("email", email);
+        request.setAttribute("prefisso", prefisso);
+        request.setAttribute("telefono", telefono);
     }
 }

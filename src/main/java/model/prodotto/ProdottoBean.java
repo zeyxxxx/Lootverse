@@ -18,6 +18,7 @@ public class ProdottoBean implements Serializable {
     private String materiale;
     private String colore;
     private String dimensione;
+    private String immagine;
 
     // Costruttore vuoto
     public ProdottoBean() {
@@ -128,6 +129,15 @@ public class ProdottoBean implements Serializable {
 
     public void setDimensione(String dimensione) {
         this.dimensione = dimensione;
+    }
+    
+
+    public String getImmagine() {
+        return immagine;
+    }
+
+    public void setImmagine(String immagine) {
+        this.immagine = immagine;
     }
 
     // Metodo toString

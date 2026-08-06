@@ -3,7 +3,8 @@
 
 <nav class="navbar">
     <div class="nav-brand">
-        <a href="${pageContext.request.contextPath}/catalogo">
+        <%-- Il logo riporta alla Home (/index) --%>
+        <a href="${pageContext.request.contextPath}/index">
             <h1>LOOT<span>VERSE</span></h1>
         </a>
     </div>
@@ -14,6 +15,7 @@
     </div>
 
     <ul class="nav-links">
+        <%-- Link espliciti in Navbar --%>
         <li><a href="${pageContext.request.contextPath}/catalogo">Catalogo</a></li>
 
         <c:choose>
@@ -24,14 +26,14 @@
                 <li><a href="${pageContext.request.contextPath}/admin-logout" class="btn-logout">Logout Admin</a></li>
             </c:when>
             <c:when test="${not empty sessionScope.utenteLoggato}">
-                <li><a href="${pageContext.request.contextPath}/carrello">Carrello</a></li>
-                <li><a href="${pageContext.request.contextPath}/lista-desideri">Wishlist</a></li>
+                <li><a href="${pageContext.request.contextPath}/carrello"> <span class="material-symbols-outlined">shopping_cart</span> </a></li>
+                <li><a href="${pageContext.request.contextPath}/lista-desideri">Wishlist ❤️</a></li>
                 <li><a href="${pageContext.request.contextPath}/storico-ordini">Miei Ordini</a></li>
                 <li class="user-badge">Ciao, ${sessionScope.utenteLoggato.nome}</li>
                 <li><a href="${pageContext.request.contextPath}/logout" class="btn-logout">Logout</a></li>
             </c:when>
             <c:otherwise>
-                <li><a href="${pageContext.request.contextPath}/carrello">Carrello</a></li>
+                <li><a href="${pageContext.request.contextPath}/carrello"> <span class="material-symbols-outlined">shopping_cart</span> </a></li>
                 <li><a href="${pageContext.request.contextPath}/login">Accedi</a></li>
                 <li><a href="${pageContext.request.contextPath}/registrazione" class="btn-highlight">Registrati</a></li>
             </c:otherwise>

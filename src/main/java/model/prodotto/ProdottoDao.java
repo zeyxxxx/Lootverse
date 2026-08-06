@@ -41,6 +41,7 @@ import model.DriverManagerConnectionPool;
 	                bean.setMateriale(rs.getString("materiale"));
 	                bean.setColore(rs.getString("colore"));
 	                bean.setDimensione(rs.getString("dimensione"));
+	                bean.setImmagine(rs.getString("immagine"));
 
 	                prodotti.add(bean);
 	            }

@@ -2,61 +2,70 @@ package model.utente;
 
 import java.io.Serializable;
 
-public class UtenteBean {
-	 private static final long serialVersionUID = 1L;
+public class UtenteBean implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-	    private int idUtente;
-	    private String email;
-	    private String passwordHash;
-	    private String nome;
-	    private String cognome;
+    private int idUtente;
+    private String email;
+    private String passwordHash;
+    private String nome;
+    private String cognome;
+    private String telefono; // ➕ Nuovo attributo
 
-	    public UtenteBean() {
-	    }
+    public UtenteBean() {
+    }
 
-	    public int getIdUtente() {
-	        return idUtente;
-	    }
+    public int getIdUtente() {
+        return idUtente;
+    }
 
-	    public void setIdUtente(int idUtente) {
-	        this.idUtente = idUtente;
-	    }
+    public void setIdUtente(int idUtente) {
+        this.idUtente = idUtente;
+    }
 
-	    public String getEmail() {
-	        return email;
-	    }
+    public String getEmail() {
+        return email;
+    }
 
-	    public void setEmail(String email) {
-	        this.email = email;
-	    }
-	    
-	    public String getPasswordHash() {
-	        return passwordHash;
-	    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	    public void setPasswordHash(String passwordHash) {
-	        this.passwordHash = passwordHash;
-	    }
+    public String getPasswordHash() {
+        return passwordHash;
+    }
 
-	    public String getNome() {
-	        return nome;
-	    }
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
 
-	    public void setNome(String nome) {
-	        this.nome = nome;
-	    }
+    public String getNome() {
+        return nome;
+    }
 
-	    public String getCognome() {
-	        return cognome;
-	    }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	    public void setCognome(String cognome) {
-	        this.cognome = cognome;
-	    }
+    public String getCognome() {
+        return cognome;
+    }
 
-	    @Override
-	    public String toString() {
-	        return "UtenteBean [idUtente=" + idUtente + ", email=" + email + ", nome=" + nome + ", cognome=" + cognome + "]";
-	    }
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
 
+    // ➕ Getter e Setter per il Telefono
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    @Override
+    public String toString() {
+        return "UtenteBean [idUtente=" + idUtente + ", email=" + email + ", nome=" + nome + ", cognome=" + cognome + ", telefono=" + telefono + "]";
+    }
 }
