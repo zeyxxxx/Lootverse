@@ -2,6 +2,9 @@ package control.carrelloServlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +15,10 @@ import javax.servlet.http.HttpSession;
 
 import model.carrello.CarrelloBean;
 import model.carrello.CarrelloDAO;
+import model.carrello.ContieneBean;
+import model.dto.ElementoCarrelloDTO;
+import model.prodotto.ProdottoBean;
+import model.prodotto.ProdottoDao;
 import model.utente.UtenteBean;
 
 @WebServlet("/carrello")
@@ -34,6 +41,7 @@ public class CarrelloServlet extends HttpServlet {
 
         try {
             CarrelloDAO carrelloDAO = new CarrelloDAO();
+            ProdottoDao prodottoDao = new ProdottoDao();
 
             CarrelloBean carrello = carrelloDAO.doRetrieveByUtente(utente.getIdUtente());
 
@@ -45,7 +53,31 @@ public class CarrelloServlet extends HttpServlet {
                 carrello = carrelloDAO.doRetrieveByUtente(utente.getIdUtente());
             }
 
+            // 1. Recuperiamo gli elementi nel carrello dal DAO
+            Collection<ContieneBean> elementiContenuti = carrelloDAO.doRetrieveProdotti(carrello.getIdCarrello());
+            
+            // 2. Creiamo la lista DTO con i dettagli completi dei prodotti per la JSP (Zero query nella JSP!)
+            List<ElementoCarrelloDTO> listaDTO = new ArrayList<>();
+            double totaleComplessivo = 0.0;
+
+            if (elementiContenuti != null) {
+                for (ContieneBean contiene : elementiContenuti) {
+                    ProdottoBean prodotto = prodottoDao.doRetrieveById(contiene.getIdProdotto());
+                    if (prodotto != null) {
+                        ElementoCarrelloDTO elem = new ElementoCarrelloDTO(prodotto, contiene.getQuantita());
+                        listaDTO.add(elem);
+                        totaleComplessivo += elem.getSubtotale();
+                    }
+                }
+            }
+
+            totaleComplessivo = Math.round(totaleComplessivo * 100.0) / 100.0;
+
+            // 3. Passiamo attributi alla richiesta
             request.setAttribute("carrello", carrello);
+            request.setAttribute("elementiCarrello", listaDTO);
+            request.setAttribute("totaleCarrello", totaleComplessivo);
+
             request.getRequestDispatcher("/WEB-INF/pages/carrello.jsp").forward(request, response);
 
         } catch (SQLException e) {
@@ -60,6 +92,7 @@ public class CarrelloServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(false);
 
         if (session == null || session.getAttribute("utenteLoggato") == null) {
@@ -91,6 +124,7 @@ public class CarrelloServlet extends HttpServlet {
                 return;
             }
 
+            // Metodi del tuo CarrelloDAO in ITALIANO:
             if ("add".equals(action)) {
                 int idProdotto = Integer.parseInt(idProdottoParam);
                 int quantita = 1;
