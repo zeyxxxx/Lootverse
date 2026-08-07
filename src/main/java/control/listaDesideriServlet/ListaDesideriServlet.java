@@ -1,9 +1,9 @@
 package control.listaDesideriServlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 import model.listaDesideri.ListaDesideriBean;
 import model.listaDesideri.ListaDesideriDAO;
 import model.prodotto.ProdottoBean;
-import model.prodotto.ProdottoDao;
 import model.utente.UtenteBean;
 
 @WebServlet("/lista-desideri")
@@ -38,18 +37,10 @@ public class ListaDesideriServlet extends HttpServlet {
 
         try {
             ListaDesideriDAO listaDAO = new ListaDesideriDAO();
-            ProdottoDao prodottoDao = new ProdottoDao();
-
             ListaDesideriBean lista = listaDAO.creaListaPerUtente(utente.getIdUtente());
 
-            // Nota: per recuperare i singoli ProdottoBean della wishlist possiamo
-            // scorrere la lista o usare una query custom nel DAO
-            List<ProdottoBean> prodottiWishlist = new ArrayList<>();
-            for (ProdottoBean p : prodottoDao.doRetrieveAll()) {
-                if (listaDAO.prodottoGiaPresente(lista.getIdListaDesideri(), p.getIdProdotto())) {
-                    prodottiWishlist.add(p);
-                }
-            }
+            // Recupero diretto e ottimizzato tramite il metodo dedicato del DAO
+            Collection<ProdottoBean> prodottiWishlist = listaDAO.doRetrieveProdotti(lista.getIdListaDesideri());
 
             request.setAttribute("listaDesideri", lista);
             request.setAttribute("prodottiWishlist", prodottiWishlist);
@@ -68,8 +59,14 @@ public class ListaDesideriServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
+        boolean isAjax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 
         if (session == null || session.getAttribute("utenteLoggato") == null) {
+            if (isAjax) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("{\"error\": \"login_required\"}");
+                return;
+            }
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
@@ -94,13 +91,46 @@ public class ListaDesideriServlet extends HttpServlet {
                 listaDAO.svuotaLista(lista.getIdListaDesideri());
             }
 
+            // Se la richiesta è AJAX (click dal cuore), restituiamo l'array JSON per il pannello laterale
+            if (isAjax) {
+                Collection<ProdottoBean> prodotti = listaDAO.doRetrieveProdotti(lista.getIdListaDesideri());
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                PrintWriter out = response.getWriter();
+
+                StringBuilder json = new StringBuilder("[");
+                int count = 0;
+                for (ProdottoBean p : prodotti) {
+                    json.append("{")
+                        .append("\"idProdotto\":").append(p.getIdProdotto()).append(",")
+                        .append("\"nome\":\"").append(p.getNome().replace("\"", "\\\"")).append("\",")
+                        .append("\"prezzo\":").append(p.getPrezzo()).append(",")
+                        .append("\"immagine\":\"").append(p.getImmagine() != null ? p.getImmagine() : "default.jpg").append("\"")
+                        .append("}");
+                    if (++count < prodotti.size()) json.append(",");
+                }
+                json.append("]");
+                out.print(json.toString());
+                out.flush();
+                return;
+            }
+
+            // Richiesta standard (es. pulizia lista o submit classico): redirect alla pagina completa
             response.sendRedirect(request.getContextPath() + "/lista-desideri");
 
         } catch (NumberFormatException e) {
+            if (isAjax) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return;
+            }
             request.setAttribute("errore", "ID prodotto non valido.");
             request.getRequestDispatcher("/WEB-INF/pages/error/400.jsp").forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
+            if (isAjax) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                return;
+            }
             request.setAttribute("errore", "Errore nell'aggiornamento della lista desideri.");
             request.getRequestDispatcher("/WEB-INF/pages/error/500.jsp").forward(request, response);
         }

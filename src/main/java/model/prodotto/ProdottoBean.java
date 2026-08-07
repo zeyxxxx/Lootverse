@@ -19,6 +19,7 @@ public class ProdottoBean implements Serializable {
     private String colore;
     private String dimensione;
     private String immagine;
+    private String immagineCarosello;
 
     // Costruttore vuoto
     public ProdottoBean() {
@@ -138,6 +139,13 @@ public class ProdottoBean implements Serializable {
 
     public void setImmagine(String immagine) {
         this.immagine = immagine;
+    }
+    public String getImmagineCarosello() {
+        return immagineCarosello;
+    }
+
+    public void setImmagineCarosello(String immagineCarosello) {
+        this.immagineCarosello = immagineCarosello;
     }
 
     // Metodo toString

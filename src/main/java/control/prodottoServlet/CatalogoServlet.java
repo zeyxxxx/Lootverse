@@ -9,9 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import model.listaDesideri.ListaDesideriBean;
+import model.listaDesideri.ListaDesideriDAO;
 import model.prodotto.ProdottoBean;
 import model.prodotto.ProdottoDao;
+import model.utente.UtenteBean;
 
 @WebServlet("/catalogo")
 public class CatalogoServlet extends HttpServlet {
@@ -26,8 +30,19 @@ public class CatalogoServlet extends HttpServlet {
 
         try {
             Collection<ProdottoBean> prodotti = prodottoDao.doRetrieveAll();
-
             request.setAttribute("prodotti", prodotti);
+
+            // Recupero della Wishlist se l'utente è loggato
+            HttpSession session = request.getSession(false);
+            if (session != null && session.getAttribute("utenteLoggato") != null) {
+                UtenteBean utente = (UtenteBean) session.getAttribute("utenteLoggato");
+                ListaDesideriDAO listaDAO = new ListaDesideriDAO();
+                ListaDesideriBean lista = listaDAO.doRetrieveByUtente(utente.getIdUtente());
+                if (lista != null) {
+                    Collection<ProdottoBean> prodottiWishlist = listaDAO.doRetrieveProdotti(lista.getIdListaDesideri());
+                    request.setAttribute("prodottiWishlist", prodottiWishlist);
+                }
+            }
 
             request.getRequestDispatcher("/WEB-INF/pages/catalogo.jsp").forward(request, response);
 
@@ -38,6 +53,7 @@ public class CatalogoServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/pages/error/500.jsp").forward(request, response);
         }
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

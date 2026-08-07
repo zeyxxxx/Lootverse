@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import model.DriverManagerConnectionPool;
+import model.prodotto.ProdottoBean;
 
 public class ListaDesideriDAO {
 
@@ -313,6 +316,48 @@ public class ListaDesideriDAO {
                 preparedStatement.close();
             }
 
+            DriverManagerConnectionPool.releaseConnection(connection);
+        }
+    }
+
+    public Collection<ProdottoBean> doRetrieveProdotti(int idLista) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Collection<ProdottoBean> prodotti = new ArrayList<>();
+
+        String selectSQL = "SELECT p.* FROM prodotto p " +
+                           "JOIN " + TABLE_INCLUDE + " i ON p.idProdotto = i.id_prodotto " +
+                           "WHERE i.id_lista = ?";
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(selectSQL);
+            preparedStatement.setInt(1, idLista);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                ProdottoBean p = new ProdottoBean();
+                p.setIdProdotto(resultSet.getInt("idProdotto"));
+                p.setNome(resultSet.getString("nome"));
+                p.setPrezzo(resultSet.getDouble("prezzo"));
+                p.setDescrizione(resultSet.getString("descrizione"));
+                p.setDisponibilita(resultSet.getBoolean("disponibilita"));
+                p.setSconto(resultSet.getDouble("sconto"));
+                p.setIva(resultSet.getDouble("iva"));
+                p.setMateriale(resultSet.getString("materiale"));
+                p.setColore(resultSet.getString("colore"));
+                p.setDimensione(resultSet.getString("dimensione"));
+                p.setImmagine(resultSet.getString("immagine"));
+                prodotti.add(p);
+            }
+            return prodotti;
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
             DriverManagerConnectionPool.releaseConnection(connection);
         }
     }

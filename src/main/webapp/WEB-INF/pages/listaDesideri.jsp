@@ -8,17 +8,17 @@
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     <main class="container main-content">
-        <h2>Wishlist </h2>
+        <h2>Wishlist</h2>
         <c:choose>
-            <c:when test="${empty preferiti}">
+            <c:when test="${empty prodottiWishlist}">
                 <p>La tua Wishlist è vuota.</p>
             </c:when>
             <c:otherwise>
                 <div class="wishlist-grid">
-                    <c:forEach var="p" items="${preferiti}">
+                    <c:forEach var="p" items="${prodottiWishlist}">
                         <div class="wishlist-card">
                             <h4>${p.nome}</h4>
-                            <p class="product-price">€ <fmt:formatNumber value="${p.prezzoFinale}" pattern="0.00" /></p>
+                            <p class="product-price">€ <fmt:formatNumber value="${p.prezzo}" pattern="0.00" /></p>
                             <form action="${pageContext.request.contextPath}/lista-desideri" method="post" class="inline-form">
                                 <input type="hidden" name="action" value="remove">
                                 <input type="hidden" name="idProdotto" value="${p.idProdotto}">

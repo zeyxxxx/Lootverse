@@ -1,13 +1,37 @@
 /* ==========================================
-   CAROSELLO CONTAINER E SLIDES
+   CAROSELLO CONTAINER E SLIDES (CYBERPUNK XL)
    ========================================== */
 .carousel-container {
     position: relative;
     width: 100%;
-    height: 520px;
-    overflow: hidden;
-    background-color: #05060a;
-    border-bottom: 3px solid var(--accent-color);
+    max-width: 1480px;            /* Ingrandito in larghezza */
+    height: 620px;                /* Ingrandito in altezza (da 550px a 620px) */
+    margin: 25px auto;
+    background-color: #000000;
+    border: 2px solid var(--accent-color);
+    
+    /* Shape Cyberpunk: Angoli tagliati in alto a destra e basso a sinistra */
+    clip-path: polygon(
+        0 0, 
+        calc(100% - 35px) 0, 
+        100% 35px, 
+        100% 100%, 
+        35px 100%, 
+        0 calc(100% - 35px)
+    );
+    box-shadow: 0 0 25px rgba(254, 247, 47, 0.25), inset 0 0 20px rgba(0, 240, 255, 0.15);
+}
+
+/* Linea / Bordo Neon superiore in stile Cyberpunk */
+.carousel-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #00f0ff, var(--accent-color), #00f0ff);
+    z-index: 12;
 }
 
 .carousel-slide {
@@ -20,8 +44,8 @@
     transition: opacity 0.8s ease-in-out;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Alinea testo a sinistra e foto a destra */
-    padding: 0 8%;                 /* Spaziatura dai bordi laterali */
+    justify-content: space-between;
+    padding: 0 7%;
 }
 
 .carousel-slide.active {
@@ -30,46 +54,52 @@
 }
 
 /* ==========================================
-   TESTI E DIDASCALIE CAROSELLO
+   TESTI E DIDASCALIE CAROSELLO (STILE HUD)
    ========================================== */
 .carousel-caption {
     position: relative;
-    bottom: auto;
-    left: auto;
-    right: auto;
-    max-width: 45%;               /* Occupa la parte sinistra del carosello */
+    max-width: 45%;
     color: #ffffff;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
     z-index: 2;
+    padding-left: 18px;
+    border-left: 3px solid #00f0ff; /* Bordo azzurro HUD a sinistra del testo */
 }
 
 .carousel-caption h2 {
-    font-size: 2.4rem;
+    font-size: 2.7rem;
     color: var(--accent-color);
-    margin-bottom: 10px;
-    text-shadow: 0 0 10px var(--accent-color);
+    margin-bottom: 12px;
+    text-shadow: 0 0 12px var(--accent-color);
+    text-transform: uppercase;
 }
 
 .carousel-caption p {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     color: var(--text-light);
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 /* ==========================================
-   PULSANTI FRECCIA CAROSELLO
+   PULSANTI FRECCIA CAROSELLO (SQUADRATI HI-TECH)
    ========================================== */
 .carousel-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(13, 15, 23, 0.7);
+    background: rgba(5, 6, 10, 0.85);
     color: var(--accent-color);
     border: 2px solid var(--accent-color);
-    padding: 12px 18px;
-    font-size: 1.4rem;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
     cursor: pointer;
-    border-radius: 50%;
+    border-radius: 2px;
+    /* Pulsanti con angoli smussati cyberpunk */
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.3s ease;
     z-index: 10;
 }
@@ -77,7 +107,8 @@
 .carousel-btn:hover {
     background: var(--accent-color);
     color: #000000;
-    box-shadow: 0 0 15px var(--accent-color);
+    box-shadow: 0 0 20px var(--accent-color);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .carousel-btn.prev {
@@ -95,7 +126,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 35px;
     margin-bottom: 20px;
     border-bottom: 2px solid #000000;
     padding-bottom: 10px;
@@ -113,39 +144,44 @@
 }
 
 /* ==========================================
-   GRIGLIA E SCHEDA PRODOTTO (PRODUCT CARD)
+   GRIGLIA E SCHEDA PRODOTTO (CARD BADGE)
    ========================================== */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 25px;
     margin-top: 20px;
 }
 
 .product-card {
+    position: relative !important;
     background-color: var(--dark-surface);
     border: 2px solid #000000;
-    border-radius: 8px;
-    padding: 12px;
+    border-radius: 12px;
+    padding: 50px 18px 15px 18px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     color: var(--text-light);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    max-width: 330px;
+    width: 100%;
+    box-sizing: border-box !important;
 }
 
 .product-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
 }
 
 .product-card h3 {
     color: var(--accent-color);
-    font-size: 1.3rem;
+    font-size: 1.35rem;
+    margin-top: 10px;
 }
 
 .product-desc {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-muted);
     margin-bottom: 10px;
     display: -webkit-box;
@@ -155,22 +191,112 @@
 }
 
 .product-price {
-    font-size: 1.4rem;
+    font-size: 1.45rem;
     color: var(--accent-color);
     font-weight: bold;
-    margin: 10px 0;
+    margin: 8px 0;
 }
 
+/* ==========================================
+   1. BUCO A SINISTRA (28px)
+   ========================================== */
+.product-card::before {
+    content: '';
+    position: absolute !important;
+    top: 28px !important;
+    transform: translateY(-50%) !important;
+    left: 20px !important;
+    right: auto !important;
+    width: 28px !important;
+    height: 28px !important;
+    box-sizing: border-box !important;
+    background-color: var(--primary-bg);
+    border: 2px solid #00f0ff !important;
+    border-radius: 50% !important;
+    z-index: 6;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================
+   2. PULSANTE WISHLIST A DESTRA (34px)
+   ========================================== */
+.wishlist-form {
+    position: absolute !important;
+    top: 28px !important;
+    transform: translateY(-50%) !important;
+    right: 20px !important;
+    left: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 10;
+}
+
+.wishlist-btn {
+    background-color: rgba(255, 105, 180, 0.25) !important;
+    border: 2px solid rgba(255, 105, 180, 0.5) !important;
+    width: 34px !important;
+    height: 34px !important;
+    box-sizing: border-box !important;
+    border-radius: 50% !important;
+    aspect-ratio: 1 / 1;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    padding: 0 !important;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.wishlist-btn:hover {
+    background-color: rgba(255, 105, 180, 0.45) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(225, 27, 100, 0.4);
+}
+
+.wishlist-btn:hover .material-symbols-outlined {
+    color: #ad1457 !important;
+    font-variation-settings: 'FILL' 0, 'wght' 700, 'GRAD' 0, 'opsz' 24 !important;
+}
+
+/* Stato base: Cuore vuoto */
+.wishlist-btn .material-symbols-outlined {
+    color: #c2185b !important; 
+    font-size: 20px !important;
+    font-variation-settings: 'FILL' 0, 'wght' 600, 'GRAD' 0, 'opsz' 24 !important;
+    line-height: 1;
+    display: block !important;
+}
+
+/* Stato attivo: Cuore PIENO (FILL 1) */
+.wishlist-btn.in-wishlist .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24 !important;
+    color: #e1172e !important;
+}
+
+/* ==========================================
+   AZIONI SCHEDA PRODOTTO (PULSANTI IDENTICI)
+   ========================================== */
 .product-actions {
     display: flex;
     gap: 10px;
-    margin-top: 15px;
+    margin-top: 10px;
+}
+
+.product-actions > a,
+.product-actions > form {
+    flex: 1;
+    display: flex;
 }
 
 .product-actions .btn {
-    flex: 1;
-    padding: 6px 8px;              /* Pulsanti più compatti */
-    font-size: 0.8rem;
+    width: 100%;
+    padding: 9px 0;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
 }
 
 /* ==========================================
@@ -180,22 +306,21 @@
 /* 1. Immagini nelle Card / Griglia del Catalogo */
 .card img,
 .product-card img {
-    width: 260px;
-    height: 200px;                  /* Altezza fissa uguale per tutti i prodotti */
-    object-fit: contain;            /* Mantiene le proporzioni senza tagliarla */
-    align-self: center;
-    background-color: #121212;      /* Sfondo scuro elegante dietro la foto */
+    width: 100%;
+    height: 190px;
+    object-fit: contain;            
+    align-self: center;   
     border-radius: 8px;
-  
+    padding: 10px;
+    filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.2)); 
 }
 
-/* 2. Immagini nel Carosello della Home Page */
+/* 2. Immagini nel Carosello della Home Page (Ingrandite) */
 .carousel-slide img {
-    height: 65%;            /* Sfrutta quasi interamente i 420px del contenitore */
-    width: 380px;               /* Occupa fino al 50% della larghezza a destra */
+    max-height: 520px !important;
+    max-width: 600px !important;               
     width: auto;
     height: auto;
-    object-fit: contain;          /* Mantiene la proporzione dell'immagine senza tagliarla */
-    margin: 0;                    /* Elimina il centraggio manuale */
-    filter: none;                 /* Rimuove filtri d'ombra/oscuramento */
+    object-fit: contain;          
+    margin: 0;                                    
 }

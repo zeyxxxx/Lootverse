@@ -11,9 +11,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import model.listaDesideri.ListaDesideriBean;
+import model.listaDesideri.ListaDesideriDAO;
 import model.prodotto.ProdottoBean;
 import model.prodotto.ProdottoDao;
+import model.utente.UtenteBean;
 
 // Intercetta sia l'URL di root (http://localhost:8080/NomeProgetto/) che /index
 @WebServlet(urlPatterns = {"", "/index"})
@@ -40,6 +44,19 @@ public class IndexServlet extends HttpServlet {
                 int limitePiuVenduti = Math.min(tuttiProdotti.size(), 8);
                 request.setAttribute("prodottiPiuVenduti", tuttiProdotti.subList(0, limitePiuVenduti));
             }
+
+            // Recupero della Wishlist se l'utente è loggato
+            HttpSession session = request.getSession(false);
+            if (session != null && session.getAttribute("utenteLoggato") != null) {
+                UtenteBean utente = (UtenteBean) session.getAttribute("utenteLoggato");
+                ListaDesideriDAO listaDAO = new ListaDesideriDAO();
+                ListaDesideriBean lista = listaDAO.doRetrieveByUtente(utente.getIdUtente());
+                if (lista != null) {
+                    Collection<ProdottoBean> prodottiWishlist = listaDAO.doRetrieveProdotti(lista.getIdListaDesideri());
+                    request.setAttribute("prodottiWishlist", prodottiWishlist);
+                }
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

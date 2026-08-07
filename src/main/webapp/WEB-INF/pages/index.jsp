@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <jsp:include page="/WEB-INF/fragments/header.jsp" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/index.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/index.css?v=99">
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
 
@@ -17,6 +17,9 @@
                     <c:forEach var="p" items="${prodottiCarosello}" varStatus="status">
                         <div class="carousel-slide ${status.first ? 'active' : ''}">
                             <c:choose>
+                                <c:when test="${not empty p.immagineCarosello}">
+                                    <img src="${pageContext.request.contextPath}/static/images/${p.immagineCarosello}" alt="${p.nome}">
+                                </c:when>
                                 <c:when test="${not empty p.immagine}">
                                     <img src="${pageContext.request.contextPath}/static/images/${p.immagine}" alt="${p.nome}">
                                 </c:when>
@@ -63,6 +66,27 @@
                 <c:when test="${not empty prodottiPiuVenduti}">
                     <c:forEach var="p" items="${prodottiPiuVenduti}">
                         <div class="product-card">
+                            
+                            <%-- 💖 CONTROLLO SE IL PRODOTTO È IN WISHLIST --%>
+                            <c:set var="inWishlist" value="false" />
+                            <c:if test="${not empty prodottiWishlist}">
+                                <c:forEach var="fav" items="${prodottiWishlist}">
+                                    <c:if test="${fav.idProdotto == p.idProdotto}">
+                                        <c:set var="inWishlist" value="true" />
+                                    </c:if>
+                                </c:forEach>
+                            </c:if>
+
+                            <%-- 💖 PULSANTE WISHLIST DINAMICO CON CLASSE WISHLIST-FORM PER AJAX --%>
+                            <form action="${pageContext.request.contextPath}/lista-desideri" method="post" class="wishlist-form">
+                                <input type="hidden" name="action" value="${inWishlist ? 'remove' : 'add'}">
+                                <input type="hidden" name="idProdotto" value="${p.idProdotto}">
+                                <button type="submit" class="wishlist-btn ${inWishlist ? 'in-wishlist' : ''}" 
+                                        title="${inWishlist ? 'Rimuovi dalla Wishlist' : 'Aggiungi alla Wishlist'}">
+                                    <span class="material-symbols-outlined">favorite</span>
+                                </button>
+                            </form>
+
                             <c:choose>
                                 <c:when test="${not empty p.immagine}">
                                     <img src="${pageContext.request.contextPath}/static/images/${p.immagine}" alt="${p.nome}">
@@ -119,7 +143,6 @@
             showSlide(currentSlide);
         }
 
-        // Avvio scorrimento automatico ogni 5 secondi
         if (slides.length > 1) {
             setInterval(() => moveSlide(1), 5000);
         }
