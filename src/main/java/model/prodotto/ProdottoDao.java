@@ -239,4 +239,48 @@ public class ProdottoDao {
         }
         return prodotti;
     }
+
+    public synchronized Collection<ProdottoBean> doRetrieveBestSellers(int limit) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Collection<ProdottoBean> prodotti = new LinkedList<>();
+
+        String selectSQL = "SELECT p.*, COALESCE(SUM(d.quantita), 0) as totale_vendite " +
+                           "FROM " + TABLE_NAME + " p " +
+                           "JOIN dettaglio_ordine d ON p.idProdotto = d.id_prodotto " +
+                           "GROUP BY p.idProdotto " +
+                           "ORDER BY totale_vendite DESC " +
+                           "LIMIT ?";
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(selectSQL);
+            preparedStatement.setInt(1, limit);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                ProdottoBean bean = new ProdottoBean();
+                bean.setIdProdotto(rs.getInt("idProdotto"));
+                bean.setPrezzo(rs.getDouble("prezzo"));
+                bean.setDescrizione(rs.getString("descrizione"));
+                bean.setDisponibilita(rs.getBoolean("disponibilita"));
+                bean.setSconto(rs.getDouble("sconto"));
+                bean.setIva(rs.getDouble("iva"));
+                bean.setId_admin(rs.getInt("id_admin"));
+                bean.setNome(rs.getString("nome"));
+                bean.setMateriale(rs.getString("materiale"));
+                bean.setColore(rs.getString("colore"));
+                bean.setDimensione(rs.getString("dimensione"));
+                bean.setImmagine(rs.getString("immagine"));
+                bean.setImmagineCarosello(rs.getString("immagine_carosello"));
+
+                prodotti.add(bean);
+            }
+        } finally {
+            if (preparedStatement != null) preparedStatement.close();
+            DriverManagerConnectionPool.releaseConnection(connection);
+        }
+        return prodotti;
+    }
 }

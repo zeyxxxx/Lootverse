@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <jsp:include page="/WEB-INF/fragments/header.jsp" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/confermaOrdine.css">
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     <main class="container main-content centered-content">
@@ -12,7 +13,7 @@
             <div class="order-success-box">
                 <h1 class="success-title"> Ordine Confermato!</h1>
                 <p>ID Ordine: <strong>#${ordine.idOrdine}</strong></p>
-                <p>Totale Pagato: € <fmt:formatNumber value="${ordine.prezzoTotale}" pattern="0.00" /></p>
+                <p>Totale Pagato: € <fmt:formatNumber value="${ordine.totale}" pattern="0.00" /></p>
                 <p>Stato: <span class="status-badge">${ordine.stato}</span></p>
                 <a href="${pageContext.request.contextPath}/storico-ordini" class="btn btn-primary">Vai ai Tuoi Ordini</a>
             </div>

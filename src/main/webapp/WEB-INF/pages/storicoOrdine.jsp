@@ -5,35 +5,39 @@
 <!DOCTYPE html>
 <html lang="it">
 <jsp:include page="/WEB-INF/fragments/header.jsp" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/storicoOrdini.css">
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     <main class="container main-content">
-        <h2>Storico Ordini</h2>
+        <h2>I Tuoi Ordini</h2>
+        
         <c:if test="${not empty errore}">
             <div class="alert alert-danger">${errore}</div>
         </c:if>
 
         <c:choose>
-            <c:when test="${empty storicoOrdini}">
-                <p>Non hai ancora effettuato ordini.</p>
+            <c:when test="${empty ordini}">
+                <div class="empty-box">
+                    <p>Non hai ancora effettuato ordini.</p>
+                    <a href="${pageContext.request.contextPath}/catalogo" class="btn btn-primary">Vai al Catalogo</a>
+                </div>
             </c:when>
             <c:otherwise>
-                <c:forEach var="itemOrdine" items="${storicoOrdini}">
-                    <div class="order-card">
-                        <h3>Ordine #${itemOrdine.ordine.idOrdine} — Stato: <span class="status-text">${itemOrdine.ordine.stato}</span></h3>
-                        <p class="order-date">Data: ${itemOrdine.ordine.dataSpedizione}</p>
-                        <ul class="order-items-list">
-                            <c:forEach var="itemProd" items="${itemOrdine.prodottiAcquistati}">
-                                <li>
-                                    <strong>${itemProd.prodotto.nome}</strong> 
-                                    x${itemProd.quantita} 
-                                    (€ <fmt:formatNumber value="${itemProd.prezzoAcquisto}" pattern="0.00" /> cad.)
-                                </li>
-                            </c:forEach>
-                        </ul>
-                        <h4>Totale Ordine: € <fmt:formatNumber value="${itemOrdine.ordine.prezzoTotale}" pattern="0.00" /></h4>
-                    </div>
-                </c:forEach>
+                <div class="ordini-container">
+                    <c:forEach var="ordine" items="${ordini}">
+                        <div class="ordine-card">
+                            <div class="ordine-header">
+                                <h3>Ordine #${ordine.idOrdine}</h3>
+                                <span class="status-badge status-${ordine.stato.replaceAll('\\s+', '').toLowerCase()}">${ordine.stato}</span>
+                            </div>
+                            <div class="ordine-body">
+                                <p><strong>Data:</strong> ${ordine.data}</p>
+                                <p><strong>Totale:</strong> € <fmt:formatNumber value="${ordine.totale}" pattern="0.00" /></p>
+                                <a href="${pageContext.request.contextPath}/dettaglio-ordine?id=${ordine.idOrdine}" class="btn btn-secondary" style="margin-top: 15px; display: inline-block;">Visualizza Prodotti ➔</a>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
             </c:otherwise>
         </c:choose>
     </main>

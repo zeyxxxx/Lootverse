@@ -40,9 +40,19 @@ public class IndexServlet extends HttpServlet {
                 int limiteCarosello = Math.min(tuttiProdotti.size(), 3);
                 request.setAttribute("prodottiCarosello", tuttiProdotti.subList(0, limiteCarosello));
 
-                // Fino a 8 prodotti per la sezione "I Più Venduti"
-                int limitePiuVenduti = Math.min(tuttiProdotti.size(), 8);
-                request.setAttribute("prodottiPiuVenduti", tuttiProdotti.subList(0, limitePiuVenduti));
+                // Fino a 8 prodotti per la sezione "I Più Venduti" (Classifica reale dal DB)
+                Collection<ProdottoBean> bestSellers = prodottoDao.doRetrieveBestSellers(8);
+                request.setAttribute("prodottiPiuVenduti", bestSellers);
+
+                // Prodotti Scontati (Offerte Speciali) - Fino a 8 prodotti
+                List<ProdottoBean> prodottiScontati = new ArrayList<>();
+                for(ProdottoBean p : tuttiProdotti) {
+                    if(p.isDisponibilita() && p.getSconto() > 0) {
+                        prodottiScontati.add(p);
+                        if(prodottiScontati.size() >= 8) break;
+                    }
+                }
+                request.setAttribute("prodottiScontati", prodottiScontati);
             }
 
             // Recupero della Wishlist se l'utente è loggato

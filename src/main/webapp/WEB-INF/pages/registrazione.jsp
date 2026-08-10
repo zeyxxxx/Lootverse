@@ -79,8 +79,8 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Registrati</button>
+            <p class="auth-redirect">Hai già un account? <a href="${pageContext.request.contextPath}/login">Accedi qui</a>.</p>
         </form>
-        <p class="auth-redirect">Hai già un account? <a href="${pageContext.request.contextPath}/login">Accedi qui</a>.</p>
     </main>
     <jsp:include page="/WEB-INF/fragments/footer.jsp" />
 </body>

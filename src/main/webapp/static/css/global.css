@@ -377,3 +377,95 @@ a:hover .material-symbols-outlined {
     background-color: var(--success-color);
     color: #ffffff;
 }
+
+/* ==========================================
+   PARAGRAFO 16: BADGE DI STATO (ORDINI)
+   ========================================== */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    border: 1px solid #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    display: inline-block;
+}
+
+/* Cyberpunk Yellow/Orange per "In lavorazione" */
+.status-badge.status-inlavorazione,
+.status-badge.status-inelaborazione {
+    background: rgba(255, 170, 0, 0.1);
+    color: #ffaa00;
+    border-color: #ffaa00;
+    box-shadow: 0 0 8px rgba(255, 170, 0, 0.3);
+}
+
+/* Cyberpunk Cyan per "Spedito" */
+.status-badge.status-spedito {
+    background: rgba(0, 240, 255, 0.1);
+    color: #00f0ff;
+    border-color: #00f0ff;
+    box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+}
+
+/* Cyberpunk Acid Green per "Consegnato" */
+.status-badge.status-consegnato {
+    background: rgba(57, 255, 20, 0.1);
+    color: #39ff14;
+    border-color: #39ff14;
+    box-shadow: 0 0 8px rgba(57, 255, 20, 0.3);
+}
+
+/* Cyberpunk Red per "Annullato" */
+.status-badge.status-annullato {
+    background: rgba(225, 29, 72, 0.1);
+    color: #ff003c;
+    border-color: #ff003c;
+    box-shadow: 0 0 8px rgba(255, 0, 60, 0.3);
+}
+
+/* Cyberpunk Magenta per "Rimborsato" */
+.status-badge.status-rimborsato {
+    background: rgba(255, 0, 255, 0.1);
+    color: #ff00ff;
+    border-color: #ff00ff;
+    box-shadow: 0 0 8px rgba(255, 0, 255, 0.3);
+}
+
+/* ==========================================
+   BADGE BEST SELLER INLINE (CYBERPUNK)
+   ========================================== */
+.best-seller-badge {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    background: linear-gradient(135deg, #FEF72F, #ffaa00);
+    color: #000000;
+    font-weight: 900;
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    border: 1px solid #000000;
+    box-shadow: 0 0 8px rgba(254, 247, 47, 0.8);
+    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+
+/* ==========================================
+   BADGE SCONTO INLINE (CYBERPUNK)
+   ========================================== */
+.discount-badge {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    background: linear-gradient(135deg, #00f0ff, #0055ff);
+    color: #ffffff;
+    font-weight: 900;
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    border: 1px solid #00f0ff;
+    box-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
+    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}

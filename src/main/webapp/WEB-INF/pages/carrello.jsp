@@ -76,7 +76,7 @@
                 </table>
                 <div class="cart-summary">
                     <h3>Totale Ordine: € <fmt:formatNumber value="${totaleCarrello}" pattern="0.00" /> <span style="font-size: 1rem; color: #ccc; font-weight: normal;">(IVA inclusa)</span></h3>
-                    <a href="${pageContext.request.contextPath}/checkout" class="btn btn-success">Checkout</a>
+                    <a href="${pageContext.request.contextPath}/checkout" class="btn btn-checkout">Procedi al Checkout ➔</a>
                 </div>
             </c:otherwise>
         </c:choose>

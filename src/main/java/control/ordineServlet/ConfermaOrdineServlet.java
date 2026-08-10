@@ -33,6 +33,7 @@ public class ConfermaOrdineServlet extends HttpServlet {
     private static final Pattern CARD_NUMBER_PATTERN = Pattern.compile("^\\d{16}$");
     private static final Pattern CVV_PATTERN = Pattern.compile("^\\d{3,4}$");
     private static final Pattern CAP_PATTERN = Pattern.compile("^\\d{5}$");
+    private static final Pattern EXPIRATION_PATTERN = Pattern.compile("^(0[1-9]|1[0-2])/\\d{2}$");
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -63,10 +64,11 @@ public class ConfermaOrdineServlet extends HttpServlet {
         String intestatario = trimValue(request.getParameter("intestatario"));
         String numeroCarta = trimValue(request.getParameter("numeroCarta")).replaceAll("\\s+", "");
         String cvv = trimValue(request.getParameter("cvv"));
+        String scadenza = trimValue(request.getParameter("scadenza"));
 
         // 2. Controlli e Validazione Server-Side
         if (isEmpty(indirizzo) || isEmpty(citta) || isEmpty(cap) || 
-            isEmpty(intestatario) || isEmpty(numeroCarta) || isEmpty(cvv)) {
+            isEmpty(intestatario) || isEmpty(numeroCarta) || isEmpty(cvv) || isEmpty(scadenza)) {
             
             request.setAttribute("erroreForm", "Tutti i campi di spedizione e pagamento sono obbligatori.");
             request.getRequestDispatcher("/checkout").forward(request, response);
@@ -89,6 +91,31 @@ public class ConfermaOrdineServlet extends HttpServlet {
             request.setAttribute("erroreForm", "Il codice CVV non è valido (3 o 4 cifre).");
             request.getRequestDispatcher("/checkout").forward(request, response);
             return;
+        }
+
+        if (!EXPIRATION_PATTERN.matcher(scadenza).matches()) {
+            request.setAttribute("erroreForm", "La data di scadenza non è valida (usa il formato MM/AA).");
+            request.getRequestDispatcher("/checkout").forward(request, response);
+            return;
+        } else {
+            try {
+                String[] parts = scadenza.split("/");
+                int expMonth = Integer.parseInt(parts[0]);
+                int expYear = Integer.parseInt(parts[1]) + 2000; // Es: 25 -> 2025
+                
+                java.time.YearMonth currentMonth = java.time.YearMonth.now();
+                java.time.YearMonth cardMonth = java.time.YearMonth.of(expYear, expMonth);
+                
+                if (cardMonth.isBefore(currentMonth)) {
+                    request.setAttribute("erroreForm", "La carta di credito inserita risulta scaduta.");
+                    request.getRequestDispatcher("/checkout").forward(request, response);
+                    return;
+                }
+            } catch (Exception e) {
+                request.setAttribute("erroreForm", "Errore nella lettura della data di scadenza.");
+                request.getRequestDispatcher("/checkout").forward(request, response);
+                return;
+            }
         }
 
         try {

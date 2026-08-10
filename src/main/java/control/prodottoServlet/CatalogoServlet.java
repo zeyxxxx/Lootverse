@@ -32,6 +32,10 @@ public class CatalogoServlet extends HttpServlet {
             Collection<ProdottoBean> prodotti = prodottoDao.doRetrieveAll();
             request.setAttribute("prodotti", prodotti);
 
+            // Fetch best sellers for badge check
+            Collection<ProdottoBean> bestSellers = prodottoDao.doRetrieveBestSellers(8);
+            request.setAttribute("bestSellers", bestSellers);
+
             // Recupero della Wishlist se l'utente è loggato
             HttpSession session = request.getSession(false);
             if (session != null && session.getAttribute("utenteLoggato") != null) {

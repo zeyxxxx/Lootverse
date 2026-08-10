@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <jsp:include page="/WEB-INF/fragments/header.jsp" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/login.css">
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     <main class="container auth-container">
@@ -25,8 +26,8 @@
                 <input type="password" id="password" name="password" required placeholder="Inserisci la tua password">
             </div>
             <button type="submit" class="btn btn-primary">Accedi</button>
+            <p class="auth-redirect">Non hai un account? <a href="${pageContext.request.contextPath}/registrazione">Registrati qui</a>.</p>
         </form>
-        <p class="auth-redirect">Non hai un account? <a href="${pageContext.request.contextPath}/registrazione">Registrati qui</a>.</p>
     </main>
     <jsp:include page="/WEB-INF/fragments/footer.jsp" />
 </body>

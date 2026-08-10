@@ -40,7 +40,7 @@ public class StoricoOrdiniServlet extends HttpServlet {
 
             request.setAttribute("ordini", ordini);
 
-            request.getRequestDispatcher("/WEB-INF/pages/storicoOrdini.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/pages/storicoOrdine.jsp").forward(request, response);
 
         } catch (SQLException e) {
             e.printStackTrace();

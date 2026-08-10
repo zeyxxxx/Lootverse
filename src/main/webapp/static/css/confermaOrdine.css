@@ -1,0 +1,103 @@
+/* ==========================================
+   CSS Conferma Ordine (Stile Cyberpunk Card)
+   ========================================== */
+.centered-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+}
+
+.order-success-box {
+    background-color: var(--dark-surface);
+    border: 2px solid #000000;
+    border-radius: 12px;
+    padding: 60px 40px 40px 40px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+    color: var(--text-light);
+    position: relative;
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+/* Fori stile card index */
+.order-success-box::before {
+    content: '';
+    position: absolute;
+    top: 35px;
+    transform: translateY(-50%);
+    left: 25px;
+    width: 28px;
+    height: 28px;
+    background-color: var(--primary-bg);
+    border: 2px solid #00f0ff; /* Foro Azzurro */
+    border-radius: 50%;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.6);
+    z-index: 6;
+}
+
+.order-success-box::after {
+    content: '';
+    position: absolute;
+    top: 35px;
+    transform: translateY(-50%);
+    right: 25px;
+    width: 28px;
+    height: 28px;
+    background-color: var(--primary-bg);
+    border: 2px solid #39ff14; /* Foro Verde per il successo! */
+    border-radius: 50%;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.6);
+    z-index: 6;
+}
+
+.success-title {
+    color: #39ff14;
+    text-transform: uppercase;
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+    text-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+}
+
+.order-success-box p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.order-success-box strong {
+    color: #00f0ff;
+    font-size: 1.4rem;
+}
+
+.status-badge {
+    background: rgba(57, 255, 20, 0.1);
+    color: #39ff14;
+    border: 1px solid #39ff14;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+}
+
+.order-success-box .btn-primary {
+    display: inline-block;
+    background: linear-gradient(135deg, #00f0ff, #0077ff);
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: 800;
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: 2px solid #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin-top: 30px;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+    transition: all 0.3s ease;
+}
+
+.order-success-box .btn-primary:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.8);
+}
