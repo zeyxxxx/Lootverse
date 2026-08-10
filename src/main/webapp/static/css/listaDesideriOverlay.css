@@ -107,6 +107,27 @@
     font-size: 0.9rem;
 }
 
+.drawer-item-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.drawer-subtotal {
+    padding: 15px;
+    border-top: 1px dashed #444;
+    margin-top: auto; /* Push to bottom before footer */
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.05rem;
+    color: #fff;
+}
+
+.drawer-subtotal span {
+    font-weight: bold;
+    color: var(--accent-color, #00f0ff);
+}
+
 .drawer-footer {
     padding: 15px;
     border-top: 2px solid #000000;

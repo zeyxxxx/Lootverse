@@ -5,25 +5,52 @@
 <!DOCTYPE html>
 <html lang="it">
 <jsp:include page="/WEB-INF/fragments/header.jsp" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/listaDesideri.css?v=1">
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     <main class="container main-content">
-        <h2>Wishlist</h2>
+        <h2>La tua Wishlist</h2>
         <c:choose>
             <c:when test="${empty prodottiWishlist}">
-                <p>La tua Wishlist è vuota.</p>
+                <div class="empty-box">
+                    <p>La tua Wishlist è vuota.</p>
+                    <a href="${pageContext.request.contextPath}/catalogo" class="btn btn-primary">Esplora il Catalogo</a>
+                </div>
             </c:when>
             <c:otherwise>
                 <div class="wishlist-grid">
                     <c:forEach var="p" items="${prodottiWishlist}">
                         <div class="wishlist-card">
+                            <c:choose>
+                                <c:when test="${not empty p.immagine}">
+                                    <img src="${pageContext.request.contextPath}/static/images/${p.immagine}" alt="${p.nome}" class="wishlist-card-img">
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="${pageContext.request.contextPath}/static/images/default.jpg" alt="${p.nome}" class="wishlist-card-img">
+                                </c:otherwise>
+                            </c:choose>
+
                             <h4>${p.nome}</h4>
-                            <p class="product-price">€ <fmt:formatNumber value="${p.prezzo}" pattern="0.00" /></p>
-                            <form action="${pageContext.request.contextPath}/lista-desideri" method="post" class="inline-form">
-                                <input type="hidden" name="action" value="remove">
-                                <input type="hidden" name="idProdotto" value="${p.idProdotto}">
-                                <button type="submit" class="btn btn-danger">Rimuovi</button>
-                            </form>
+                            
+                            <p class="product-price">€ <fmt:formatNumber value="${p.prezzoFinale}" pattern="0.00" /></p>
+                            <p class="iva-label">(IVA inclusa)</p>
+
+                            <div class="wishlist-actions">
+                                <form action="${pageContext.request.contextPath}/carrello" method="post" class="inline-form">
+                                    <input type="hidden" name="action" value="add">
+                                    <input type="hidden" name="idProdotto" value="${p.idProdotto}">
+                                    <input type="hidden" name="quantita" value="1">
+                                    <button type="submit" class="btn btn-primary">Aggiungi 🛒</button>
+                                </form>
+
+                                <a href="${pageContext.request.contextPath}/dettaglio-prodotto?id=${p.idProdotto}" class="btn btn-secondary" style="text-align: center;">Dettagli</a>
+
+                                <form action="${pageContext.request.contextPath}/lista-desideri" method="post" class="inline-form">
+                                    <input type="hidden" name="action" value="remove">
+                                    <input type="hidden" name="idProdotto" value="${p.idProdotto}">
+                                    <button type="submit" class="btn-remove-wishlist">Rimuovi</button>
+                                </form>
+                            </div>
                         </div>
                     </c:forEach>
                 </div>

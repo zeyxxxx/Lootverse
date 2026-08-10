@@ -1,0 +1,107 @@
+/* ==========================================
+   CSS Dettaglio Prodotto
+   ========================================== */
+
+.product-detail-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--accent-color, #00f0ff);
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    color: #ffffff;
+}
+
+.product-detail-image {
+    width: 100%;
+    max-width: 500px; /* Immagine grande */
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    box-shadow: 0 0 25px rgba(254, 247, 47, 0.1);
+}
+
+.product-detail-box h2 {
+    font-size: 2.2rem;
+    color: var(--accent-color, #00f0ff);
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+}
+
+.product-desc {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #cccccc;
+    max-width: 700px;
+}
+
+.product-specs {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px 0;
+    text-align: left;
+    width: 100%;
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.product-specs li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.05rem;
+}
+
+.product-specs li:last-child {
+    border-bottom: none;
+}
+
+.product-specs li strong {
+    color: var(--accent-color, #00f0ff);
+    display: inline-block;
+    width: 120px;
+}
+
+.product-price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px var(--accent-color, #00f0ff);
+}
+
+.product-actions-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.qty-input {
+    width: 70px;
+    padding: 12px;
+    background: #111;
+    color: #fff;
+    border: 1px solid var(--accent-color, #00f0ff);
+    border-radius: 4px;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.qty-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px var(--accent-color, #00f0ff);
+}

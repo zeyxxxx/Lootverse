@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <jsp:include page="/WEB-INF/fragments/header.jsp" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/carrello.css?v=1">
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     <main class="container main-content">
@@ -36,8 +37,23 @@
                     <tbody>
                         <c:forEach var="item" items="${elementiCarrello}">
                             <tr>
-                                <td><strong>${item.prodotto.nome}</strong></td>
-                                <td>€ <fmt:formatNumber value="${item.prodotto.prezzoFinale}" pattern="0.00" /></td>
+                                <td>
+                                    <div class="cart-product-info">
+                                        <c:choose>
+                                            <c:when test="${not empty item.prodotto.immagine}">
+                                                <img src="${pageContext.request.contextPath}/static/images/${item.prodotto.immagine}" alt="${item.prodotto.nome}" class="cart-product-img">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="${pageContext.request.contextPath}/static/images/default.jpg" alt="${item.prodotto.nome}" class="cart-product-img">
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <strong>${item.prodotto.nome}</strong>
+                                    </div>
+                                </td>
+                                <td>
+                                    € <fmt:formatNumber value="${item.prodotto.prezzoFinale}" pattern="0.00" />
+                                    <br><span style="font-size: 0.8rem; color: #aaa;">(IVA inclusa)</span>
+                                </td>
                                 <td>
                                     <form action="${pageContext.request.contextPath}/carrello" method="post" class="inline-form">
                                         <input type="hidden" name="action" value="update">
@@ -59,7 +75,7 @@
                     </tbody>
                 </table>
                 <div class="cart-summary">
-                    <h3>Totale Ordine: € <fmt:formatNumber value="${totaleCarrello}" pattern="0.00" /></h3>
+                    <h3>Totale Ordine: € <fmt:formatNumber value="${totaleCarrello}" pattern="0.00" /> <span style="font-size: 1rem; color: #ccc; font-weight: normal;">(IVA inclusa)</span></h3>
                     <a href="${pageContext.request.contextPath}/checkout" class="btn btn-success">Checkout</a>
                 </div>
             </c:otherwise>

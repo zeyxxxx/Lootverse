@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const btn = form.querySelector(".wishlist-btn");
             const contextPath = "${pageContext.request.contextPath}";
 
-            fetch(form.action, {
+            fetch(form.getAttribute("action"), {
                 method: "POST",
                 headers: { "X-Requested-With": "XMLHttpRequest" },
                 body: new URLSearchParams(formData)
@@ -86,8 +86,12 @@ function renderWishlistDrawer(products, contextPath) {
     }
 
     let html = "";
+    let subtotal = 0;
+    
     products.forEach(function(p) {
-        const prezzoFormattato = Number(p.prezzo).toFixed(2);
+        const prezzo = Number(p.prezzo);
+        subtotal += prezzo;
+        const prezzoFormattato = prezzo.toFixed(2);
         const imgName = p.immagine ? p.immagine : "default.jpg";
         
         html += '<div class="drawer-item">' +
@@ -96,9 +100,23 @@ function renderWishlistDrawer(products, contextPath) {
                         '<h4>' + p.nome + '</h4>' +
                         '<span class="drawer-item-price">€ ' + prezzoFormattato + '</span>' +
                     '</div>' +
-                    '<a href="' + contextPath + '/dettaglio-prodotto?id=' + p.idProdotto + '" class="btn-sm">Vedi</a>' +
+                    '<div class="drawer-item-actions">' +
+                        '<a href="' + contextPath + '/dettaglio-prodotto?id=' + p.idProdotto + '" class="btn-sm" style="text-align:center;">Vedi</a>' +
+                        '<form action="' + contextPath + '/carrello" method="post" style="margin:0;">' +
+                            '<input type="hidden" name="action" value="add">' +
+                            '<input type="hidden" name="idProdotto" value="' + p.idProdotto + '">' +
+                            '<input type="hidden" name="quantita" value="1">' +
+                            '<button type="submit" class="btn-sm" style="background:var(--accent-color); color:#000; width:100%;" title="Aggiungi al carrello">🛒</button>' +
+                        '</form>' +
+                    '</div>' +
                 '</div>';
     });
+    
+    html += '<div class="drawer-subtotal">' +
+                '<strong>Subtotale (' + products.length + ' articoli):</strong> ' +
+                '<span>€ ' + subtotal.toFixed(2) + '</span>' +
+            '</div>';
+            
     container.innerHTML = html;
 }
 

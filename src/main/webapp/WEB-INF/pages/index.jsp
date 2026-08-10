@@ -99,7 +99,8 @@
                             <h3>${p.nome}</h3>
                             <p class="product-desc">${p.descrizione}</p>
                             <p class="product-price">
-                                <strong>€ <fmt:formatNumber value="${p.prezzo}" pattern="0.00" /></strong>
+                                <strong>€ <fmt:formatNumber value="${p.prezzoFinale}" pattern="0.00" /></strong>
+                                <span style="font-size: 0.8rem; font-weight: normal; color: #aaa; display: block; margin-top: 5px;">(IVA inclusa)</span>
                             </p>
 
                             <div class="product-actions">
