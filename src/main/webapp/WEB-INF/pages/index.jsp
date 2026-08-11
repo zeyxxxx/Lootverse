@@ -63,10 +63,19 @@
 
                     <%-- 🔥 SEZIONE PRODOTTI PIÙ VENDUTI --%>
                         <main class="container main-content">
-                            <div class="section-header">
-                                <h2>🔥 I Più Venduti</h2>
-                                <a href="${pageContext.request.contextPath}/catalogo" class="link-catalogo">Vedi tutto
-                                    il catalogo ➔</a>
+                            <div class="cyber-divider-wrapper">
+                                <div class="cyber-divider"></div>
+                                <div class="cyber-left-module pink-neon">// MODULE.BESTSELLERS loading...</div>
+                                <div class="cyber-center-text pink-neon">I PIÙ VENDUTI</div>
+                                <div class="cyber-right-hud pink-neon">
+                                    <div class="cyber-hud-line"></div>
+                                    <div class="cyber-hud-line"></div>
+                                    <div class="cyber-hud-line"></div>
+                                    <div class="cyber-hud-text pink-neon">SYS.DAT_98</div>
+                                </div>
+                            </div>
+                            <div class="cyber-link-container">
+                                <a href="${pageContext.request.contextPath}/catalogo" class="cyber-link-catalogo pink-neon">Vedi tutto il catalogo ➔</a>
                             </div>
 
                             <div class="product-grid">
@@ -147,10 +156,19 @@
                                 </c:choose>
                             </div>
 
-                            <div class="section-header" style="margin-top: 50px;">
-                                <h2>💎 Offerte Speciali</h2>
-                                <a href="${pageContext.request.contextPath}/catalogo" class="link-catalogo">Vedi tutto
-                                    il catalogo ➔</a>
+                            <div class="cyber-divider-wrapper" style="margin-top: 70px;">
+                                <div class="cyber-divider"></div>
+                                <div class="cyber-left-module">// MODULE.OFFERS loading...</div>
+                                <div class="cyber-center-text">IN SCONTO</div>
+                                <div class="cyber-right-hud">
+                                    <div class="cyber-hud-line"></div>
+                                    <div class="cyber-hud-line"></div>
+                                    <div class="cyber-hud-line"></div>
+                                    <div class="cyber-hud-text">SYS.DAT_42</div>
+                                </div>
+                            </div>
+                            <div class="cyber-link-container">
+                                <a href="${pageContext.request.contextPath}/catalogo" class="cyber-link-catalogo">Vedi tutto il catalogo ➔</a>
                             </div>
 
                             <div class="product-grid">

@@ -189,6 +189,7 @@ public class ConfermaOrdineServlet extends HttpServlet {
 
             // 5. Svuotamento del carrello
             carrelloDAO.svuotaCarrello(carrello.getIdCarrello());
+            session.setAttribute("cartBadgeCount", 0);
 
             request.setAttribute("ordine", ordine);
             request.getRequestDispatcher("/WEB-INF/pages/confermaOrdine.jsp").forward(request, response);

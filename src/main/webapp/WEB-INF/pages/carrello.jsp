@@ -10,7 +10,17 @@
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     <main class="container main-content">
-        <h2>Il tuo Carrello <c:if test="${not empty carrello}">(ID: #${carrello.idCarrello})</c:if></h2>
+        <div class="cyber-divider-wrapper" style="margin-top: 10px;">
+            <div class="cyber-divider"></div>
+            <div class="cyber-left-module green-neon">SYS.LOG.CART</div>
+            <div class="cyber-center-text green-neon">IL TUO CARRELLO <c:if test="${not empty carrello}">(ID: #${carrello.idCarrello})</c:if></div>
+            <div class="cyber-right-hud">
+                <div class="cyber-hud-line green-neon"></div>
+                <div class="cyber-hud-line green-neon"></div>
+                <div class="cyber-hud-line green-neon"></div>
+                <div class="cyber-hud-text green-neon">V. 1.0</div>
+            </div>
+        </div>
         
         <c:if test="${not empty errore}">
             <div class="alert alert-danger">${errore}</div>

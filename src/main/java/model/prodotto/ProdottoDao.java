@@ -42,6 +42,9 @@ public class ProdottoDao {
                 bean.setDimensione(rs.getString("dimensione"));
                 bean.setImmagine(rs.getString("immagine"));
                 bean.setImmagineCarosello(rs.getString("immagine_carosello"));
+                bean.setTipoArma(rs.getString("tipo_arma"));
+                bean.setTipoMedia(rs.getString("tipo_media"));
+                bean.setMondoProvenienza(rs.getString("mondo_provenienza"));
 
                 prodotti.add(bean);
             }
@@ -86,6 +89,9 @@ public class ProdottoDao {
                 bean.setDimensione(rs.getString("dimensione"));
                 bean.setImmagine(rs.getString("immagine"));
                 bean.setImmagineCarosello(rs.getString("immagine_carosello"));
+                bean.setTipoArma(rs.getString("tipo_arma"));
+                bean.setTipoMedia(rs.getString("tipo_media"));
+                bean.setMondoProvenienza(rs.getString("mondo_provenienza"));
             }
 
         } finally {
@@ -104,8 +110,8 @@ public class ProdottoDao {
         PreparedStatement preparedStatement = null;
 
         String insertSQL = "INSERT INTO " + TABLE_NAME 
-                + " (prezzo, descrizione, disponibilita, sconto, iva, id_admin, nome, materiale, colore, dimensione, immagine, immagine_carosello) "
-                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + " (prezzo, descrizione, disponibilita, sconto, iva, id_admin, nome, materiale, colore, dimensione, immagine, immagine_carosello, tipo_arma, tipo_media, mondo_provenienza) "
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             connection = DriverManagerConnectionPool.getConnection();
@@ -123,6 +129,9 @@ public class ProdottoDao {
             preparedStatement.setString(10, prodotto.getDimensione());
             preparedStatement.setString(11, prodotto.getImmagine());
             preparedStatement.setString(12, prodotto.getImmagineCarosello());
+            preparedStatement.setString(13, prodotto.getTipoArma());
+            preparedStatement.setString(14, prodotto.getTipoMedia());
+            preparedStatement.setString(15, prodotto.getMondoProvenienza());
 
             preparedStatement.executeUpdate();
 
@@ -143,7 +152,7 @@ public class ProdottoDao {
         String updateSQL = "UPDATE " + TABLE_NAME + " SET "
                 + " prezzo = ?, descrizione = ?, disponibilita = ?, sconto = ?, iva = ?, "
                 + " id_admin = ?, nome = ?, materiale = ?, colore = ?, dimensione = ?, "
-                + " immagine = ?, immagine_carosello = ? "
+                + " immagine = ?, immagine_carosello = ?, tipo_arma = ?, tipo_media = ?, mondo_provenienza = ? "
                 + " WHERE idProdotto = ?";
 
         try {
@@ -162,7 +171,10 @@ public class ProdottoDao {
             preparedStatement.setString(10, prodotto.getDimensione());
             preparedStatement.setString(11, prodotto.getImmagine());
             preparedStatement.setString(12, prodotto.getImmagineCarosello());
-            preparedStatement.setInt(13, prodotto.getIdProdotto());
+            preparedStatement.setString(13, prodotto.getTipoArma());
+            preparedStatement.setString(14, prodotto.getTipoMedia());
+            preparedStatement.setString(15, prodotto.getMondoProvenienza());
+            preparedStatement.setInt(16, prodotto.getIdProdotto());
 
             preparedStatement.executeUpdate();
 
@@ -230,6 +242,9 @@ public class ProdottoDao {
                 bean.setDimensione(rs.getString("dimensione"));
                 bean.setImmagine(rs.getString("immagine"));
                 bean.setImmagineCarosello(rs.getString("immagine_carosello"));
+                bean.setTipoArma(rs.getString("tipo_arma"));
+                bean.setTipoMedia(rs.getString("tipo_media"));
+                bean.setMondoProvenienza(rs.getString("mondo_provenienza"));
 
                 prodotti.add(bean);
             }
@@ -274,6 +289,9 @@ public class ProdottoDao {
                 bean.setDimensione(rs.getString("dimensione"));
                 bean.setImmagine(rs.getString("immagine"));
                 bean.setImmagineCarosello(rs.getString("immagine_carosello"));
+                bean.setTipoArma(rs.getString("tipo_arma"));
+                bean.setTipoMedia(rs.getString("tipo_media"));
+                bean.setMondoProvenienza(rs.getString("mondo_provenienza"));
 
                 prodotti.add(bean);
             }
@@ -282,5 +300,33 @@ public class ProdottoDao {
             DriverManagerConnectionPool.releaseConnection(connection);
         }
         return prodotti;
+    }
+
+    public synchronized Collection<String> doRetrieveAllMondiProvenienza() throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Collection<String> mondi = new LinkedList<>();
+
+        String selectSQL = "SELECT DISTINCT mondo_provenienza FROM " + TABLE_NAME + " WHERE mondo_provenienza IS NOT NULL AND mondo_provenienza != '' ORDER BY mondo_provenienza";
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(selectSQL);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                mondi.add(rs.getString("mondo_provenienza"));
+            }
+
+        } finally {
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
+        return mondi;
     }
 }

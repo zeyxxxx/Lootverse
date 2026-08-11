@@ -9,7 +9,17 @@
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     <main class="container main-content">
-        <h2>La tua Wishlist</h2>
+        <div class="cyber-divider-wrapper" style="margin-top: 10px;">
+            <div class="cyber-divider"></div>
+            <div class="cyber-left-module pink-neon">SYS.LOG.WISHLIST</div>
+            <div class="cyber-center-text pink-neon">LA TUA WISHLIST</div>
+            <div class="cyber-right-hud">
+                <div class="cyber-hud-line pink-neon"></div>
+                <div class="cyber-hud-line pink-neon"></div>
+                <div class="cyber-hud-line pink-neon"></div>
+                <div class="cyber-hud-text pink-neon">V. 1.0</div>
+            </div>
+        </div>
         <c:choose>
             <c:when test="${empty prodottiWishlist}">
                 <div class="empty-box">

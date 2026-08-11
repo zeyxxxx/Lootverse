@@ -10,9 +10,86 @@
 
             <body>
                 <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
-                <main class="container main-content">
-                    <h2>Catalogo Prodotti</h2>
-                    <div class="product-grid">
+                <main class="container main-content catalog-container">
+                    <div class="cyber-divider-wrapper" style="margin-top: 20px; margin-bottom: 40px;">
+                        <div class="cyber-divider"></div>
+                        <div class="cyber-left-module pink-neon">// MODULE.CATALOG loading...</div>
+                        <div class="cyber-center-text pink-neon">CATALOGO PRODOTTI</div>
+                        <div class="cyber-right-hud pink-neon">
+                            <div class="cyber-hud-line"></div>
+                            <div class="cyber-hud-line"></div>
+                            <div class="cyber-hud-line"></div>
+                            <div class="cyber-hud-text pink-neon">SYS.DAT_77</div>
+                        </div>
+                    </div>
+                    <div class="catalog-layout">
+                    
+                    <!-- INIZIO SIDEBAR FILTRI -->
+                    <aside class="catalog-sidebar form-box">
+                        <h3>Filtri Ricerca</h3>
+                        <form action="${pageContext.request.contextPath}/catalogo" method="GET" class="filter-form">
+                            <!-- Prezzo -->
+                            <div class="form-group">
+                                <label>Prezzo Min (€)</label>
+                                <input type="number" name="prezzoMin" step="0.01" min="0" value="${prezzoMin}">
+                            </div>
+                            <div class="form-group">
+                                <label>Prezzo Max (€)</label>
+                                <input type="number" name="prezzoMax" step="0.01" min="0" value="${prezzoMax}">
+                            </div>
+                            
+                            <!-- Checkbox Sconto / Best Seller -->
+                            <div class="form-group checkbox-group" style="flex-direction: row; align-items: center; gap: 10px;">
+                                <input type="checkbox" name="scontoSolo" value="true" ${scontoSolo == 'true' ? 'checked' : ''} id="scontoCheck">
+                                <label for="scontoCheck" style="margin: 0; cursor: pointer;">Solo In Sconto</label>
+                            </div>
+                            <div class="form-group checkbox-group" style="flex-direction: row; align-items: center; gap: 10px;">
+                                <input type="checkbox" name="bestSellerSolo" value="true" ${bestSellerSolo == 'true' ? 'checked' : ''} id="bsCheck">
+                                <label for="bsCheck" style="margin: 0; cursor: pointer;">Solo Best Seller</label>
+                            </div>
+
+                            <!-- Tipo Arma -->
+                            <div class="form-group">
+                                <label>Tipo d'Arma</label>
+                                <select name="tipoArma">
+                                    <option value="">Tutti</option>
+                                    <option value="spada" ${tipoArma == 'spada' ? 'selected' : ''}>Spada</option>
+                                    <option value="coltello" ${tipoArma == 'coltello' ? 'selected' : ''}>Coltello</option>
+                                    <option value="pistola" ${tipoArma == 'pistola' ? 'selected' : ''}>Pistola</option>
+                                    <option value="speciali" ${tipoArma == 'speciali' ? 'selected' : ''}>Speciali</option>
+                                </select>
+                            </div>
+
+                            <!-- Tipo Media -->
+                            <div class="form-group">
+                                <label>Tipo Media</label>
+                                <select name="tipoMedia">
+                                    <option value="">Tutti</option>
+                                    <option value="film" ${tipoMedia == 'film' ? 'selected' : ''}>Film</option>
+                                    <option value="videogiochi" ${tipoMedia == 'videogiochi' ? 'selected' : ''}>Videogiochi</option>
+                                    <option value="anime" ${tipoMedia == 'anime' ? 'selected' : ''}>Anime</option>
+                                </select>
+                            </div>
+
+                            <!-- Mondo Provenienza (Dinamico) -->
+                            <div class="form-group">
+                                <label>Mondo di Provenienza</label>
+                                <select name="mondoProvenienza">
+                                    <option value="">Tutti</option>
+                                    <c:forEach var="mondo" items="${mondiProvenienzaList}">
+                                        <option value="${mondo}" ${mondoProvenienza == mondo ? 'selected' : ''}>${mondo}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Applica Filtri</button>
+                            <a href="${pageContext.request.contextPath}/catalogo" class="btn btn-secondary" style="width: 100%; margin-top: 10px; display: block; text-align: center;">Resetta</a>
+                        </form>
+                    </aside>
+                    <!-- FINE SIDEBAR FILTRI -->
+
+                    <div class="catalog-content">
+                        <div class="product-grid">
                         <c:choose>
                             <c:when test="${not empty prodotti}">
                                 <c:forEach var="p" items="${prodotti}">
@@ -105,6 +182,8 @@
                             </c:otherwise>
                         </c:choose>
                     </div>
+                    </div> <!-- chiusura catalog-content -->
+                    </div> <!-- chiusura catalog-layout -->
                 </main>
                 <jsp:include page="/WEB-INF/fragments/footer.jsp" />
             </body>

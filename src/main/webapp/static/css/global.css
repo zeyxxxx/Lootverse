@@ -34,6 +34,26 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    position: relative; /* Necessario per il posizionamento del pattern */
+}
+
+/* Pattern CSS Griglia Deformata (Warped Grid) ad alte prestazioni */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    
+    /* OPACITÀ REGOLABILE (mantenuta a 0.10 per l'effetto richiesto) */
+    opacity: 0.10; 
+    
+    /* Sfondo vettoriale: Griglia distorta / Topografica creata con filtri di turbolenza SVG */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3000' height='3000'%3E%3Cfilter id='warp' x='-10%25' y='-10%25' width='120%25' height='120%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.002' numOctaves='1' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='150' xChannelSelector='R' yChannelSelector='G' /%3E%3C/filter%3E%3Cpattern id='grid' width='60' height='60' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 60 0 L 0 0 0 60' fill='none' stroke='%23000' stroke-width='3'/%3E%3C/pattern%3E%3Crect width='3000' height='3000' fill='url(%23grid)' filter='url(%23warp)'/%3E%3C/svg%3E");
+    
+    background-size: 3000px 3000px;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 /* ==========================================
@@ -70,6 +90,8 @@ a:hover {
     padding: 30px 15px;
     flex: 1;
 }
+
+
 
 /* ==========================================
    PARAGRAFO 6: NAVBAR SEMI-TRASPARENTE (STICKY)
@@ -112,6 +134,34 @@ a:hover .material-symbols-outlined {
     color: var(--accent-color);    /* Diventa GIALLO (#FEF72F) */
     transform: scale(1.2);         /* Si ingrandisce leggermente */
     filter: drop-shadow(0 0 10px var(--accent-color)); /* Bagliore neon giallo */
+}
+
+/* Container relativo per il badge del carrello */
+.cart-icon-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Badge numerico stile cyberpunk */
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #ff0055; /* Rosso neon cyberpunk */
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 900;
+    font-family: var(--font-heading);
+    min-width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid #000000;
+    box-shadow: 0 0 8px rgba(255, 0, 85, 0.8);
+    pointer-events: none; /* Lascia che i clic passino al link */
+    z-index: 10;
 }
 
 /* ==========================================
@@ -186,6 +236,7 @@ a:hover .material-symbols-outlined {
    PARAGRAFO 9: TENDINA SUGGERIMENTI SEARCH (AJAX)
    ========================================== */
 .suggestions-box {
+    display: none;
     position: absolute;
     top: calc(100% + 8px);
     left: 0;

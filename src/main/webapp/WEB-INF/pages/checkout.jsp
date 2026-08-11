@@ -10,7 +10,17 @@
             <body>
                 <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
                 <main class="container main-content">
-                    <h2>Checkout</h2>
+                    <div class="cyber-divider-wrapper" style="margin-top: 10px;">
+                        <div class="cyber-divider"></div>
+                        <div class="cyber-left-module green-neon">SYS.LOG.CHECKOUT</div>
+                        <div class="cyber-center-text green-neon">CHECKOUT</div>
+                        <div class="cyber-right-hud">
+                            <div class="cyber-hud-line green-neon"></div>
+                            <div class="cyber-hud-line green-neon"></div>
+                            <div class="cyber-hud-line green-neon"></div>
+                            <div class="cyber-hud-text green-neon">V. 1.0</div>
+                        </div>
+                    </div>
                     <c:if test="${not empty errore}">
                         <div class="alert alert-danger">${errore}</div>
                     </c:if>

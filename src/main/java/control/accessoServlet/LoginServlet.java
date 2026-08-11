@@ -71,6 +71,17 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("utenteLoggato", utente);
             session.setMaxInactiveInterval(30 * 60);
+            
+            try {
+                model.carrello.CarrelloDAO carrelloDAO = new model.carrello.CarrelloDAO();
+                model.carrello.CarrelloBean carrello = carrelloDAO.doRetrieveByUtente(utente.getIdUtente());
+                if(carrello != null) {
+                    session.setAttribute("cartBadgeCount", carrelloDAO.contaProdotti(carrello.getIdCarrello()));
+                } else {
+                    session.setAttribute("cartBadgeCount", 0);
+                }
+            } catch (Exception ignored) {
+            }
 
             response.sendRedirect(request.getContextPath() + "/catalogo");
 

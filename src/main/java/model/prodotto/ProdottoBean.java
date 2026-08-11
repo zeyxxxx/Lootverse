@@ -20,6 +20,9 @@ public class ProdottoBean implements Serializable {
     private String dimensione;
     private String immagine;
     private String immagineCarosello;
+    private String tipoArma;
+    private String tipoMedia;
+    private String mondoProvenienza;
 
     // Costruttore vuoto
     public ProdottoBean() {
@@ -147,6 +150,30 @@ public class ProdottoBean implements Serializable {
     public void setImmagineCarosello(String immagineCarosello) {
         this.immagineCarosello = immagineCarosello;
     }
+    
+    public String getTipoArma() {
+        return tipoArma;
+    }
+
+    public void setTipoArma(String tipoArma) {
+        this.tipoArma = tipoArma;
+    }
+
+    public String getTipoMedia() {
+        return tipoMedia;
+    }
+
+    public void setTipoMedia(String tipoMedia) {
+        this.tipoMedia = tipoMedia;
+    }
+
+    public String getMondoProvenienza() {
+        return mondoProvenienza;
+    }
+
+    public void setMondoProvenienza(String mondoProvenienza) {
+        this.mondoProvenienza = mondoProvenienza;
+    }
 
     // Metodo toString
     @Override
@@ -164,6 +191,9 @@ public class ProdottoBean implements Serializable {
                 ", materiale='" + materiale + '\'' +
                 ", colore='" + colore + '\'' +
                 ", dimensione='" + dimensione + '\'' +
+                ", tipoArma='" + tipoArma + '\'' +
+                ", tipoMedia='" + tipoMedia + '\'' +
+                ", mondoProvenienza='" + mondoProvenienza + '\'' +
                 '}';
     }
 }

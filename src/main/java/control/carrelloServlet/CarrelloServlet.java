@@ -157,6 +157,9 @@ public class CarrelloServlet extends HttpServlet {
                 carrelloDAO.rimuoviProdotto(carrello.getIdCarrello(), idProdotto);
             }
 
+            int count = carrelloDAO.contaProdotti(carrello.getIdCarrello());
+            session.setAttribute("cartBadgeCount", count);
+
             response.sendRedirect(request.getContextPath() + "/carrello");
 
         } catch (NumberFormatException e) {

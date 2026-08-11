@@ -7,7 +7,17 @@
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     <main class="container auth-container">
-        <h2>Accedi a Lootverse</h2>
+        <div class="cyber-divider-wrapper" style="margin-top: 20px; margin-bottom: 40px;">
+            <div class="cyber-divider"></div>
+            <div class="cyber-left-module green-neon">// MODULE.LOGIN loading...</div>
+            <div class="cyber-center-text green-neon">ACCEDI A LOOTVERSE</div>
+            <div class="cyber-right-hud green-neon">
+                <div class="cyber-hud-line"></div>
+                <div class="cyber-hud-line"></div>
+                <div class="cyber-hud-line"></div>
+                <div class="cyber-hud-text green-neon">SYS.DAT_77</div>
+            </div>
+        </div>
 
         <c:if test="${not empty successo}">
             <div class="alert alert-success">${successo}</div>

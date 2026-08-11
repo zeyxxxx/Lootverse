@@ -9,7 +9,17 @@
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     <main class="container main-content">
-        <h2>I Tuoi Ordini</h2>
+        <div class="cyber-divider-wrapper" style="margin-top: 10px;">
+            <div class="cyber-divider"></div>
+            <div class="cyber-left-module blue-neon">SYS.LOG.ORDERS</div>
+            <div class="cyber-center-text blue-neon">I TUOI ORDINI</div>
+            <div class="cyber-right-hud">
+                <div class="cyber-hud-line blue-neon"></div>
+                <div class="cyber-hud-line blue-neon"></div>
+                <div class="cyber-hud-line blue-neon"></div>
+                <div class="cyber-hud-text blue-neon">V. 1.0</div>
+            </div>
+        </div>
         
         <c:if test="${not empty errore}">
             <div class="alert alert-danger">${errore}</div>
