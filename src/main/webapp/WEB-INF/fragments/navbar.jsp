@@ -18,7 +18,7 @@
         <div id="searchSuggestions" class="suggestions-box" style="width: 100%;"></div>
     </div>
 
-    <ul class="nav-links">
+    <ul class="nav-links" id="navLinks">
         <%-- Link espliciti in Navbar --%>
         <c:choose>
             <c:when test="${not empty sessionScope.adminLoggato}">
@@ -138,6 +138,5 @@ document.addEventListener("DOMContentLoaded", function() {
                 suggestionsBox.style.display = "block";
             }
         });
-    }
 });
 </script>

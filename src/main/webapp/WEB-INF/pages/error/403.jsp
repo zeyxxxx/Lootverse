@@ -3,24 +3,25 @@
 <!DOCTYPE html>
 <html lang="it">
 <jsp:include page="/WEB-INF/fragments/header.jsp" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/error.css?v=1">
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
 
     <main class="container error-container">
         <div class="error-box">
             <h1 class="error-code">403</h1>
-            <h2>Accesso Negato</h2>
+            <h2>SYS.ERR: ACCESS_DENIED</h2>
             <p class="error-message">
                 <c:choose>
                     <c:when test="${not empty errore}">
                         ${errore}
                     </c:when>
                     <c:otherwise>
-                        Non disponi delle autorizzazioni necessarie per accedere a questa pagina.
+                        Autorizzazione insufficiente. I sistemi di sicurezza ti hanno bloccato.
                     </c:otherwise>
                 </c:choose>
             </p>
-            <a href="${pageContext.request.contextPath}/catalogo" class="btn btn-primary">Torna al Catalogo</a>
+            <a href="${pageContext.request.contextPath}/catalogo" class="btn btn-return">Torna alla Base</a>
         </div>
     </main>
 

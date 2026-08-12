@@ -160,6 +160,39 @@ public class CarrelloServlet extends HttpServlet {
             int count = carrelloDAO.contaProdotti(carrello.getIdCarrello());
             session.setAttribute("cartBadgeCount", count);
 
+            boolean isAjax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+
+            if (isAjax) {
+                ProdottoDao prodottoDao = new ProdottoDao();
+                Collection<ContieneBean> elementiContenuti = carrelloDAO.doRetrieveProdotti(carrello.getIdCarrello());
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                java.io.PrintWriter out = response.getWriter();
+                StringBuilder json = new StringBuilder("[");
+                int itemCount = 0;
+                if (elementiContenuti != null) {
+                    for (ContieneBean contiene : elementiContenuti) {
+                        ProdottoBean p = prodottoDao.doRetrieveById(contiene.getIdProdotto());
+                        if (p != null) {
+                            json.append("{")
+                                .append("\"idProdotto\":").append(p.getIdProdotto()).append(",")
+                                .append("\"nome\":\"").append(p.getNome().replace("\"", "\\\"")).append("\",")
+                                .append("\"prezzo\":").append(p.getPrezzo()).append(",")
+                                .append("\"prezzoIvato\":").append(p.getPrezzoIvato()).append(",")
+                                .append("\"prezzoFinale\":").append(p.getPrezzoFinale()).append(",")
+                                .append("\"quantita\":").append(contiene.getQuantita()).append(",")
+                                .append("\"immagine\":\"").append(p.getImmagine() != null ? p.getImmagine() : "default.jpg").append("\"")
+                                .append("}");
+                            if (++itemCount < elementiContenuti.size()) json.append(",");
+                        }
+                    }
+                }
+                json.append("]");
+                out.print(json.toString());
+                out.flush();
+                return;
+            }
+
             response.sendRedirect(request.getContextPath() + "/carrello");
 
         } catch (NumberFormatException e) {

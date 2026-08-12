@@ -45,36 +45,38 @@ public class DettaglioOrdineServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("utenteLoggato") == null) {
+        boolean isUtente = (session != null && session.getAttribute("utenteLoggato") != null);
+        boolean isAdmin = (session != null && session.getAttribute("adminLoggato") != null);
+
+        if (!isUtente && !isAdmin) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
-        UtenteBean utente = (UtenteBean) session.getAttribute("utenteLoggato");
         String idOrdineStr = request.getParameter("id");
 
         if (idOrdineStr == null || idOrdineStr.trim().isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/storico-ordini");
+            response.sendRedirect(request.getContextPath() + (isAdmin ? "/admin-ordini" : "/storico-ordini"));
             return;
         }
 
         try {
             int idOrdine = Integer.parseInt(idOrdineStr);
             OrdineDAO ordineDAO = new OrdineDAO();
-            OrdineBean ordine = null;
-
-            // Controlla che l'ordine appartenga all'utente loggato (Sicurezza)
-            for (OrdineBean ob : ordineDAO.doRetrieveByUtente(utente.getIdUtente())) {
-                if (ob.getIdOrdine() == idOrdine) {
-                    ordine = ob;
-                    break;
-                }
-            }
+            OrdineBean ordine = ordineDAO.doRetrieveById(idOrdine);
 
             if (ordine == null) {
-                // Ordine non trovato o tentativo di accesso non autorizzato
-                response.sendRedirect(request.getContextPath() + "/storico-ordini");
+                response.sendRedirect(request.getContextPath() + (isAdmin ? "/admin-ordini" : "/storico-ordini"));
                 return;
+            }
+
+            // Sicurezza: se è un utente normale, verifica che l'ordine sia il suo
+            if (isUtente && !isAdmin) {
+                UtenteBean utente = (UtenteBean) session.getAttribute("utenteLoggato");
+                if (ordine.getIdUtente() != utente.getIdUtente()) {
+                    response.sendRedirect(request.getContextPath() + "/storico-ordini");
+                    return;
+                }
             }
 
             DettaglioOrdineDAO dettaglioDAO = new DettaglioOrdineDAO();
@@ -89,6 +91,7 @@ public class DettaglioOrdineServlet extends HttpServlet {
                 }
             }
 
+            request.setAttribute("isAdmin", isAdmin);
             request.setAttribute("ordine", ordine);
             request.setAttribute("dettagliItems", items);
             request.getRequestDispatcher("/WEB-INF/pages/dettaglioOrdine.jsp").forward(request, response);

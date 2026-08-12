@@ -33,7 +33,7 @@
                     </c:choose>
 
                     <%-- NOME, DESCRIZIONE E SPECIFICHE --%>
-                    <h2>${prodotto.nome} (#${prodotto.idProdotto})</h2>
+                    <h2>${prodotto.nome}</h2>
                     <p class="product-desc">${prodotto.descrizione}</p>
                     
                     <ul class="product-specs">
@@ -42,11 +42,23 @@
                         <li><strong>Dimensione:</strong> ${prodotto.dimensione}</li>
                     </ul>
                     
-                    <h3 class="product-price">Prezzo: € <fmt:formatNumber value="${prodotto.prezzoFinale}" pattern="0.00" /></h3>
+                    <h3 class="product-price">
+                        Prezzo: 
+                        <c:choose>
+                            <c:when test="${prodotto.sconto > 0}">
+                                <span class="old-price">€ <fmt:formatNumber value="${prodotto.prezzoIvato}" pattern="0.00" /></span>
+                                € <fmt:formatNumber value="${prodotto.prezzoFinale}" pattern="0.00" />
+                            </c:when>
+                            <c:otherwise>
+                                € <fmt:formatNumber value="${prodotto.prezzoFinale}" pattern="0.00" />
+                            </c:otherwise>
+                        </c:choose>
+                        <span style="font-size: 0.8rem; font-weight: normal; color: #aaa; margin-left: 10px;">(IVA inclusa)</span>
+                    </h3>
 
                     <%-- AZIONI: CARRELLO E WISHLIST --%>
                     <div class="product-actions-group">
-                        <form action="${pageContext.request.contextPath}/carrello" method="post" class="inline-form">
+                        <form action="${pageContext.request.contextPath}/carrello" method="post" class="inline-form cart-form">
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="idProdotto" value="${prodotto.idProdotto}">
                             <input type="number" name="quantita" value="1" min="1" class="qty-input">

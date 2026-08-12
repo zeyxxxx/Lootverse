@@ -13,7 +13,7 @@
         <div class="cyber-divider-wrapper" style="margin-top: 10px;">
             <div class="cyber-divider"></div>
             <div class="cyber-left-module green-neon">SYS.LOG.CART</div>
-            <div class="cyber-center-text green-neon">IL TUO CARRELLO <c:if test="${not empty carrello}">(ID: #${carrello.idCarrello})</c:if></div>
+            <div class="cyber-center-text green-neon">IL TUO CARRELLO</div>
             <div class="cyber-right-hud">
                 <div class="cyber-hud-line green-neon"></div>
                 <div class="cyber-hud-line green-neon"></div>
@@ -61,7 +61,15 @@
                                     </div>
                                 </td>
                                 <td>
-                                    € <fmt:formatNumber value="${item.prodotto.prezzoFinale}" pattern="0.00" />
+                                    <c:choose>
+                                        <c:when test="${item.prodotto.sconto > 0}">
+                                            <span class="old-price">€ <fmt:formatNumber value="${item.prodotto.prezzoIvato}" pattern="0.00" /></span><br>
+                                            € <fmt:formatNumber value="${item.prodotto.prezzoFinale}" pattern="0.00" />
+                                        </c:when>
+                                        <c:otherwise>
+                                            € <fmt:formatNumber value="${item.prodotto.prezzoFinale}" pattern="0.00" />
+                                        </c:otherwise>
+                                    </c:choose>
                                     <br><span style="font-size: 0.8rem; color: #aaa;">(IVA inclusa)</span>
                                 </td>
                                 <td>

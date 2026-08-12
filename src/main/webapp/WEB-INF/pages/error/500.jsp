@@ -3,24 +3,25 @@
 <!DOCTYPE html>
 <html lang="it">
 <jsp:include page="/WEB-INF/fragments/header.jsp" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/error.css?v=1">
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
 
     <main class="container error-container">
         <div class="error-box">
             <h1 class="error-code">500</h1>
-            <h2>Errore Interno del Server</h2>
+            <h2>SYS.ERR: CRITICAL_FAILURE</h2>
             <p class="error-message">
                 <c:choose>
                     <c:when test="${not empty errore}">
                         ${errore}
                     </c:when>
                     <c:otherwise>
-                        Si è verificato un errore imprevisto durante l'elaborazione della tua richiesta.
+                        Il nucleo centrale ha subito un'avaria imprevista. I nostri droni stanno ripristinando il sistema.
                     </c:otherwise>
                 </c:choose>
             </p>
-            <a href="${pageContext.request.contextPath}/catalogo" class="btn btn-primary">Torna al Catalogo</a>
+            <a href="${pageContext.request.contextPath}/catalogo" class="btn btn-return">Torna alla Base</a>
         </div>
     </main>
 

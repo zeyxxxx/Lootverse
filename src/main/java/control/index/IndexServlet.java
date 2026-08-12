@@ -20,21 +20,22 @@ import model.prodotto.ProdottoDao;
 import model.utente.UtenteBean;
 
 // Intercetta sia l'URL di root (http://localhost:8080/NomeProgetto/) che /index
-@WebServlet(urlPatterns = {"", "/index"})
+@WebServlet(urlPatterns = { "", "/index" })
 public class IndexServlet extends HttpServlet {
+
     private static final long serialVersionUID = 1L;
     private ProdottoDao prodottoDao = new ProdottoDao();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             // Chiamata al metodo doRetrieveAll() del tuo DAO
             Collection<ProdottoBean> prodottiCollection = prodottoDao.doRetrieveAll();
-            
+
             // Conversione da Collection a List per la gestione delle sotto-liste
             List<ProdottoBean> tuttiProdotti = new ArrayList<>(prodottiCollection);
-            
+
             if (!tuttiProdotti.isEmpty()) {
                 // Primi 3 prodotti per il carosello
                 int limiteCarosello = Math.min(tuttiProdotti.size(), 3);
@@ -46,10 +47,11 @@ public class IndexServlet extends HttpServlet {
 
                 // Prodotti Scontati (Offerte Speciali) - Fino a 8 prodotti
                 List<ProdottoBean> prodottiScontati = new ArrayList<>();
-                for(ProdottoBean p : tuttiProdotti) {
-                    if(p.isDisponibilita() && p.getSconto() > 0) {
+                for (ProdottoBean p : tuttiProdotti) {
+                    if (p.isDisponibilita() && p.getSconto() > 0) {
                         prodottiScontati.add(p);
-                        if(prodottiScontati.size() >= 8) break;
+                        if (prodottiScontati.size() >= 8)
+                            break;
                     }
                 }
                 request.setAttribute("prodottiScontati", prodottiScontati);
@@ -76,7 +78,7 @@ public class IndexServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
     }

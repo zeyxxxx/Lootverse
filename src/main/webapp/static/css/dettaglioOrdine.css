@@ -138,3 +138,103 @@
 .order-total-summary .btn-secondary {
     display: inline-block;
 }
+
+/* ==========================================
+   BADGE DI STATO (ORDINI)
+   ========================================== */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    border: 1px solid #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    display: inline-block;
+}
+
+.status-badge.status-inlavorazione,
+.status-badge.status-inelaborazione {
+    background: rgba(255, 170, 0, 0.1);
+    color: #ffaa00;
+    border-color: #ffaa00;
+    box-shadow: 0 0 8px rgba(255, 170, 0, 0.3);
+}
+
+.status-badge.status-spedito {
+    background: rgba(0, 240, 255, 0.1);
+    color: #00f0ff;
+    border-color: #00f0ff;
+    box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+}
+
+.status-badge.status-consegnato {
+    background: rgba(57, 255, 20, 0.1);
+    color: #39ff14;
+    border-color: #39ff14;
+    box-shadow: 0 0 8px rgba(57, 255, 20, 0.3);
+}
+
+.status-badge.status-annullato {
+    background: rgba(225, 29, 72, 0.1);
+    color: #ff003c;
+    border-color: #ff003c;
+    box-shadow: 0 0 8px rgba(255, 0, 60, 0.3);
+}
+
+.status-badge.status-rimborsato {
+    background: rgba(255, 0, 255, 0.1);
+    color: #ff00ff;
+    border-color: #ff00ff;
+    box-shadow: 0 0 8px rgba(255, 0, 255, 0.3);
+}
+
+/* ==========================================
+   STAMPA FATTURA (MEDIA QUERY PRINT)
+   ========================================== */
+@media print {
+    /* Nascondi gli elementi che non devono apparire su carta */
+    .navbar, .footer, .btn, .product-action, .hide-on-print {
+        display: none !important;
+    }
+
+    /* Rimuovi sfondi scuri e ombre, usa bianco e nero per risparmiare inchiostro */
+    body, .container, .main-content, .order-total-summary, .product-card {
+        background-color: white !important;
+        color: black !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Testi e bordi per la carta */
+    .order-header-info h2, .order-header-info p, .product-info h3, .product-info p, .product-info .subtotal, .order-total-summary h3, .order-total-summary .total-price {
+        color: black !important;
+        text-shadow: none !important;
+    }
+
+    .order-header-info {
+        border-bottom: 2px solid black !important;
+    }
+    
+    .product-card {
+        border-bottom: 1px solid #ccc !important;
+        border-radius: 0 !important;
+        padding: 10px 0 !important;
+    }
+
+    /* Nascondi cerchietti cyberpunk */
+    .product-card::before {
+        display: none !important;
+    }
+
+    .product-img-wrapper {
+        border: 1px solid #ccc !important;
+    }
+
+    /* Margini del foglio */
+    @page {
+        margin: 1.5cm;
+    }
+}
+

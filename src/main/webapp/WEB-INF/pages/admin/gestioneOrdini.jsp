@@ -4,45 +4,131 @@
 
 <!DOCTYPE html>
 <html lang="it">
-<jsp:include page="/WEB-INF/fragments/header.jsp" />
+<head>
+    <jsp:include page="/WEB-INF/fragments/header.jsp" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/gestioneOrdini.css">
+    <title>Gestione Ordini - Admin</title>
+</head>
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
-    <main class="container main-content">
-        <h2>Gestione Tutti gli Ordini (Admin)</h2>
+    
+    <main class="admin-container">
+        <div class="admin-header">
+            <h2>Gestione Tutti gli Ordini</h2>
+        </div>
 
-        <table class="admin-table">
-            <thead>
-                <tr>
-                    <th>ID Ordine</th>
-                    <th>ID Utente</th>
-                    <th>Totale</th>
-                    <th>Stato Attuale</th>
-                    <th>Cambia Stato</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="o" items="${ordini}">
+        <c:if test="${not empty sessionScope.messaggioSuccesso}">
+            <div class="alert alert-success">
+                ${sessionScope.messaggioSuccesso}
+                <c:remove var="messaggioSuccesso" scope="session"/>
+            </div>
+        </c:if>
+        
+        <c:if test="${not empty errore}">
+            <div class="alert alert-error">
+                ${errore}
+            </div>
+        </c:if>
+
+        <c:if test="${not empty filtroApplicato}">
+            <div class="alert alert-success" style="padding: 10px; margin-bottom: 15px; font-size: 0.9rem;">
+                Stai visualizzando ordini filtrati per: <strong>${filtroApplicato}</strong>
+            </div>
+        </c:if>
+
+        <!-- Filtri Form -->
+        <div class="filter-container">
+            <!-- Filtro per ID Utente -->
+            <form action="${pageContext.request.contextPath}/admin-ordini" method="get" class="filter-group">
+                <label for="idUtente">Cerca per Utente (ID):</label>
+                <input type="number" id="idUtente" name="idUtente" min="1" placeholder="Es. 4" value="${param.idUtente}">
+                <button type="submit" class="btn-filter">Filtra Utente</button>
+            </form>
+
+            <!-- Filtro per Data -->
+            <form action="${pageContext.request.contextPath}/admin-ordini" method="get" class="filter-group">
+                <label for="dataInizio">Da:</label>
+                <input type="date" id="dataInizio" name="dataInizio" value="${param.dataInizio}" required>
+                
+                <label for="dataFine">A:</label>
+                <input type="date" id="dataFine" name="dataFine" value="${param.dataFine}" required>
+                
+                <button type="submit" class="btn-filter">Filtra Date</button>
+            </form>
+
+            <!-- Bottone Pulisci Filtri -->
+            <a href="${pageContext.request.contextPath}/admin-ordini" class="btn-clear">Rimuovi Filtri</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="cyber-table">
+                <thead>
                     <tr>
-                        <td>#${o.idOrdine}</td>
-                        <td>Utente #${o.idUtente}</td>
-                        <td>€ <fmt:formatNumber value="${o.prezzoTotale}" pattern="0.00" /></td>
-                        <td><strong>${o.stato}</strong></td>
-                        <td>
-                            <form action="${pageContext.request.contextPath}/admin-ordini" method="post" class="inline-form">
-                                <input type="hidden" name="idOrdine" value="${o.idOrdine}">
-                                <select name="nuovoStato" class="select-status">
-                                    <option value="In Elaborazione" ${o.stato == 'In Elaborazione' ? 'selected' : ''}>In Elaborazione</option>
-                                    <option value="Spedito" ${o.stato == 'Spedito' ? 'selected' : ''}>Spedito</option>
-                                    <option value="Consegnato" ${o.stato == 'Consegnato' ? 'selected' : ''}>Consegnato</option>
-                                </select>
-                                <button type="submit" class="btn btn-update">Aggiorna</button>
-                            </form>
-                        </td>
+                        <th>ID Ordine</th>
+                        <th>ID Utente</th>
+                        <th>Totale</th>
+                        <th>Stato Attuale</th>
+                        <th>Cambia Stato</th>
+                        <th>Dettagli</th>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <c:forEach var="o" items="${ordini}">
+                        <tr>
+                            <td>#${o.idOrdine}</td>
+                            <td>Utente #${o.idUtente}</td>
+                            <td>€ <fmt:formatNumber value="${o.totale}" pattern="0.00" /></td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${o.stato == 'In lavorazione'}">
+                                        <span class="status-badge status-elaborazione">${o.stato}</span>
+                                    </c:when>
+                                    <c:when test="${o.stato == 'Spedito'}">
+                                        <span class="status-badge status-spedito">${o.stato}</span>
+                                    </c:when>
+                                    <c:when test="${o.stato == 'Consegnato'}">
+                                        <span class="status-badge status-consegnato">${o.stato}</span>
+                                    </c:when>
+                                    <c:when test="${o.stato == 'Annullato'}">
+                                        <span class="status-badge status-annullato">${o.stato}</span>
+                                    </c:when>
+                                    <c:when test="${o.stato == 'Rimborsato'}">
+                                        <span class="status-badge status-rimborsato">${o.stato}</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="status-badge status-elaborazione">${o.stato}</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                            <td>
+                                <form action="${pageContext.request.contextPath}/admin-ordini" method="post" class="inline-form">
+                                    <input type="hidden" name="action" value="updateStato">
+                                    <input type="hidden" name="idOrdine" value="${o.idOrdine}">
+                                    <select name="nuovoStato" class="select-status">
+                                        <option value="In lavorazione" ${o.stato == 'In lavorazione' ? 'selected' : ''}>In lavorazione</option>
+                                        <option value="Spedito" ${o.stato == 'Spedito' ? 'selected' : ''}>Spedito</option>
+                                        <option value="Consegnato" ${o.stato == 'Consegnato' ? 'selected' : ''}>Consegnato</option>
+                                        <option value="Annullato" ${o.stato == 'Annullato' ? 'selected' : ''}>Annullato</option>
+                                        <option value="Rimborsato" ${o.stato == 'Rimborsato' ? 'selected' : ''}>Rimborsato</option>
+                                    </select>
+                                    <button type="submit" class="btn-update">Aggiorna</button>
+                                </form>
+                            </td>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/dettaglio-ordine?id=${o.idOrdine}" class="btn-update" style="background-color: #444; border-color: #555; text-decoration: none; padding: 6px 12px; display: inline-block;">Vedi Prodotti</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    <c:if test="${empty ordini}">
+                        <tr>
+                            <td colspan="6" style="text-align:center; padding: 20px;">Nessun ordine trovato.</td>
+                        </tr>
+                    </c:if>
+                </tbody>
+            </table>
+        </div>
     </main>
+    
     <jsp:include page="/WEB-INF/fragments/footer.jsp" />
 </body>
 </html>

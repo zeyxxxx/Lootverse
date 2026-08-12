@@ -139,6 +139,14 @@ public class AdminProdottiServlet extends HttpServlet {
 
         String dispParam = request.getParameter("disponibilita");
         p.setDisponibilita("true".equalsIgnoreCase(dispParam) || "1".equals(dispParam) || "on".equalsIgnoreCase(dispParam));
+        
+        String imm = trimValue(request.getParameter("immagine"));
+        p.setImmagine(imm.isEmpty() ? "default.jpg" : imm);
+        
+        p.setImmagineCarosello(trimValue(request.getParameter("immagine_carosello")));
+        p.setTipoArma(trimValue(request.getParameter("tipo_arma")));
+        p.setTipoMedia(trimValue(request.getParameter("tipo_media")));
+        p.setMondoProvenienza(trimValue(request.getParameter("mondo_provenienza")));
 
         return p;
     }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="it">
 <jsp:include page="/WEB-INF/fragments/header.jsp" />
@@ -34,10 +34,10 @@
             </c:when>
             <c:otherwise>
                 <div class="ordini-container">
-                    <c:forEach var="ordine" items="${ordini}">
+                    <c:forEach var="ordine" items="${ordini}" varStatus="loop">
                         <div class="ordine-card">
                             <div class="ordine-header">
-                                <h3>Ordine #${ordine.idOrdine}</h3>
+                                <h3>Ordine #${fn:length(ordini) - loop.index}</h3>
                                 <span class="status-badge status-${ordine.stato.replaceAll('\\s+', '').toLowerCase()}">${ordine.stato}</span>
                             </div>
                             <div class="ordine-body">

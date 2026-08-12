@@ -1,7 +1,7 @@
 /* ==========================================
-   PANNELLO LATERALE WISHLIST (OFF-CANVAS DRAWER)
+   PANNELLO LATERALE cart (OFF-CANVAS DRAWER)
    ========================================== */
-.wishlist-overlay {
+.cart-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -13,11 +13,11 @@
     display: none;
 }
 
-.wishlist-overlay.active {
+.cart-overlay.active {
     display: block !important;
 }
 
-.wishlist-drawer {
+.cart-drawer {
     position: fixed;
     top: 0;
     right: 0;
@@ -25,7 +25,7 @@
     max-width: 85vw;
     height: 100vh;
     background-color: #121212;
-    border-left: 2px solid #00f0ff;
+    border-left: 2px solid #00FF41;
     box-shadow: -5px 0 25px rgba(0, 0, 0, 0.8);
     z-index: 9999;
     transform: translateX(100%);
@@ -35,7 +35,7 @@
     color: #ffffff;
 }
 
-.wishlist-drawer.open {
+.cart-drawer.open {
     transform: translateX(0) !important;
 }
 
@@ -51,7 +51,7 @@
 .drawer-header h3 {
     margin: 0;
     font-size: 1.2rem;
-    color: var(--accent-color, #00f0ff);
+    color: var(--accent-color, #00FF41);
 }
 
 .close-drawer-btn {
@@ -64,7 +64,7 @@
 }
 
 .close-drawer-btn:hover {
-    color: var(--accent-color, #00f0ff);
+    color: var(--accent-color, #00FF41);
 }
 
 .drawer-content {
@@ -103,7 +103,7 @@
 
 .drawer-item-price {
     font-weight: bold;
-    color: var(--accent-color, #00f0ff);
+    color: var(--accent-color, #00FF41);
     font-size: 0.9rem;
 }
 
@@ -125,7 +125,7 @@
 
 .drawer-subtotal span {
     font-weight: bold;
-    color: var(--accent-color, #00f0ff);
+    color: var(--accent-color, #00FF41);
 }
 
 .drawer-footer {
@@ -166,28 +166,28 @@
     background-size: 15px 15px, 25px 25px; background-position: 0 0, 7px 7px;
 }
 .cyber-center-text {
-    position: absolute; z-index: 2; color: #00f0ff; font-family: 'Inter', 'Segoe UI', sans-serif;
+    position: absolute; z-index: 2; color: #00FF41; font-family: 'Inter', 'Segoe UI', sans-serif;
     font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
     text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3);
-    border: 1px solid #00f0ff; padding: 6px 30px; background: rgba(11, 11, 12, 0.85);
+    border: 1px solid #00FF41; padding: 6px 30px; background: rgba(11, 11, 12, 0.85);
     box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.2);
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 0);
 }
 .cyber-left-module {
     position: absolute; z-index: 2; left: 20px; top: 50%; transform: translateY(-50%);
-    color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold; text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
+    color: #00FF41; font-family: 'Courier New', Courier, monospace; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold; text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
 }
 .cyber-right-hud {
     position: absolute; z-index: 2; right: 25px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
 }
-.cyber-hud-line { height: 2px; background-color: #00f0ff; box-shadow: 0 0 5px #00f0ff; }
+.cyber-hud-line { height: 2px; background-color: #00FF41; box-shadow: 0 0 5px #00FF41; }
 .cyber-hud-line:nth-child(1) { width: 35px; } .cyber-hud-line:nth-child(2) { width: 15px; } .cyber-hud-line:nth-child(3) { width: 50px; }
-.cyber-hud-text { color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.6rem; margin-top: 2px; font-weight: bold; opacity: 0.9; }
+.cyber-hud-text { color: #00FF41; font-family: 'Courier New', Courier, monospace; font-size: 0.6rem; margin-top: 2px; font-weight: bold; opacity: 0.9; }
   
-.cyber-center-text.pink-neon { color: #ff0055; border-color: #ff0055; text-shadow: 0 0 10px rgba(255, 0, 85, 0.6), 0 0 20px rgba(255, 0, 85, 0.3); box-shadow: inset 0 0 12px rgba(255, 0, 85, 0.2); }
-.pink-neon .cyber-hud-line { background-color: #ff0055; box-shadow: 0 0 5px #ff0055; }
-.cyber-hud-text.pink-neon { color: #ff0055; }
-.cyber-left-module.pink-neon { color: #ff0055; text-shadow: 0 0 5px rgba(255, 0, 85, 0.6); }
+.cyber-center-text.green-neon { color: #00FF41; border-color: #00FF41; text-shadow: 0 0 10px rgba(255, 0, 85, 0.6), 0 0 20px rgba(255, 0, 85, 0.3); box-shadow: inset 0 0 12px rgba(255, 0, 85, 0.2); }
+.green-neon .cyber-hud-line { background-color: #00FF41; box-shadow: 0 0 5px #00FF41; }
+.cyber-hud-text.green-neon { color: #00FF41; }
+.cyber-left-module.green-neon { color: #00FF41; text-shadow: 0 0 5px rgba(255, 0, 85, 0.6); }
 
 /* ==========================================
    AGGIUNTE CYBERPUNK (TITOLI, BOTTONI E PREZZI)
@@ -197,20 +197,20 @@
 .cyber-title {
     margin: 0;
     font-size: 1.6rem;
-    color: #fce205; /* Giallo cyberpunk */
+    color: #00FF41; /* Giallo cyberpunk */
     text-transform: uppercase;
     letter-spacing: 4px;
-    text-shadow: 2px 2px 0px #ff0055, -2px -2px 0px #0b0b0c, 0 0 15px rgba(252, 226, 5, 0.8);
+    text-shadow: 2px 2px 0px #00FF41, -2px -2px 0px #0b0b0c, 0 0 15px rgba(252, 226, 5, 0.8);
     font-family: 'Orbitron', 'Courier New', sans-serif;
     position: relative;
     font-weight: 900;
 }
 
 .cyber-title::before {
-    content: "SYS.WISHLIST // ACCESS_GRANTED";
+    content: "SYS.cart // ACCESS_GRANTED";
     display: block;
     font-size: 0.55rem;
-    color: #fce205; /* Giallo */
+    color: #00FF41; /* Giallo */
     letter-spacing: 2px;
     text-shadow: none;
     margin-bottom: 5px;
@@ -236,8 +236,8 @@
 
 .btn-vedi {
     background-color: transparent;
-    color: #00f0ff;
-    border: 1px solid #00f0ff;
+    color: #00FF41;
+    border: 1px solid #00FF41;
 }
 
 .btn-vedi:hover {

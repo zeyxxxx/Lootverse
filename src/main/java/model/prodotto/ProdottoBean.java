@@ -45,6 +45,14 @@ public class ProdottoBean implements Serializable {
         return Math.round(prezzoIvato * 100.0) / 100.0;
     }
 
+    /**
+     * Calcola il prezzo originale del prodotto includendo solo l'IVA (senza sconto).
+     */
+    public double getPrezzoIvato() {
+        double prezzoIvato = prezzo * (1 + (iva / 100.0));
+        return Math.round(prezzoIvato * 100.0) / 100.0;
+    }
+
     // --- GETTER E SETTER STANDARD ---
 
     public int getIdProdotto() {

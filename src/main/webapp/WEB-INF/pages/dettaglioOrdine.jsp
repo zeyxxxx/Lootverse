@@ -10,9 +10,9 @@
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     <main class="container main-content">
         <div class="order-header-info">
-            <h2>Dettaglio Ordine #${ordine.idOrdine}</h2>
+            <h2>Dettagli del tuo Ordine</h2>
             <p>Data: ${ordine.data}</p>
-            <p>Stato: <span class="status-badge status-${ordine.stato.replaceAll('\\s+', '').toLowerCase()}">${ordine.stato}</span></p>
+            <p class="hide-on-print">Stato: <span class="status-badge status-${ordine.stato.replaceAll('\\s+', '').toLowerCase()}">${ordine.stato}</span></p>
         </div>
 
         <div class="product-list-container">
@@ -50,7 +50,8 @@
 
         <div class="order-total-summary">
             <h3>Totale Ordine: <span class="total-price">€ <fmt:formatNumber value="${ordine.totale}" pattern="0.00" /></span></h3>
-            <a href="${pageContext.request.contextPath}/storico-ordini" class="btn btn-secondary">⬅ Torna allo Storico</a>
+            <button onclick="window.print()" class="btn btn-primary" style="margin-right: 15px;">🖨️ Stampa Fattura / Salva PDF</button>
+            <a href="${pageContext.request.contextPath}${isAdmin ? '/admin-ordini' : '/storico-ordini'}" class="btn btn-secondary">⬅ Torna allo Storico</a>
         </div>
     </main>
     <jsp:include page="/WEB-INF/fragments/footer.jsp" />

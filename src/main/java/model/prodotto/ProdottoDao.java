@@ -264,6 +264,7 @@ public class ProdottoDao {
                            "FROM " + TABLE_NAME + " p " +
                            "JOIN dettaglio_ordine d ON p.idProdotto = d.id_prodotto " +
                            "GROUP BY p.idProdotto " +
+                           "HAVING totale_vendite >= 3 " +
                            "ORDER BY totale_vendite DESC " +
                            "LIMIT ?";
 

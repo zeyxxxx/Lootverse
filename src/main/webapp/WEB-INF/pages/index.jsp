@@ -123,10 +123,15 @@
                                                         <h3>${p.nome}</h3>
                                                         <p class="product-desc">${p.descrizione}</p>
                                                         <p class="product-price">
-                                                            <strong>€
-                                                                <fmt:formatNumber value="${p.prezzoFinale}"
-                                                                    pattern="0.00" />
-                                                            </strong>
+                                                            <c:choose>
+                                                                <c:when test="${p.sconto > 0}">
+                                                                    <span class="old-price">€ <fmt:formatNumber value="${p.prezzoIvato}" pattern="0.00" /></span>
+                                                                    <strong>€ <fmt:formatNumber value="${p.prezzoFinale}" pattern="0.00" /></strong>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <strong>€ <fmt:formatNumber value="${p.prezzoFinale}" pattern="0.00" /></strong>
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                             <span class="best-seller-badge" title="Più Venduto">🔥 BEST
                                                                 SELLER</span>
                                                             <span
@@ -138,7 +143,7 @@
                                                             <a href="${pageContext.request.contextPath}/dettaglio-prodotto?id=${p.idProdotto}"
                                                                 class="btn btn-secondary">Dettagli</a>
                                                             <form action="${pageContext.request.contextPath}/carrello"
-                                                                method="post" class="inline-form">
+                                                                method="post" class="inline-form cart-form">
                                                                 <input type="hidden" name="action" value="add">
                                                                 <input type="hidden" name="idProdotto"
                                                                     value="${p.idProdotto}">
@@ -225,10 +230,15 @@
                                                         <h3>${p.nome}</h3>
                                                         <p class="product-desc">${p.descrizione}</p>
                                                         <p class="product-price">
-                                                            <strong>€
-                                                                <fmt:formatNumber value="${p.prezzoFinale}"
-                                                                    pattern="0.00" />
-                                                            </strong>
+                                                            <c:choose>
+                                                                <c:when test="${p.sconto > 0}">
+                                                                    <span class="old-price">€ <fmt:formatNumber value="${p.prezzoIvato}" pattern="0.00" /></span>
+                                                                    <strong>€ <fmt:formatNumber value="${p.prezzoFinale}" pattern="0.00" /></strong>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <strong>€ <fmt:formatNumber value="${p.prezzoFinale}" pattern="0.00" /></strong>
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                             <c:if test="${isBestSeller}">
                                                                 <span class="best-seller-badge" title="Più Venduto">🔥 BEST SELLER</span>
                                                             </c:if>
@@ -244,7 +254,7 @@
                                                             <a href="${pageContext.request.contextPath}/dettaglio-prodotto?id=${p.idProdotto}"
                                                                 class="btn btn-secondary">Dettagli</a>
                                                             <form action="${pageContext.request.contextPath}/carrello"
-                                                                method="post" class="inline-form">
+                                                                method="post" class="inline-form cart-form">
                                                                 <input type="hidden" name="action" value="add">
                                                                 <input type="hidden" name="idProdotto"
                                                                     value="${p.idProdotto}">

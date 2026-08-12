@@ -3,24 +3,25 @@
 <!DOCTYPE html>
 <html lang="it">
 <jsp:include page="/WEB-INF/fragments/header.jsp" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/error.css?v=1">
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
 
     <main class="container error-container">
         <div class="error-box">
             <h1 class="error-code">400</h1>
-            <h2>Richiesta Non Valida</h2>
+            <h2>SYS.ERR: BAD_REQUEST</h2>
             <p class="error-message">
                 <c:choose>
                     <c:when test="${not empty errore}">
                         ${errore}
                     </c:when>
                     <c:otherwise>
-                        I dati inviati non sono validi o la richiesta non può essere elaborata.
+                        Sintassi invalida. I dati trasmessi sono corrotti o non processabili dal nucleo.
                     </c:otherwise>
                 </c:choose>
             </p>
-            <a href="${pageContext.request.contextPath}/catalogo" class="btn btn-primary">Torna al Catalogo</a>
+            <a href="${pageContext.request.contextPath}/catalogo" class="btn btn-return">Torna alla Base</a>
         </div>
     </main>
 

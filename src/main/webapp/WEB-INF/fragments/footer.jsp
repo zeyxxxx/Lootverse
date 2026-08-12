@@ -12,3 +12,4 @@
 
 <%-- Inclusione del frammento per il pannello laterale (overlay) della Wishlist --%>
 <jsp:include page="/WEB-INF/fragments/listaDesideriOverlay.jsp" />
+<jsp:include page="/WEB-INF/fragments/carrelloOverlay.jsp" />

@@ -89,6 +89,24 @@ public class ListaDesideriServlet extends HttpServlet {
 
             } else if ("clear".equals(action)) {
                 listaDAO.svuotaLista(lista.getIdListaDesideri());
+
+            } else if ("addAllToCart".equals(action)) {
+                Collection<ProdottoBean> prodotti = listaDAO.doRetrieveProdotti(lista.getIdListaDesideri());
+                if (prodotti != null && !prodotti.isEmpty()) {
+                    model.carrello.CarrelloDAO carrelloDAO = new model.carrello.CarrelloDAO();
+                    model.carrello.CarrelloBean carrello = carrelloDAO.doRetrieveByUtente(utente.getIdUtente());
+                    if (carrello == null) {
+                        carrello = new model.carrello.CarrelloBean();
+                        carrello.setIdUtente(utente.getIdUtente());
+                        carrelloDAO.doSave(carrello);
+                        carrello = carrelloDAO.doRetrieveByUtente(utente.getIdUtente());
+                    }
+                    for (ProdottoBean p : prodotti) {
+                        carrelloDAO.aggiungiProdotto(carrello.getIdCarrello(), p.getIdProdotto(), 1);
+                    }
+                    int count = carrelloDAO.contaProdotti(carrello.getIdCarrello());
+                    session.setAttribute("cartBadgeCount", count);
+                }
             }
 
             // Se la richiesta è AJAX (click dal cuore), restituiamo l'array JSON per il pannello laterale
@@ -105,6 +123,8 @@ public class ListaDesideriServlet extends HttpServlet {
                         .append("\"idProdotto\":").append(p.getIdProdotto()).append(",")
                         .append("\"nome\":\"").append(p.getNome().replace("\"", "\\\"")).append("\",")
                         .append("\"prezzo\":").append(p.getPrezzo()).append(",")
+                        .append("\"prezzoIvato\":").append(p.getPrezzoIvato()).append(",")
+                        .append("\"prezzoFinale\":").append(p.getPrezzoFinale()).append(",")
                         .append("\"immagine\":\"").append(p.getImmagine() != null ? p.getImmagine() : "default.jpg").append("\"")
                         .append("}");
                     if (++count < prodotti.size()) json.append(",");

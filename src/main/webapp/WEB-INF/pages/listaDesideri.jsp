@@ -41,12 +41,21 @@
                             </c:choose>
 
                             <h4>${p.nome}</h4>
-                            
-                            <p class="product-price">€ <fmt:formatNumber value="${p.prezzoFinale}" pattern="0.00" /></p>
+                            <c:choose>
+                                <c:when test="${p.sconto > 0}">
+                                    <p class="product-price">
+                                        <span class="old-price">€ <fmt:formatNumber value="${p.prezzoIvato}" pattern="0.00" /></span> 
+                                        € <fmt:formatNumber value="${p.prezzoFinale}" pattern="0.00" />
+                                    </p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p class="product-price">€ <fmt:formatNumber value="${p.prezzoFinale}" pattern="0.00" /></p>
+                                </c:otherwise>
+                            </c:choose>
                             <p class="iva-label">(IVA inclusa)</p>
 
                             <div class="wishlist-actions">
-                                <form action="${pageContext.request.contextPath}/carrello" method="post" class="inline-form">
+                                <form action="${pageContext.request.contextPath}/carrello" method="post" class="inline-form cart-form">
                                     <input type="hidden" name="action" value="add">
                                     <input type="hidden" name="idProdotto" value="${p.idProdotto}">
                                     <input type="hidden" name="quantita" value="1">
