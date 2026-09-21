@@ -13,10 +13,19 @@ import java.util.List;
 
 import model.DriverManagerConnectionPool;
 
+/*
+ DAO per la gestione degli Ordini di acquisto.
+ Fornisce operazioni per salvare nuovi ordini, ricercare per utente/stato/date e aggiornare lo stato di avanzamento.
+*/
 public class OrdineDAO {
 
     private static final String TABLE_NAME = "ordine";
 
+    /*
+     Salva un nuovo ordine nel database.
+     Prende in input l'oggetto ordine con idUtente, stato, data e totale.
+     Recupera l'ID numerico generato da MySQL e lo assegna all'ordine.
+    */
     public void doSave(OrdineBean ordine) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -70,6 +79,10 @@ public class OrdineDAO {
         }
     }
 
+    /*
+     Recupera un ordine partendo dal suo ID univoco (chiave primaria).
+     Restituisce l'oggetto OrdineBean se trovato, altrimenti restituisce null.
+    */
     public OrdineBean doRetrieveById(int idOrdine) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -106,6 +119,11 @@ public class OrdineDAO {
         }
     }
 
+    /*
+     Recupera lo storico di tutti gli ordini effettuati da un determinato utente,
+     ordinati per data decrescente (dal piu recente al piu vecchio).
+     Restituisce una lista di oggetti OrdineBean.
+    */
     public List<OrdineBean> doRetrieveByUtente(int idUtente) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -145,6 +163,10 @@ public class OrdineDAO {
         }
     }
 
+    /*
+     Recupera tutti gli ordini presenti nel sistema (funzionalita per il pannello amministratore).
+     Restituisce una lista di oggetti OrdineBean ordinati dal piu recente al piu vecchio.
+    */
     public List<OrdineBean> doRetrieveAll() throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -181,6 +203,10 @@ public class OrdineDAO {
         }
     }
 
+    /*
+     Filtra e restituisce tutti gli ordini che si trovano in uno specifico stato (es. 'In lavorazione', 'Spedito').
+     Restituisce una lista di oggetti OrdineBean.
+    */
     public List<OrdineBean> doRetrieveByStato(String stato) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -220,6 +246,11 @@ public class OrdineDAO {
         }
     }
 
+    /*
+     Filtra e restituisce gli ordini effettuati all'interno di un intervallo di date.
+     Prende in input la data di inizio e la data di fine periodo.
+     Restituisce una lista di oggetti OrdineBean compresi nell'intervallo.
+    */
     public List<OrdineBean> doRetrieveByDate(LocalDate dataInizio, LocalDate dataFine) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -260,6 +291,11 @@ public class OrdineDAO {
         }
     }
 
+    /*
+     Aggiorna lo stato di avanzamento di un ordine (es. da 'In lavorazione' a 'Spedito').
+     Prende in input l'ID dell'ordine e la nuova stringa di stato.
+     Verifica prima che lo stato fornito sia valido.
+    */
     public void updateStato(int idOrdine, String nuovoStato) throws SQLException {
         if (!isStatoValido(nuovoStato)) {
             throw new IllegalArgumentException("Stato ordine non valido: " + nuovoStato);
@@ -290,6 +326,10 @@ public class OrdineDAO {
         }
     }
 
+    /*
+     Aggiorna l'importo totale monetario di un ordine.
+     Prende in input l'ID dell'ordine e il nuovo totale complessivo.
+    */
     public void updateTotale(int idOrdine, double nuovoTotale) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -316,6 +356,10 @@ public class OrdineDAO {
         }
     }
 
+    /*
+     Elimina un ordine dal database tramite il suo idOrdine.
+     I dettagli associati nella tabella 'dettaglio_ordine' verranno rimossi automaticamente grazie a ON DELETE CASCADE.
+    */
     public void deleteOrdine(int idOrdine) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -340,6 +384,10 @@ public class OrdineDAO {
         }
     }
 
+    /*
+     Metodo di supporto interno: estrae i valori dalla riga del database (ResultSet)
+     e li inserisce in un oggetto OrdineBean.
+    */
     private OrdineBean extractOrdine(ResultSet resultSet) throws SQLException {
         OrdineBean ordine = new OrdineBean();
 
@@ -357,6 +405,10 @@ public class OrdineDAO {
         return ordine;
     }
 
+    /*
+     Metodo di supporto: controlla se una stringa corrisponde a uno degli stati ammessi per un ordine.
+     Restituisce true se lo stato e valido, false altrimenti.
+    */
     private boolean isStatoValido(String stato) {
         return "In lavorazione".equals(stato)
                 || "Spedito".equals(stato)

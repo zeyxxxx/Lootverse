@@ -2,6 +2,10 @@ package model.dto;
 
 import model.prodotto.ProdottoBean;
 
+/*
+ DTO per la visualizzazione del singolo prodotto acquistato in un ordine.
+ Unisce le informazioni dell'articolo (tabella 'prodotto') con la quantita e il prezzo storico congelato al momento dell'acquisto (tabella 'dettaglio_ordine').
+*/
 public class ItemOrdineDTO {
     private ProdottoBean prodotto;
     private int quantita;

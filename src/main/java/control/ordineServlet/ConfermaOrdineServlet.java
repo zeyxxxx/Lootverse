@@ -24,6 +24,13 @@ import model.prodotto.ProdottoBean;
 import model.prodotto.ProdottoDao;
 import model.utente.UtenteBean;
 
+/*
+ Servlet per la finalizzazione e il pagamento simulato dell'ordine.
+ Valida i dati di spedizione (indirizzo, citta, CAP) e di pagamento (carta, CVV, data di scadenza),
+ crea il record nella tabella 'ordine', inserisce le singole righe nella tabella 'dettaglio_ordine',
+ svuota il carrello dell'utente e mostra la schermata di conferma con il riepilogo.
+ Risponde all'URL '/conferma-ordine'.
+*/
 @WebServlet("/conferma-ordine")
 public class ConfermaOrdineServlet extends HttpServlet {
 
@@ -35,14 +42,25 @@ public class ConfermaOrdineServlet extends HttpServlet {
     private static final Pattern CAP_PATTERN = Pattern.compile("^\\d{5}$");
     private static final Pattern EXPIRATION_PATTERN = Pattern.compile("^(0[1-9]|1[0-2])/\\d{2}$");
 
+    /*
+     Gestisce le richieste HTTP GET.
+     Se un utente tenta di accedere direttamente con GET a questa pagina, lo reindirizza al checkout.
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Se un utente accede in GET, lo reindirizziamo al checkout
         response.sendRedirect(request.getContextPath() + "/checkout");
     }
 
+    /*
+     Gestisce le richieste HTTP POST quando l'utente preme 'Paga e Conferma Ordine'.
+     Esegue la validazione rigorosa dei campi di spedizione e carta di credito (compresa verifica scadenza),
+     calcola l'importo totale congelando i prezzi attuali dei prodotti,
+     salva l'ordine con OrdineDAO.doSave(), salva ogni singolo articolo con DettaglioOrdineDAO.doSave(),
+     svuota il carrello con CarrelloDAO.svuotaCarrello(), resetta il contatore della sessione
+     e infine mostra la pagina di ringraziamento 'confermaOrdine.jsp'.
+    */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -202,10 +220,16 @@ public class ConfermaOrdineServlet extends HttpServlet {
         }
     }
 
+    /*
+     Metodo di supporto: controlla se una stringa e null o vuota.
+    */
     private boolean isEmpty(String value) {
         return value == null || value.trim().isEmpty();
     }
 
+    /*
+     Metodo di supporto: rimuove spazi all'inizio e alla fine o restituisce stringa vuota se null.
+    */
     private String trimValue(String value) {
         return (value == null) ? "" : value.trim();
     }

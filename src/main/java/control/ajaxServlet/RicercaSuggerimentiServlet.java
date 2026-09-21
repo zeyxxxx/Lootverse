@@ -14,11 +14,22 @@ import javax.servlet.http.HttpServletResponse;
 import model.prodotto.ProdottoBean;
 import model.prodotto.ProdottoDao;
 
+/*
+ Servlet AJAX per la barra di ricerca live dei prodotti (autocomplete).
+ Riceve la stringa digitata dall'utente e restituisce in tempo reale un array JSON
+ contenente i prodotti corrispondenti (ID, nome e prezzo finale calcolato).
+ Risponde all'URL '/ricerca-suggerimenti'.
+*/
 @WebServlet("/ricerca-suggerimenti")
 public class RicercaSuggerimentiServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    /*
+     Gestisce le richieste HTTP GET.
+     Legge la stringa di ricerca 'q'. Se contiene almeno 2 caratteri, interroga ProdottoDao.doSearchByName(),
+     costruisce a mano una stringa in formato JSON con i risultati e la invia al browser.
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -66,6 +77,9 @@ public class RicercaSuggerimentiServlet extends HttpServlet {
         out.flush();
     }
 
+    /*
+     Inoltra le richieste POST al metodo doGet.
+    */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

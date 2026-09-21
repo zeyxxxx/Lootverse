@@ -20,10 +20,19 @@ import model.prodotto.ProdottoBean;
 import model.prodotto.ProdottoDao;
 import model.utente.UtenteBean;
 
+/*
+ Servlet per la visualizzazione dei dettagli di un singolo ordine.
+ Accessibile sia dal cliente (per visualizzare il proprio acquisto) sia dall'amministratore (per il controllo ordini).
+ Mostra lo stato, la data, il totale e l'elenco dei singoli articoli comprati con il prezzo storico congelato all'acquisto.
+ Risponde all'URL '/dettaglio-ordine'.
+*/
 @WebServlet("/dettaglio-ordine")
 public class DettaglioOrdineServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    /*
+     Classe di supporto interna per unire la riga di dettaglio dell'ordine con i dati anagrafici del ProdottoBean.
+    */
     public static class DettaglioItemWrapper {
         private DettaglioOrdineBean dettaglio;
         private ProdottoBean prodotto;
@@ -40,6 +49,13 @@ public class DettaglioOrdineServlet extends HttpServlet {
         }
     }
 
+    /*
+     Gestisce le richieste HTTP GET.
+     Verifica i permessi di accesso (utente normale o admin).
+     Se l'utente e un cliente normale, controlla rigorosamente che l'ordine appartenga a lui per evitare accessi non autorizzati.
+     Recupera la testata dell'ordine tramite OrdineDAO e le singole righe di dettaglio con DettaglioOrdineDAO,
+     quindi inoltra il tutto alla JSP 'dettaglioOrdine.jsp'.
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

@@ -12,11 +12,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.utente.UtenteDAO;
 
+/*
+ Servlet AJAX per la verifica asincrona della disponibilita di un indirizzo email.
+ Viene richiamata da JavaScript durante la digitazione nel form di registrazione.
+ Risponde con un payload JSON del tipo: {"exists": true/false}.
+ Risponde all'URL '/check-email'.
+*/
 @WebServlet("/check-email")
 public class CheckEmailServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    /*
+     Gestisce le richieste HTTP GET.
+     Legge il parametro 'email' dalla richiesta, interroga UtenteDAO.emailExists()
+     e scrive direttamente nello stream di risposta un oggetto JSON con il risultato booleano.
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,6 +53,9 @@ public class CheckEmailServlet extends HttpServlet {
         out.flush();
     }
 
+    /*
+     Inoltra le richieste POST al metodo doGet.
+    */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

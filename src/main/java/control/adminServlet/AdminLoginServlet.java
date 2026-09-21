@@ -14,6 +14,11 @@ import model.admin.AdminBean;
 import model.admin.AdminDAO;
 import util.PasswordUtil;
 
+/*
+ Servlet per la gestione del Login dell'amministratore.
+ Mostra la schermata di login per lo staff (GET) ed autentica le credenziali admin (POST).
+ Risponde all'URL '/admin-login'.
+*/
 @WebServlet("/admin-login")
 public class AdminLoginServlet extends HttpServlet {
 
@@ -23,6 +28,10 @@ public class AdminLoginServlet extends HttpServlet {
             "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
     );
 
+    /*
+     Gestisce le richieste HTTP GET.
+     Inoltra alla pagina JSP 'adminLogin.jsp' contenente il form di autenticazione per l'amministratore.
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -30,6 +39,11 @@ public class AdminLoginServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/pages/admin/adminLogin.jsp").forward(request, response);
     }
 
+    /*
+     Gestisce le richieste HTTP POST quando viene inviato il form di accesso admin.
+     Verifica i campi, cifra la password con SHA-512, interroga AdminDAO per verificare
+     le credenziali nella tabella 'admin', salva l'oggetto AdminBean nella sessione e reindirizza al pannello prodotti.
+    */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -83,10 +97,16 @@ public class AdminLoginServlet extends HttpServlet {
         }
     }
 
+    /*
+     Metodo di supporto: controlla se una stringa e null o vuota.
+    */
     private boolean isEmpty(String value) {
         return value == null || value.trim().isEmpty();
     }
 
+    /*
+     Metodo di supporto: rimuove gli spazi iniziali e finali o restituisce una stringa vuota se null.
+    */
     private String trimValue(String value) {
         if (value == null) {
             return "";

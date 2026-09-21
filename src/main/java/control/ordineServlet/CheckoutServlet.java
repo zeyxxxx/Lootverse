@@ -20,20 +20,20 @@ import model.prodotto.ProdottoBean;
 import model.prodotto.ProdottoDao;
 import model.utente.UtenteBean;
 
-/**
- * Servlet per la preparazione e visualizzazione della pagina di Checkout.
- * Recupera i prodotti dal carrello dell'utente, ne verifica la disponibilità,
- * calcola i subtotali e invia i dati alla JSP del checkout.
- */
+/*
+ Servlet per la preparazione e visualizzazione della pagina di Checkout.
+ Recupera i prodotti dal carrello dell'utente, ne verifica la disponibilita residua,
+ calcola i subtotali e il totale complessivo, quindi inoltra i dati al modulo d'ordine.
+ Risponde all'URL '/checkout'.
+*/
 @WebServlet("/checkout")
 public class CheckoutServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Helper interno per incapsulare il Prodotto, la relativa quantità e il subtotale.
-     * Facilita l'iterazione e il rendering dei dati all'interno della JSP.
-     */
+    /*
+     Classe di supporto interna: unisce il ProdottoBean con la quantita acquistata e ne calcola il subtotale.
+    */
     public static class CartItemWrapper {
         private ProdottoBean prodotto;
         private int quantita;
@@ -56,6 +56,12 @@ public class CheckoutServlet extends HttpServlet {
         }
     }
 
+    /*
+     Gestisce le richieste HTTP GET.
+     Verifica l'autenticazione dell'utente, carica il suo carrello e i relativi articoli,
+     controlla che il carrello non sia vuoto e che i prodotti siano ancora disponibili a magazzino,
+     calcola il totale ivato e scontato e inoltra alla pagina JSP 'checkout.jsp'.
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -128,6 +134,9 @@ public class CheckoutServlet extends HttpServlet {
         }
     }
 
+    /*
+     Inoltra le richieste POST al metodo doGet per ricaricare la pagina di checkout.
+    */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

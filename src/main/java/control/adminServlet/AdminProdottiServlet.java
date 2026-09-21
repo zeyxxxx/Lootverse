@@ -15,11 +15,23 @@ import model.admin.AdminBean;
 import model.prodotto.ProdottoBean;
 import model.prodotto.ProdottoDao;
 
+/*
+ Servlet per la gestione dei prodotti da parte dell'amministratore.
+ Permette di visualizzare l'elenco dei prodotti nel pannello gestionale (GET)
+ e di aggiungere, modificare o eliminare prodotti nel catalogo (POST).
+ Risponde all'URL '/admin-prodotti'.
+*/
 @WebServlet("/admin-prodotti")
 public class AdminProdottiServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    /*
+     Gestisce le richieste HTTP GET.
+     Verifica che l'admin sia loggato (altrimenti reindirizza a login),
+     se e presente il parametro 'action=edit' carica i dati del singolo prodotto da modificare per precompilare il form,
+     quindi recupera tutti i prodotti con ProdottoDao.doRetrieveAll() e inoltra alla JSP 'gestioneProdotti.jsp'.
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -60,6 +72,13 @@ public class AdminProdottiServlet extends HttpServlet {
         }
     }
 
+    /*
+     Gestisce le richieste HTTP POST per le operazioni CRUD sui prodotti:
+     - 'action=add': estrae i campi del form e inserisce un nuovo prodotto nel database con doSave.
+     - 'action=update': aggiorna un prodotto esistente con doUpdate.
+     - 'action=delete': cancella il prodotto specificato dal database con doDelete.
+     Al termine reindirizza alla pagina di gestione prodotti.
+    */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -119,6 +138,10 @@ public class AdminProdottiServlet extends HttpServlet {
         }
     }
 
+    /*
+     Metodo di supporto interno: estrae tutti i parametri inviati dal form HTML
+     (nome, descrizione, prezzo, iva, sconto, disponibilità, immagini, ecc.) e crea un oggetto ProdottoBean.
+    */
     private ProdottoBean estraiProdottoDaForm(HttpServletRequest request) {
         ProdottoBean p = new ProdottoBean();
 
@@ -151,6 +174,9 @@ public class AdminProdottiServlet extends HttpServlet {
         return p;
     }
 
+    /*
+     Metodo di supporto: rimuove spazi bianchi iniziali e finali.
+    */
     private String trimValue(String value) {
         return (value == null) ? "" : value.trim();
     }

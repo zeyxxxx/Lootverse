@@ -7,10 +7,19 @@ import java.sql.SQLException;
 
 import model.DriverManagerConnectionPool;
 
+/*
+ DAO per la gestione degli Amministratori.
+ Incapsula tutte le operazioni CRUD e di autenticazione sulla tabella 'admin'.
+*/
 public class AdminDAO {
 
     private static final String TABLE_NAME = "admin";
 
+    /*
+     Salva un nuovo amministratore nel database.
+     Prende in input l'oggetto admin con nome, email e password cifrata.
+     Dopo l'inserimento, recupera l'ID numerico generato da MySQL e lo assegna all'oggetto.
+    */
     public void doSave(AdminBean admin) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -52,6 +61,10 @@ public class AdminDAO {
         }
     }
 
+    /*
+     Cerca un amministratore nel database tramite il suo indirizzo email.
+     Restituisce l'oggetto AdminBean con tutti i dati se trovato, altrimenti restituisce null.
+    */
     public AdminBean doRetrieveByEmail(String email) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -88,6 +101,10 @@ public class AdminDAO {
         }
     }
 
+    /*
+     Verifica se un indirizzo email appartiene già a un amministratore registrato.
+     Restituisce true se l'email esiste già nel database, false se non è presente.
+    */
     public boolean emailExists(String email) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -118,6 +135,10 @@ public class AdminDAO {
         }
     }
 
+    /*
+     Esegue l'accesso dell'amministratore controllando la combinazione di email e password cifrata.
+     Se le credenziali sono corrette restituisce l'oggetto AdminBean, altrimenti restituisce null.
+    */
     public AdminBean doLogin(String email, String passwordHash) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -155,6 +176,10 @@ public class AdminDAO {
         }
     }
 
+    /*
+     Recupera un amministratore tramite il suo ID numerico (chiave primaria).
+     Restituisce l'oggetto AdminBean trovato, oppure null se non esiste.
+    */
     public AdminBean doRetrieveById(int idAdmin) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -191,6 +216,10 @@ public class AdminDAO {
         }
     }
 
+    /*
+     Metodo di supporto interno: legge i dati dalla riga del database (ResultSet)
+     e crea un oggetto AdminBean pronto da usare.
+    */
     private AdminBean extractAdmin(ResultSet resultSet) throws SQLException {
         AdminBean admin = new AdminBean();
 

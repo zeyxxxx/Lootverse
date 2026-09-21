@@ -13,10 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- 
-Filtro di sicurezza per l'area riservata Utente Registrato.
-Intercetta le rotte che richiedono l'autenticazione obbligatoria.*/
+/*
+ Filtro di sicurezza per l'area riservata al cliente loggato.
+ Protegge le rotte che richiedono obbligatoriamente l'autenticazione (/checkout, /conferma-ordine, /storico-ordini, /lista-desideri).
+ Se l'utente non e autenticato, blocca l'accesso e reindirizza alla pagina di login.
+*/
 @WebFilter(urlPatterns = {
     "/checkout",
     "/conferma-ordine",
@@ -29,6 +30,11 @@ public class UtenteAuthFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 
+    /*
+     Verifica se nella sessione HTTP e presente l'oggetto 'utenteLoggato'.
+     Se presente lascia proseguire la navigazione verso la servlet o pagina protetta,
+     altrimenti reindirizza alla schermata di login.
+    */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
@@ -41,10 +47,8 @@ public class UtenteAuthFilter implements Filter {
         boolean isUtenteLoggato = (session != null && session.getAttribute("utenteLoggato") != null);
 
         if (isUtenteLoggato) {
-            // Utente autenticato: la richiesta prosegue normalmente
             chain.doFilter(request, response);
         } else {
-            // Utente non autenticato: reindirizza al login
             res.sendRedirect(req.getContextPath() + "/login");
         }
     }

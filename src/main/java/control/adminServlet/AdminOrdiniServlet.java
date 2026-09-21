@@ -16,11 +16,25 @@ import javax.servlet.http.HttpSession;
 import model.ordine.OrdineBean;
 import model.ordine.OrdineDAO;
 
+/*
+ Servlet per la gestione degli ordini da parte dell'amministratore.
+ Permette di consultare tutti gli ordini effettuati sul sito con filtri per utente o intervallo di date (GET),
+ e di aggiornare lo stato di avanzamento di ciascun ordine (POST).
+ Risponde all'URL '/admin-ordini'.
+*/
 @WebServlet("/admin-ordini")
 public class AdminOrdiniServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    /*
+     Gestisce le richieste HTTP GET.
+     Verifica l'autenticazione dell'admin, quindi controlla se sono presenti filtri di ricerca:
+     - per ID utente ('idUtente')
+     - per intervallo di date ('dataInizio' e 'dataFine')
+     - se nessun filtro e specificato, carica l'elenco completo di tutti gli ordini.
+     Infine inoltra i risultati alla pagina JSP 'gestioneOrdini.jsp'.
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -41,13 +55,11 @@ public class AdminOrdiniServlet extends HttpServlet {
         try {
             Collection<OrdineBean> ordini;
 
-            
             if (idUtenteParam != null && !idUtenteParam.trim().isEmpty()) {
                 int idUtente = Integer.parseInt(idUtenteParam);
                 ordini = ordineDAO.doRetrieveByUtente(idUtente);
                 request.setAttribute("filtroApplicato", "Utente ID: " + idUtente);
 
-          
             } else if (dataInizioParam != null && !dataInizioParam.trim().isEmpty()
                     && dataFineParam != null && !dataFineParam.trim().isEmpty()) {
                 
@@ -57,7 +69,6 @@ public class AdminOrdiniServlet extends HttpServlet {
                 ordini = ordineDAO.doRetrieveByDate(dataInizio, dataFine);
                 request.setAttribute("filtroApplicato", "Dal " + dataInizio + " al " + dataFine);
 
-           
             } else {
                 ordini = ordineDAO.doRetrieveAll();
             }
@@ -76,6 +87,12 @@ public class AdminOrdiniServlet extends HttpServlet {
         }
     }
 
+    /*
+     Gestisce le richieste HTTP POST per le azioni dell'amministratore sugli ordini:
+     - 'action=updateStato': aggiorna lo stato di avanzamento dell'ordine specificato (es. 'Spedito', 'Consegnato')
+       tramite OrdineDAO.updateStato().
+     Al termine reindirizza alla pagina di gestione ordini.
+    */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

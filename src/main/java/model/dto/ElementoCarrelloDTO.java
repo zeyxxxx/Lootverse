@@ -2,10 +2,9 @@ package model.dto;
 
 import model.prodotto.ProdottoBean;
 
-/**
- * Data Transfer Object per la visualizzazione del Carrello.
- * Accoppia il ProdottoBean con la quantità selezionata dall'utente.
- */
+/* Dto per la visualizzazione del Carrello.
+Accoppia il ProdottoBean con la quantità selezionata dall'utente che si trova in contiene.
+*/
 public class ElementoCarrelloDTO {
     
     private ProdottoBean prodotto;

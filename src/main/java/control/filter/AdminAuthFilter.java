@@ -13,10 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- 
-Filtro di sicurezza per l'area Amministratore.
-Intercetta le richieste dirette alle Servlet admin e verifica l'autenticazione.*/
+/*
+ Filtro di sicurezza per l'area Amministratore.
+ Protegge le rotte gestionali (/admin-prodotti, /admin-ordini, /admin-logout).
+ Se l'admin non e loggato, blocca l'accesso e reindirizza alla schermata di login admin.
+*/
 @WebFilter(urlPatterns = {
     "/admin-prodotti",
     "/admin-ordini",
@@ -26,9 +27,12 @@ public class AdminAuthFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        // Inizializzazione eventuale del filtro
     }
 
+    /*
+     Verifica se nella sessione HTTP e presente l'oggetto 'adminLoggato'.
+     Se presente lascia proseguire la richiesta, altrimenti reindirizza a '/admin-login'.
+    */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
@@ -41,16 +45,13 @@ public class AdminAuthFilter implements Filter {
         boolean isAdminLoggato = (session != null && session.getAttribute("adminLoggato") != null);
 
         if (isAdminLoggato) {
-            // Admin autenticato: consente il proseguimento della richiesta
             chain.doFilter(request, response);
         } else {
-            // Admin non autenticato: reindirizza alla pagina di login admin
             res.sendRedirect(req.getContextPath() + "/admin-login");
         }
     }
 
     @Override
     public void destroy() {
-        // Pulizia risorse eventuale
     }
 }

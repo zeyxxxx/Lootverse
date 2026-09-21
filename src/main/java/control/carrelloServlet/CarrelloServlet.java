@@ -21,11 +21,24 @@ import model.prodotto.ProdottoBean;
 import model.prodotto.ProdottoDao;
 import model.utente.UtenteBean;
 
+/*
+ Servlet per la gestione del Carrello della spesa dell'utente.
+ Gestisce la visualizzazione del riepilogo carrello con calcolo subtotali (GET)
+ e le operazioni di aggiunta, modifica quantita e rimozione articoli, con supporto sia standard che asincrono AJAX (POST).
+ Risponde all'URL '/carrello'.
+*/
 @WebServlet("/carrello")
 public class CarrelloServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    /*
+     Gestisce le richieste HTTP GET.
+     Verifica che l'utente sia autenticato (altrimenti reindirizza a login),
+     recupera o crea il carrello dell'utente dal DB, carica gli articoli contenuti (tabella contiene),
+     costruisce la lista di DTO (ElementoCarrelloDTO) unendo il prodotto con la quantita e calcolando i subtotali,
+     quindi inoltra il tutto alla pagina JSP 'carrello.jsp'.
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -88,6 +101,15 @@ public class CarrelloServlet extends HttpServlet {
         }
     }
 
+    /*
+     Gestisce le richieste HTTP POST per modificare il contenuto del carrello:
+     - 'action=add': aggiunge un prodotto al carrello (o incrementa la quantita).
+     - 'action=update': modifica la quantita (se <= 0 rimuove il prodotto).
+     - 'action=remove': cancella la riga del prodotto dal carrello.
+     Aggiorna il contatore 'cartBadgeCount' nella sessione.
+     Se la richiesta proviene da una chiamata asincrona AJAX, risponde con un array JSON aggiornato;
+     altrimenti reindirizza alla pagina del carrello.
+    */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -124,7 +146,6 @@ public class CarrelloServlet extends HttpServlet {
                 return;
             }
 
-            // Metodi del tuo CarrelloDAO in ITALIANO:
             if ("add".equals(action)) {
                 int idProdotto = Integer.parseInt(idProdottoParam);
                 int quantita = 1;

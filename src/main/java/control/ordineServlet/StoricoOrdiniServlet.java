@@ -15,11 +15,21 @@ import model.ordine.OrdineBean;
 import model.ordine.OrdineDAO;
 import model.utente.UtenteBean;
 
+/*
+ Servlet per la visualizzazione dello storico ordini del cliente.
+ Mostra al cliente la cronologia di tutti gli acquisti effettuati, ordinati per data decrescente.
+ Risponde all'URL '/storico-ordini'.
+*/
 @WebServlet("/storico-ordini")
 public class StoricoOrdiniServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    /*
+     Gestisce le richieste HTTP GET.
+     Verifica l'autenticazione dell'utente, interroga OrdineDAO.doRetrieveByUtente()
+     per estrarre tutti gli ordini del cliente loggato e inoltra la collezione alla JSP 'storicoOrdine.jsp'.
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -50,6 +60,9 @@ public class StoricoOrdiniServlet extends HttpServlet {
         }
     }
 
+    /*
+     Inoltra le richieste POST al metodo doGet.
+    */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

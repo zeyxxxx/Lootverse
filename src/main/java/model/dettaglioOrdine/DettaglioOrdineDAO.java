@@ -9,10 +9,18 @@ import java.util.List;
 
 import model.DriverManagerConnectionPool;
 
+/*
+ DAO per la gestione delle singole righe di dettaglio d'ordine.
+ Gestisce la tabella 'dettaglio_ordine', memorizzando prezzo storico al momento dell'acquisto, IVA e quantita.
+*/
 public class DettaglioOrdineDAO {
 
     private static final String TABLE_NAME = "dettaglio_ordine";
 
+    /*
+     Salva una singola riga d'ordine (prodotto, prezzo bloccato all'acquisto, IVA e quantita) nel database.
+     Prende in input l'oggetto DettaglioOrdineBean.
+    */
     public void doSave(DettaglioOrdineBean dettaglio) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -43,6 +51,10 @@ public class DettaglioOrdineDAO {
         }
     }
 
+    /*
+     Recupera una specifica riga di dettaglio tramite la chiave primaria composta (idOrdine, idProdotto).
+     Restituisce l'oggetto DettaglioOrdineBean se trovato, altrimenti restituisce null.
+    */
     public DettaglioOrdineBean doRetrieveById(int idOrdine, int idProdotto) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -80,6 +92,11 @@ public class DettaglioOrdineDAO {
         }
     }
 
+    /*
+     Recupera tutte le righe di dettaglio associate a un determinato ordine.
+     Utilizzato per mostrare l'elenco dei prodotti acquistati nella pagina di riepilogo ordine.
+     Restituisce una lista di oggetti DettaglioOrdineBean.
+    */
     public List<DettaglioOrdineBean> doRetrieveByOrdine(int idOrdine) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -118,6 +135,10 @@ public class DettaglioOrdineDAO {
         }
     }
 
+    /*
+     Recupera tutti i dettagli d'ordine in cui compare uno specifico prodotto.
+     Restituisce una lista di oggetti DettaglioOrdineBean.
+    */
     public List<DettaglioOrdineBean> doRetrieveByProdotto(int idProdotto) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -156,6 +177,10 @@ public class DettaglioOrdineDAO {
         }
     }
 
+    /*
+     Elimina tutte le righe di dettaglio appartenenti a un determinato ordine.
+     Prende in input l'ID dell'ordine.
+    */
     public void deleteByOrdine(int idOrdine) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -180,6 +205,10 @@ public class DettaglioOrdineDAO {
         }
     }
 
+    /*
+     Elimina un singolo prodotto acquistato da un ordine specifico.
+     Prende in input l'ID dell'ordine e l'ID del prodotto.
+    */
     public void deleteProdottoFromOrdine(int idOrdine, int idProdotto) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -205,6 +234,10 @@ public class DettaglioOrdineDAO {
         }
     }
 
+    /*
+     Ricalcola la somma totale (prezzo unitario * quantita) di tutte le righe dell'ordine.
+     Restituisce l'importo totale calcolato direttamente dal database con la funzione SUM.
+    */
     public double calcolaTotaleOrdine(int idOrdine) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -241,6 +274,10 @@ public class DettaglioOrdineDAO {
         }
     }
 
+    /*
+     Metodo di supporto interno: estrae i valori dalla riga del database (ResultSet)
+     e li inserisce in un oggetto DettaglioOrdineBean pronto all'uso.
+    */
     private DettaglioOrdineBean extractDettaglioOrdine(ResultSet resultSet) throws SQLException {
         DettaglioOrdineBean dettaglio = new DettaglioOrdineBean();
 

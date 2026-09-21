@@ -19,13 +19,27 @@ import model.prodotto.ProdottoBean;
 import model.prodotto.ProdottoDao;
 import model.utente.UtenteBean;
 
-// Intercetta sia l'URL di root (http://localhost:8080/NomeProgetto/) che /index
+/*
+ Servlet principale per la Homepage del sito.
+ Carica i prodotti in evidenza per il carosello superiore, i bestseller piu venduti,
+ gli articoli in offerta speciale scontati e la wishlist dell'utente (se loggato).
+ Risponde sia alla radice dell'applicazione '' che all'URL '/index'.
+*/
 @WebServlet(urlPatterns = { "", "/index" })
 public class IndexServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private ProdottoDao prodottoDao = new ProdottoDao();
 
+    /*
+     Gestisce le richieste HTTP GET.
+     Interroga ProdottoDao per prelevare:
+     - 3 articoli per il carosello principale
+     - gli 8 prodotti piu venduti tramite la classifica reale doRetrieveBestSellers(8)
+     - fino a 8 prodotti con sconto attivo per le offerte speciali
+     Se l'utente e loggato, recupera anche i suoi articoli preferiti dalla wishlist.
+     Infine inoltra tutti i dati alla JSP 'index.jsp'.
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -77,6 +91,9 @@ public class IndexServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(request, response);
     }
 
+    /*
+     Inoltra le richieste POST al metodo doGet per mostrare la homepage.
+    */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

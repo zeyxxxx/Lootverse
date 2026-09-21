@@ -10,9 +10,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
-/**
- 
-Filtro globale per la gestione uniforme dell'encoding UTF-8 su tutte le richieste.*/
+/*
+ Filtro globale per la codifica dei caratteri.
+ Intercetta qualsiasi richiesta in ingresso e imposta l'encoding UTF-8 uniforme sia sulla richiesta che sulla risposta.
+*/
 @WebFilter("/*")
 public class EncodingFilter implements Filter {
 
@@ -20,6 +21,9 @@ public class EncodingFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 
+    /*
+     Esegue l'impostazione dell'encoding UTF-8 e passa la richiesta al filtro o alla servlet successiva nella catena.
+    */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {

@@ -10,11 +10,20 @@ import java.util.Collection;
 import model.DriverManagerConnectionPool;
 import model.prodotto.ProdottoBean;
 
+/*
+ DAO per la gestione della Lista Desideri (Wishlist) e della tabella ponte 'include'.
+ Consente di creare la lista per un utente, aggiungere o rimuovere articoli preferiti ed estrarre i prodotti.
+*/
 public class ListaDesideriDAO {
 
     private static final String TABLE_NAME = "lista_desideri";
     private static final String TABLE_INCLUDE = "`include`";
 
+    /*
+     Salva una nuova lista desideri nel database.
+     Prende in input l'oggetto lista con il numero di prodotti e l'idUtente.
+     Recupera l'ID univoco generato da MySQL e lo assegna alla lista.
+    */
     public void doSave(ListaDesideriBean lista) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -55,6 +64,10 @@ public class ListaDesideriDAO {
         }
     }
 
+    /*
+     Garantisce l'esistenza della lista desideri per un dato utente:
+     se esiste gia la restituisce, altrimenti ne crea una nuova vuota e la salva nel database.
+    */
     public ListaDesideriBean creaListaPerUtente(int idUtente) throws SQLException {
         ListaDesideriBean listaEsistente = doRetrieveByUtente(idUtente);
 
@@ -71,6 +84,10 @@ public class ListaDesideriDAO {
         return nuovaLista;
     }
 
+    /*
+     Recupera la lista desideri in base al suo ID univoco (id_lista_desideri).
+     Restituisce l'oggetto ListaDesideriBean trovato, oppure null se non esiste.
+    */
     public ListaDesideriBean doRetrieveById(int idListaDesideri) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -107,6 +124,10 @@ public class ListaDesideriDAO {
         }
     }
 
+    /*
+     Cerca e recupera la lista desideri collegata a un determinato utente tramite il suo idUtente.
+     Restituisce l'oggetto ListaDesideriBean se trovato, oppure null.
+    */
     public ListaDesideriBean doRetrieveByUtente(int idUtente) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -143,6 +164,11 @@ public class ListaDesideriDAO {
         }
     }
 
+    /*
+     Inserisce un prodotto tra i preferiti dell'utente (nella tabella ponte 'include').
+     Prende in input l'ID della lista e l'ID del prodotto.
+     Usa INSERT IGNORE per evitare duplicati e aggiorna automaticamente il conteggio totale dei prodotti.
+    */
     public void aggiungiProdotto(int idLista, int idProdotto) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -170,6 +196,11 @@ public class ListaDesideriDAO {
         aggiornaNumeroProdotti(idLista);
     }
 
+    /*
+     Rimuove un prodotto dalla lista desideri (cancella il record dalla tabella 'include').
+     Prende in input l'ID della lista e l'ID del prodotto.
+     Aggiorna poi automaticamente il contatore dei prodotti nella lista.
+    */
     public void rimuoviProdotto(int idLista, int idProdotto) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -197,6 +228,11 @@ public class ListaDesideriDAO {
         aggiornaNumeroProdotti(idLista);
     }
 
+    /*
+     Verifica se un determinato prodotto e gia presente nella lista desideri dell'utente.
+     Utilizzato per decidere se mostrare l'icona del cuore piena o vuota sulla scheda prodotto.
+     Restituisce true se presente, false altrimenti.
+    */
     public boolean prodottoGiaPresente(int idLista, int idProdotto) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -230,6 +266,10 @@ public class ListaDesideriDAO {
         }
     }
 
+    /*
+     Svuota completamente la lista desideri eliminando tutti i prodotti dalla tabella 'include'.
+     Prende in input l'ID della lista.
+    */
     public void svuotaLista(int idLista) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -256,6 +296,10 @@ public class ListaDesideriDAO {
         aggiornaNumeroProdotti(idLista);
     }
 
+    /*
+     Conta quanti prodotti distinti sono salvati nella lista desideri.
+     Restituisce il numero totale di prodotti.
+    */
     public int contaProdotti(int idLista) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -292,6 +336,10 @@ public class ListaDesideriDAO {
         }
     }
 
+    /*
+     Metodo interno di sincronizzazione: ricalcola il totale degli elementi salvati
+     e aggiorna il campo 'prodotti' nella tabella 'lista_desideri'.
+    */
     public void aggiornaNumeroProdotti(int idLista) throws SQLException {
         int numeroProdotti = contaProdotti(idLista);
 
@@ -320,6 +368,10 @@ public class ListaDesideriDAO {
         }
     }
 
+    /*
+     Esegue una JOIN tra la tabella 'prodotto' e la tabella 'include' per restituire la lista
+     completa degli oggetti ProdottoBean salvati nei preferiti dell'utente.
+    */
     public Collection<ProdottoBean> doRetrieveProdotti(int idLista) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -362,6 +414,10 @@ public class ListaDesideriDAO {
         }
     }
 
+    /*
+     Metodo di supporto interno: legge i campi dal database (ResultSet)
+     e crea un oggetto ListaDesideriBean pronto all'uso.
+    */
     private ListaDesideriBean extractListaDesideri(ResultSet resultSet) throws SQLException {
         ListaDesideriBean lista = new ListaDesideriBean();
 

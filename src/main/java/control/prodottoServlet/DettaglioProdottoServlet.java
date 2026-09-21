@@ -12,11 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 import model.prodotto.ProdottoBean;
 import model.prodotto.ProdottoDao;
 
+/*
+ Servlet per la visualizzazione della scheda di dettaglio di un singolo prodotto.
+ Carica tutti i dettagli specifici dell'articolo (descrizione estesa, dimensioni, materiale, prezzo scontato).
+ Risponde all'URL '/dettaglio-prodotto'.
+*/
 @WebServlet("/dettaglio-prodotto")
 public class DettaglioProdottoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    /*
+     Gestisce le richieste HTTP GET.
+     Legge il parametro 'id' del prodotto richiesto dalla query string,
+     interroga ProdottoDao.doRetrieveById() per recuperare il bean corrispondente,
+     e inoltra i dati alla JSP 'dettaglioProdotto.jsp'.
+     Se il prodotto non esiste, inoltra a una pagina di errore 404.
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -56,6 +68,9 @@ public class DettaglioProdottoServlet extends HttpServlet {
         }
     }
 
+    /*
+     Inoltra le richieste POST al metodo doGet.
+    */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

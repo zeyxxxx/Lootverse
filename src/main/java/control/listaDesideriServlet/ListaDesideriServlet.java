@@ -17,11 +17,23 @@ import model.listaDesideri.ListaDesideriDAO;
 import model.prodotto.ProdottoBean;
 import model.utente.UtenteBean;
 
+/*
+ Servlet per la gestione della Lista Desideri (Wishlist) dell'utente.
+ Gestisce la visualizzazione della pagina dei preferiti (GET)
+ e le operazioni di aggiunta, rimozione, svuotamento e spostamento di tutti gli articoli nel carrello (POST),
+ con pieno supporto sia a navigazione tradizionale che a chiamate asincrone AJAX.
+ Risponde all'URL '/lista-desideri'.
+*/
 @WebServlet("/lista-desideri")
 public class ListaDesideriServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    /*
+     Gestisce le richieste HTTP GET.
+     Verifica l'autenticazione dell'utente, recupera o crea la lista desideri con ListaDesideriDAO,
+     estrae la collezione dei prodotti preferiti (ProdottoBean) e inoltra alla JSP 'listaDesideri.jsp'.
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -54,6 +66,15 @@ public class ListaDesideriServlet extends HttpServlet {
         }
     }
 
+    /*
+     Gestisce le richieste HTTP POST per modificare la lista desideri:
+     - 'action=add': aggiunge un prodotto alla lista (tabella include).
+     - 'action=remove': toglie un prodotto dalla lista.
+     - 'action=clear': svuota interamente la lista desideri.
+     - 'action=addAllToCart': aggiunge tutti i prodotti presenti nella lista desideri al carrello dell'utente.
+     Se la richiesta e AJAX (es. click sull'icona a forma di cuore), risponde con un array JSON contenente la lista aggiornata;
+     altrimenti effettua il redirect alla pagina della lista desideri.
+    */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -109,7 +130,7 @@ public class ListaDesideriServlet extends HttpServlet {
                 }
             }
 
-            // Se la richiesta è AJAX (click dal cuore), restituiamo l'array JSON per il pannello laterale
+            // Se la richiesta e AJAX (click dal cuore), restituiamo l'array JSON per il pannello laterale
             if (isAjax) {
                 Collection<ProdottoBean> prodotti = listaDAO.doRetrieveProdotti(lista.getIdListaDesideri());
                 response.setContentType("application/json");

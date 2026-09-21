@@ -14,6 +14,12 @@ import model.utente.UtenteBean;
 import model.utente.UtenteDAO;
 import util.PasswordUtil;
 
+/*
+ Servlet per la gestione del Login degli utenti.
+ Mostra la schermata di login (GET) ed esegue l'autenticazione delle credenziali (POST).
+ Se il login ha successo, crea la sessione utente e aggiorna il badge del carrello.
+ Risponde all'URL '/login'.
+*/
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
@@ -23,6 +29,10 @@ public class LoginServlet extends HttpServlet {
             "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
     );
 
+    /*
+     Gestisce le richieste HTTP GET (quando l'utente naviga sulla pagina di accesso).
+     Inoltra la richiesta alla pagina JSP 'login.jsp' contenente il form di autenticazione.
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -30,6 +40,12 @@ public class LoginServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
     }
 
+    /*
+     Gestisce le richieste HTTP POST (quando l'utente preme il pulsante 'Accedi' del form).
+     Verifica che email e password siano inserite, calcola l'hash della password con PasswordUtil,
+     interroga UtenteDAO per verificare le credenziali nel DB, crea la sessione HTTP salvandovi l'utente
+     e reindirizza al catalogo dei prodotti.
+    */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -94,10 +110,16 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
+    /*
+     Metodo di supporto: controlla se una stringa e null o vuota.
+    */
     private boolean isEmpty(String value) {
         return value == null || value.trim().isEmpty();
     }
 
+    /*
+     Metodo di supporto: rimuove gli spazi iniziali e finali o restituisce una stringa vuota se null.
+    */
     private String trimValue(String value) {
         if (value == null) {
             return "";

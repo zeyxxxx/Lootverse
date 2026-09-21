@@ -9,10 +9,18 @@ import java.util.LinkedList;
 
 import model.DriverManagerConnectionPool;
 
+/*
+ DAO per la gestione dei Prodotti.
+ Fornisce operazioni per visualizzare il catalogo, ricerca asincrona, bestseller, inserimento, modifica ed eliminazione.
+*/
 public class ProdottoDao {
 
     private static final String TABLE_NAME = "prodotto";
 
+    /*
+     Recupera l'elenco completo di tutti i prodotti presenti nel database.
+     Restituisce una collezione di oggetti ProdottoBean.
+    */
     public synchronized Collection<ProdottoBean> doRetrieveAll() throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -60,6 +68,10 @@ public class ProdottoDao {
         return prodotti;
     }
 
+    /*
+     Cerca un singolo prodotto tramite la sua chiave primaria (idProdotto).
+     Restituisce l'oggetto ProdottoBean con tutte le informazioni, oppure null se non esiste.
+    */
     public synchronized ProdottoBean doRetrieveById(int id) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -105,6 +117,10 @@ public class ProdottoDao {
         return bean;
     }
 
+    /*
+     Salva un nuovo prodotto nel database con tutte le sue caratteristiche.
+     Prende in input l'oggetto ProdottoBean compilato nel form di inserimento admin.
+    */
     public synchronized void doSave(ProdottoBean prodotto) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -145,6 +161,10 @@ public class ProdottoDao {
         }
     }
 
+    /*
+     Aggiorna i dati di un prodotto esistente nel catalogo.
+     Usa l'idProdotto dell'oggetto per individuare la riga da modificare.
+    */
     public synchronized void doUpdate(ProdottoBean prodotto) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -188,6 +208,10 @@ public class ProdottoDao {
         }
     }
 
+    /*
+     Elimina fisicamente un prodotto dal database tramite il suo ID numerico.
+     Restituisce true se l'eliminazione ha avuto successo, false altrimenti.
+    */
     public synchronized boolean doDelete(int id) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -213,6 +237,11 @@ public class ProdottoDao {
         return (result != 0);
     }
 
+    /*
+     Esegue una ricerca asincrona per nome (utilizzata nella barra di ricerca live).
+     Cerca i prodotti disponibili il cui nome contiene il testo digitato (max 10 risultati).
+     Restituisce una collezione di ProdottoBean corrispondenti.
+    */
     public synchronized Collection<ProdottoBean> doSearchByName(String query) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -255,6 +284,10 @@ public class ProdottoDao {
         return prodotti;
     }
 
+    /*
+     Recupera i prodotti più venduti (Best Sellers) unendo le tabelle prodotto e dettaglio_ordine.
+     Seleziona i prodotti con almeno 3 unità vendute in totale, ordinandoli per vendite decrescenti.
+    */
     public synchronized Collection<ProdottoBean> doRetrieveBestSellers(int limit) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -303,6 +336,10 @@ public class ProdottoDao {
         return prodotti;
     }
 
+    /*
+     Estrae tutti i valori univoci del campo 'mondo_provenienza' presenti a catalogo.
+     Utilizzato per popolare automaticamente i pulsanti dei filtri nel catalogo.
+    */
     public synchronized Collection<String> doRetrieveAllMondiProvenienza() throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
