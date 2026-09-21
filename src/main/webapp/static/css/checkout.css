@@ -210,7 +210,7 @@
     position: relative;
     width: 100%;
     height: 85px;
-    margin: 50px 0 20px 0;
+    margin: 10px 0 20px 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -247,3 +247,47 @@
 .cyber-hud-text.green-neon { color: #39ff14; }
 .cyber-left-module.green-neon { color: #39ff14; text-shadow: 0 0 5px rgba(57, 255, 20, 0.6); }
 
+.alert-checkout-danger {
+    background: rgba(255, 0, 0, 0.2);
+    border: 1px solid #ff003c;
+    color: #ff003c;
+    text-shadow: 0 0 5px #ff003c;
+}
+
+.text-free {
+    color: #39ff14;
+    font-weight: bold;
+}
+
+/* ==========================================
+   MEDIA QUERIES (RESPONSIVE)
+   ========================================== */
+@media (max-width: 768px) {
+    .main-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .checkout-form-column,
+    .checkout-summary-column {
+        padding: 40px 20px 20px 20px;
+        min-width: 100%;
+    }
+
+    .checkout-form-column::before,
+    .checkout-summary-column::before,
+    .checkout-form-column::after,
+    .checkout-summary-column::after {
+        display: none; /* Nascondi i fori su schermi piccoli per guadagnare spazio */
+    }
+
+    .checkout-form-column h3,
+    .checkout-summary-column h3 {
+        font-size: 1.3rem;
+    }
+
+    .summary-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}

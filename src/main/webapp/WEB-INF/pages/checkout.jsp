@@ -10,7 +10,7 @@
             <body>
                 <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
                 <main class="container main-content">
-                    <div class="cyber-divider-wrapper" style="margin-top: 10px;">
+                    <div class="cyber-divider-wrapper">
                         <div class="cyber-divider"></div>
                         <div class="cyber-left-module green-neon">SYS.LOG.CHECKOUT</div>
                         <div class="cyber-center-text green-neon">CHECKOUT</div>
@@ -25,7 +25,7 @@
                         <div class="alert alert-danger">${errore}</div>
                     </c:if>
                     <c:if test="${not empty erroreForm}">
-                        <div class="alert alert-danger" style="background: rgba(255, 0, 0, 0.2); border: 1px solid #ff003c; color: #ff003c; text-shadow: 0 0 5px #ff003c;">${erroreForm}</div>
+                        <div class="alert alert-checkout-danger">${erroreForm}</div>
                     </c:if>
 
                     <div class="checkout-layout">
@@ -85,7 +85,7 @@
                                 </c:forEach>
                                 <li>
                                     <span>Spedizione Corriere</span>
-                                    <span style="color: #39ff14;">Gratis</span>
+                                    <span class="text-free">Gratis</span>
                                 </li>
                             </ul>
                             <hr>

@@ -134,9 +134,7 @@
                                                             </c:choose>
                                                             <span class="best-seller-badge" title="Più Venduto">🔥 BEST
                                                                 SELLER</span>
-                                                            <span
-                                                                style="font-size: 0.8rem; font-weight: normal; color: #aaa; display: block; margin-top: 5px;">(IVA
-                                                                inclusa)</span>
+                                                            <span class="tax-included">(IVA inclusa)</span>
                                                         </p>
 
                                                         <div class="product-actions">
@@ -161,19 +159,19 @@
                                 </c:choose>
                             </div>
 
-                            <div class="cyber-divider-wrapper" style="margin-top: 70px;">
+                            <div class="cyber-divider-wrapper sconto-divider">
                                 <div class="cyber-divider"></div>
-                                <div class="cyber-left-module">// MODULE.OFFERS loading...</div>
-                                <div class="cyber-center-text">IN SCONTO</div>
+                                <div class="cyber-left-module green-neon">// MODULE.OFFERS loading...</div>
+                                <div class="cyber-center-text green-neon">IN SCONTO</div>
                                 <div class="cyber-right-hud">
-                                    <div class="cyber-hud-line"></div>
-                                    <div class="cyber-hud-line"></div>
-                                    <div class="cyber-hud-line"></div>
-                                    <div class="cyber-hud-text">SYS.DAT_42</div>
+                                    <div class="cyber-hud-line green-neon"></div>
+                                    <div class="cyber-hud-line green-neon"></div>
+                                    <div class="cyber-hud-line green-neon"></div>
+                                    <div class="cyber-hud-text green-neon">SYS.DAT_42</div>
                                 </div>
                             </div>
                             <div class="cyber-link-container">
-                                <a href="${pageContext.request.contextPath}/catalogo" class="cyber-link-catalogo">Vedi tutto il catalogo ➔</a>
+                                <a href="${pageContext.request.contextPath}/catalogo" class="cyber-link-catalogo green-neon">Vedi tutto il catalogo ➔</a>
                             </div>
 
                             <div class="product-grid">
@@ -245,9 +243,7 @@
                                                             <c:if test="${p.sconto > 0}">
                                                                 <span class="discount-badge" title="In offerta!">-<fmt:formatNumber value="${p.sconto}" pattern="0.##" />%</span>
                                                             </c:if>
-                                                            <span
-                                                                style="font-size: 0.8rem; font-weight: normal; color: #aaa; display: block; margin-top: 5px;">(IVA
-                                                                inclusa)</span>
+                                                            <span class="tax-included">(IVA inclusa)</span>
                                                         </p>
 
                                                         <div class="product-actions">

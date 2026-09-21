@@ -8,7 +8,7 @@
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     <main class="container auth-container">
-        <div class="cyber-divider-wrapper" style="margin-top: 20px; margin-bottom: 40px;">
+        <div class="cyber-divider-wrapper">
             <div class="cyber-divider"></div>
             <div class="cyber-left-module red-neon">// MODULE.ADMIN_LOGIN loading...</div>
             <div class="cyber-center-text red-neon">ACCEDI A LOOTVERSE ADMIN</div>

@@ -62,9 +62,6 @@
 .catalog-sidebar h3 {
     margin-top: 0;
     color: #39ff14; /* Verde Acido */
-    border-bottom: 1px dashed #39ff14;
-    padding-bottom: 10px;
-    margin-bottom: 25px;
     font-size: 1.3rem;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -109,7 +106,20 @@
     background-color: rgba(20, 30, 20, 0.8);
 }
 
+.filter-form .checkbox-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-form .checkbox-group label {
+    margin: 0;
+    cursor: pointer;
+}
+
 .filter-form .btn-primary {
+    width: 100%;
     background: transparent;
     color: #39ff14;
     border: 2px solid #39ff14;
@@ -125,6 +135,10 @@
 }
 
 .filter-form .btn-secondary {
+    width: 100%;
+    margin-top: 10px;
+    display: block;
+    text-align: center;
     background: transparent;
     color: #ff00ff;
     border: 2px solid #ff00ff;
@@ -137,6 +151,23 @@
     background: #ff00ff;
     color: #000;
     box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+}
+
+#mobileFilterBtn {
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.tax-included {
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: #aaa;
+    display: block;
+    margin-top: 5px;
 }
 
 /* ==========================================
@@ -162,6 +193,7 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     max-width: 330px;
     width: 100%;
+    justify-self: center; /* Centra le carte se la griglia si allarga */
     box-sizing: border-box !important;
 }
 
@@ -317,7 +349,7 @@
     position: relative;
     width: 100%;
     height: 85px;
-    margin: 50px 0 20px 0;
+    margin: 20px 0 40px 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -359,3 +391,359 @@
 .cyber-link-catalogo.pink-neon { color: #ff0055; text-shadow: 0 0 5px rgba(255, 0, 85, 0.5); border-color: rgba(255, 0, 85, 0.4); }
 .cyber-link-catalogo.pink-neon:hover { background: #ff0055; color: #000; box-shadow: 0 0 12px #ff0055; }
 
+/* ==========================================
+   OFF-CANVAS FILTRI (MOBILE & TABLET)
+   ========================================== */
+.mobile-filter-container {
+    display: none;
+}
+
+.close-filter-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #ff00ff;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0;
+}
+.close-filter-btn:hover {
+    color: #fff;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sidebar-header h3 {
+    margin-bottom: 0;
+}
+
+.filter-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+    width: 28px !important;
+    height: 28px !important;
+    box-sizing: border-box !important;
+    background-color: var(--primary-bg);
+    border: 2px solid #00f0ff !important;
+    border-radius: 50% !important;
+    z-index: 6;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================
+   2. PULSANTE WISHLIST A DESTRA (34px)
+   ========================================== */
+.wishlist-form {
+    position: absolute !important;
+    top: 24px !important;
+    transform: translateY(-50%) !important;
+    right: 18px !important;
+    left: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 10;
+}
+
+.wishlist-btn {
+    background-color: rgba(255, 105, 180, 0.25) !important;
+    border: 2px solid rgba(255, 105, 180, 0.5) !important;
+    width: 34px !important;
+    height: 34px !important;
+    box-sizing: border-box !important;
+    border-radius: 50% !important;
+    aspect-ratio: 1 / 1;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    padding: 0 !important;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.wishlist-btn:hover {
+    background-color: rgba(255, 105, 180, 0.45) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(225, 27, 100, 0.4);
+}
+
+/* Stato base: Cuore vuoto */
+.wishlist-btn .material-symbols-outlined {
+    color: #c2185b !important; 
+    font-size: 20px !important;
+    font-variation-settings: 'FILL' 0, 'wght' 600, 'GRAD' 0, 'opsz' 24 !important;
+    line-height: 1;
+    display: block !important;
+}
+
+/* Stato attivo: Cuore PIENO (FILL 1) */
+.wishlist-btn.in-wishlist .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24 !important;
+    color: #e1172e !important;
+}
+
+/* ==========================================
+   AZIONI SCHEDA PRODOTTO (PULSANTI IDENTICI)
+   ========================================== */
+.product-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.product-actions > a,
+.product-actions > form {
+    flex: 1;
+    display: flex;
+}
+
+.product-actions .btn {
+    width: 100%;
+    padding: 7px 0;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* ==========================================
+   OFF-CANVAS FILTRI (MOBILE & TABLET)
+   ========================================== */
+.mobile-filter-container {
+    display: none;
+}
+
+.close-filter-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #ff00ff;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0;
+}
+.close-filter-btn:hover {
+    color: #fff;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sidebar-header h3 {
+    margin-bottom: 0;
+}
+
+.filter-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.filter-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Prezzo barrato e Badge per la scheda prodotto del Catalogo */
+.old-price {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 0.85em;
+    margin-right: 6px;
+    font-weight: normal;
+}
+
+.best-seller-badge {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    background: linear-gradient(135deg, #FEF72F, #ffaa00);
+    color: #000000;
+    font-weight: 900;
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    border: 1px solid #000000;
+    box-shadow: 0 0 8px rgba(254, 247, 47, 0.8);
+    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+
+.discount-badge {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    background: linear-gradient(135deg, #00f0ff, #0055ff);
+    color: #ffffff;
+    font-weight: 900;
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    border: 1px solid #00f0ff;
+    box-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
+    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+
+@media (max-width: 1200px) {
+    .catalog-layout {
+        flex-direction: column;
+        align-items: stretch; /* Ensures catalog-content takes full width */
+        gap: 20px;
+    }
+    
+    .mobile-filter-container {
+        display: block;
+        width: 100%;
+    }
+
+    /* Stile Cyberpunk per il bottone Filtri Mobile */
+    .mobile-filter-container .cyber-btn {
+        background-color: rgba(11, 11, 12, 0.85);
+        color: #00f0ff;
+        border: 2px solid #00f0ff;
+        text-transform: uppercase;
+        font-weight: 900;
+        letter-spacing: 2px;
+        padding: 12px;
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.4), inset 0 0 5px rgba(0, 240, 255, 0.2);
+        transition: all 0.3s ease;
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 0);
+        cursor: pointer;
+    }
+    .mobile-filter-container .cyber-btn:hover {
+        background-color: #00f0ff;
+        color: #000;
+        box-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
+    }
+    .mobile-filter-container .cyber-btn .material-symbols-outlined {
+        color: inherit; /* Ensure icon matches text color */
+    }
+
+    .catalog-sidebar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 320px;
+        height: 100vh;
+        max-height: 100vh;
+        margin: 0;
+        z-index: 2000;
+        border-radius: 0;
+        transition: left 0.3s ease-in-out;
+        overflow-y: auto;
+    }
+
+    .catalog-sidebar.active {
+        left: 0;
+    }
+
+    .close-filter-btn {
+        display: block;
+    }
+}
+
+/* ==========================================
+   SMARTPHONE (2 CARTE AFFIANCATE)
+   ========================================== */
+@media (max-width: 647px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .product-card {
+        padding: 35px 10px 10px 10px;
+        max-width: 100%;
+        min-width: 0; /* Previene l'overflow del grid item */
+    }
+
+    .card img, .product-card img {
+        height: 110px;
+        margin-bottom: 5px;
+    }
+
+    .product-card h3 {
+        font-size: 0.95rem;
+    }
+
+    .product-desc {
+        font-size: 0.75rem;
+    }
+
+    .product-price {
+        font-size: 1.1rem;
+    }
+
+    /* Ridimensiona i cerchietti decorativi e la wishlist per farli entrare */
+    .product-card::before {
+        top: 16px !important;
+        left: 10px !important;
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    .wishlist-form {
+        top: 16px !important;
+        right: 10px !important;
+    }
+
+    .wishlist-btn {
+        width: 24px !important;
+        height: 24px !important;
+    }
+
+    .wishlist-btn .material-symbols-outlined {
+        font-size: 15px !important;
+    }
+
+    /* Impila i pulsanti di azione (dettagli / carrello) per non schiacciarli orizzontalmente */
+    .product-actions {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .product-actions .btn {
+        font-size: 0.7rem;
+        padding: 5px 0;
+    }
+
+    .cyber-divider-wrapper {
+        margin: 20px 0 10px 0 !important;
+        height: 60px !important;
+    }
+    .cyber-center-text {
+        font-size: 1.1rem !important;
+        padding: 5px 15px !important;
+        letter-spacing: 2px !important;
+    }
+}

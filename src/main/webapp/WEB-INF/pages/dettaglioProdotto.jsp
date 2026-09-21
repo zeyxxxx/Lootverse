@@ -21,6 +21,18 @@
                 </div>
             </c:when>
             <c:otherwise>
+                <div class="cyber-divider-wrapper">
+                    <div class="cyber-divider"></div>
+                    <div class="cyber-left-module">SYS.LOG.DETAILS</div>
+                    <div class="cyber-center-text">DETTAGLI PRODOTTO</div>
+                    <div class="cyber-right-hud">
+                        <div class="cyber-hud-line"></div>
+                        <div class="cyber-hud-line"></div>
+                        <div class="cyber-hud-line"></div>
+                        <div class="cyber-hud-text">V. 1.0</div>
+                    </div>
+                </div>
+                
                 <div class="product-detail-box">
                     <%-- 🖼️ IMMAGINE GRANDE DEL PRODOTTO --%>
                     <c:choose>
@@ -53,7 +65,7 @@
                                 € <fmt:formatNumber value="${prodotto.prezzoFinale}" pattern="0.00" />
                             </c:otherwise>
                         </c:choose>
-                        <span style="font-size: 0.8rem; font-weight: normal; color: #aaa; margin-left: 10px;">(IVA inclusa)</span>
+                        <span class="tax-included">(IVA inclusa)</span>
                     </h3>
 
                     <%-- AZIONI: CARRELLO E WISHLIST --%>

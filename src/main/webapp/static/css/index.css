@@ -3,7 +3,7 @@
    ========================================== */
 .carousel-container {
     position: relative;
-    width: 100%;
+    width: 95%; /* Imposta il 95% invece del 100% per garantire sempre lo spazio laterale */
     max-width: 1480px;
     /* Ingrandito in larghezza */
     height: 620px;
@@ -79,6 +79,10 @@
     font-size: 1.15rem;
     color: var(--text-light);
     margin-bottom: 25px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 /* ==========================================
@@ -368,9 +372,247 @@
 .pink-neon .cyber-hud-line { background-color: #ff0055; box-shadow: 0 0 5px #ff0055; }
 .cyber-hud-text.pink-neon { color: #ff0055; }
 .cyber-left-module.pink-neon { color: #ff0055; text-shadow: 0 0 5px rgba(255, 0, 85, 0.6); }
-.cyber-link-container { display: flex; justify-content: flex-end; margin-top: -10px; margin-bottom: 25px; padding-right: 15px; }
+
+/* GREEN NEON VARIANT */
+.cyber-center-text.green-neon { color: #39ff14; border-color: #39ff14; text-shadow: 0 0 10px rgba(57, 255, 20, 0.6), 0 0 20px rgba(57, 255, 20, 0.3); box-shadow: inset 0 0 12px rgba(57, 255, 20, 0.2); }
+.green-neon .cyber-hud-line { background-color: #39ff14; box-shadow: 0 0 5px #39ff14; }
+.cyber-hud-text.green-neon { color: #39ff14; }
+.cyber-left-module.green-neon { color: #39ff14; text-shadow: 0 0 5px rgba(57, 255, 20, 0.6); }
+
+.cyber-link-container { display: flex; justify-content: flex-end; margin-top: 15px; margin-bottom: 25px; padding-right: 15px; }
 .cyber-link-catalogo { color: #00f0ff; font-size: 0.95rem; font-weight: bold; text-transform: uppercase; text-shadow: 0 0 5px rgba(0, 240, 255, 0.5); background: rgba(11, 11, 12, 0.8); padding: 6px 18px; border: 1px solid rgba(0, 240, 255, 0.4); text-decoration: none; transition: all 0.2s ease; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 0); }
 .cyber-link-catalogo:hover { background: #00f0ff; color: #000; box-shadow: 0 0 12px #00f0ff; }
+
 .cyber-link-catalogo.pink-neon { color: #ff0055; text-shadow: 0 0 5px rgba(255, 0, 85, 0.5); border-color: rgba(255, 0, 85, 0.4); }
 .cyber-link-catalogo.pink-neon:hover { background: #ff0055; color: #000; box-shadow: 0 0 12px #ff0055; }
 
+.cyber-link-catalogo.green-neon { color: #39ff14; text-shadow: 0 0 5px rgba(57, 255, 20, 0.5); border-color: rgba(57, 255, 20, 0.4); }
+.cyber-link-catalogo.green-neon:hover { background: #39ff14; color: #000; box-shadow: 0 0 12px #39ff14; }
+
+/* BLUE NEON VARIANT (PRODOTTI IN SCONTO) */
+.cyber-center-text.blue-neon { color: #00f0ff; border-color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3); box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.2); }
+.blue-neon .cyber-hud-line { background-color: #00f0ff; box-shadow: 0 0 5px #00f0ff; }
+.cyber-hud-text.blue-neon { color: #00f0ff; }
+.cyber-left-module.blue-neon { color: #00f0ff; text-shadow: 0 0 5px rgba(0, 240, 255, 0.6); }
+.cyber-link-catalogo.blue-neon { color: #00f0ff; text-shadow: 0 0 5px rgba(0, 240, 255, 0.5); border-color: rgba(0, 240, 255, 0.4); }
+.cyber-link-catalogo.blue-neon:hover { background: #00f0ff; color: #000; box-shadow: 0 0 12px #00f0ff; }
+
+/* Prezzo barrato e Badge per la vetrina di Home (Index) */
+.old-price {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 0.85em;
+    margin-right: 6px;
+    font-weight: normal;
+}
+
+.best-seller-badge {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    background: linear-gradient(135deg, #FEF72F, #ffaa00);
+    color: #000000;
+    font-weight: 900;
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    border: 1px solid #000000;
+    box-shadow: 0 0 8px rgba(254, 247, 47, 0.8);
+    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+
+.discount-badge {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    background: linear-gradient(135deg, #00f0ff, #0055ff);
+    color: #ffffff;
+    font-weight: 900;
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    border: 1px solid #00f0ff;
+    box-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
+    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+
+.tax-included {
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: #aaa;
+    display: block;
+    margin-top: 5px;
+}
+
+.cyber-divider-wrapper.sconto-divider {
+    margin-top: 70px;
+}
+
+/* ==========================================
+   MEDIA QUERIES (RESPONSIVE)
+   ========================================== */
+@media (max-width: 1200px) {
+    .carousel-container {
+        height: 560px;
+    }
+    .carousel-slide img {
+        max-height: 440px !important;
+        max-width: 500px !important;
+    }
+    .carousel-caption h2 {
+        font-size: 2.3rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .carousel-container {
+        height: 500px;
+        width: 95%;
+    }
+    .carousel-slide img {
+        max-height: 380px !important;
+        max-width: 420px !important;
+    }
+    .carousel-caption h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-container {
+        height: 480px;
+        width: 95%; /* Lascia un piccolo margine ai lati */
+        clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+        margin: 15px auto;
+    }
+    
+    .carousel-slide {
+        flex-direction: column; /* Immagine SOTTO il testo se non reverse? NO, in HTML img è prima! Quindi column mette img SOPRA. */
+        justify-content: center;
+        padding: 0 12%; /* Più spazio per i tasti avanti/indietro */
+        gap: 15px;
+    }
+    
+    .carousel-caption {
+        max-width: 100%;
+        text-align: center;
+        border-left: none;
+        padding-left: 0;
+    }
+    
+    .carousel-caption h2 {
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+    }
+    
+    .carousel-caption p {
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+        -webkit-line-clamp: 2; /* Ancora più breve su telefono */
+    }
+    
+    .carousel-slide img {
+        max-height: 220px !important;
+        max-width: 100% !important;
+    }
+    
+    .carousel-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .carousel-btn.prev {
+        left: 5px;
+    }
+    
+    .carousel-btn.next {
+        right: 5px;
+    }
+    
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 15px;
+    }
+
+    .cyber-divider-wrapper {
+        height: auto;
+        padding: 10px 0;
+        margin: 30px 0 15px 0;
+    }
+    
+    .cyber-center-text {
+        font-size: 1.3rem;
+        position: relative;
+    }
+    
+    .cyber-left-module, .cyber-right-hud {
+        display: none;
+    }
+}
+
+/* ==========================================
+   SMARTPHONE (2 CARTE AFFIANCATE COME CATALOGO)
+   ========================================== */
+@media (max-width: 647px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .product-card {
+        padding: 35px 10px 10px 10px;
+        max-width: 100%;
+        min-width: 0; /* Previene l'overflow del grid item */
+    }
+
+    .card img, .product-card img {
+        height: 110px;
+        margin-bottom: 5px;
+    }
+
+    .product-card h3 {
+        font-size: 0.95rem;
+    }
+
+    .product-desc {
+        font-size: 0.75rem;
+    }
+
+    .product-price {
+        font-size: 1.1rem;
+    }
+
+    /* Ridimensiona i cerchietti decorativi e la wishlist per farli entrare */
+    .product-card::before {
+        top: 16px !important;
+        left: 10px !important;
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    .wishlist-form {
+        top: 16px !important;
+        right: 10px !important;
+    }
+
+    .wishlist-btn {
+        width: 24px !important;
+        height: 24px !important;
+    }
+
+    .wishlist-btn .material-symbols-outlined {
+        font-size: 15px !important;
+    }
+
+    /* Impila i pulsanti di azione (dettagli / carrello) per non schiacciarli orizzontalmente */
+    .product-actions {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .product-actions .btn {
+        font-size: 0.7rem;
+        padding: 5px 0;
+    }
+}

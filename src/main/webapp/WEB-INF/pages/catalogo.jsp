@@ -11,7 +11,7 @@
             <body>
                 <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
                 <main class="container main-content catalog-container">
-                    <div class="cyber-divider-wrapper" style="margin-top: 20px; margin-bottom: 40px;">
+                    <div class="cyber-divider-wrapper">
                         <div class="cyber-divider"></div>
                         <div class="cyber-left-module pink-neon">// MODULE.CATALOG loading...</div>
                         <div class="cyber-center-text pink-neon">CATALOGO PRODOTTI</div>
@@ -22,11 +22,27 @@
                             <div class="cyber-hud-text pink-neon">SYS.DAT_77</div>
                         </div>
                     </div>
+                    
+                    <!-- Pulsante Mostra Filtri (Mobile) -->
+                    <div class="mobile-filter-container">
+                        <button id="mobileFilterBtn" class="btn btn-primary cyber-btn">
+                            Filtri di Ricerca
+                        </button>
+                    </div>
+
                     <div class="catalog-layout">
                     
+                    <!-- Overlay per chiudere i filtri cliccando fuori -->
+                    <div class="filter-overlay" id="filterOverlay"></div>
+                    
                     <!-- INIZIO SIDEBAR FILTRI -->
-                    <aside class="catalog-sidebar form-box">
-                        <h3>Filtri Ricerca</h3>
+                    <aside class="catalog-sidebar form-box" id="catalogSidebar">
+                        <div class="sidebar-header">
+                            <h3>Filtri Ricerca</h3>
+                            <button type="button" id="closeFilterBtn" class="close-filter-btn">
+                                <span class="material-symbols-outlined">close</span>
+                            </button>
+                        </div>
                         <form action="${pageContext.request.contextPath}/catalogo" method="GET" class="filter-form">
                             <!-- Prezzo -->
                             <div class="form-group">
@@ -39,13 +55,13 @@
                             </div>
                             
                             <!-- Checkbox Sconto / Best Seller -->
-                            <div class="form-group checkbox-group" style="flex-direction: row; align-items: center; gap: 10px;">
+                            <div class="form-group checkbox-group">
                                 <input type="checkbox" name="scontoSolo" value="true" ${scontoSolo == 'true' ? 'checked' : ''} id="scontoCheck">
-                                <label for="scontoCheck" style="margin: 0; cursor: pointer;">Solo In Sconto</label>
+                                <label for="scontoCheck">Solo In Sconto</label>
                             </div>
-                            <div class="form-group checkbox-group" style="flex-direction: row; align-items: center; gap: 10px;">
+                            <div class="form-group checkbox-group">
                                 <input type="checkbox" name="bestSellerSolo" value="true" ${bestSellerSolo == 'true' ? 'checked' : ''} id="bsCheck">
-                                <label for="bsCheck" style="margin: 0; cursor: pointer;">Solo Best Seller</label>
+                                <label for="bsCheck">Solo Best Seller</label>
                             </div>
 
                             <!-- Tipo Arma -->
@@ -82,8 +98,8 @@
                                 </select>
                             </div>
 
-                            <button type="submit" class="btn btn-primary" style="width: 100%;">Applica Filtri</button>
-                            <a href="${pageContext.request.contextPath}/catalogo" class="btn btn-secondary" style="width: 100%; margin-top: 10px; display: block; text-align: center;">Resetta</a>
+                            <button type="submit" class="btn btn-primary">Applica Filtri</button>
+                            <a href="${pageContext.request.contextPath}/catalogo" class="btn btn-secondary">Resetta</a>
                         </form>
                     </aside>
                     <!-- FINE SIDEBAR FILTRI -->
@@ -160,9 +176,7 @@
                                                             <c:if test="${p.sconto > 0}">
                                                                 <span class="discount-badge" title="In offerta!">-<fmt:formatNumber value="${p.sconto}" pattern="0.##" />%</span>
                                                             </c:if>
-                                                            <span
-                                                                style="font-size: 0.8rem; font-weight: normal; color: #aaa; display: block; margin-top: 5px;">(IVA
-                                                                inclusa)</span>
+                                                            <span class="tax-included">(IVA inclusa)</span>
                                                         </p>
 
                                                         <div class="product-actions">
@@ -191,6 +205,30 @@
                     </div> <!-- chiusura catalog-layout -->
                 </main>
                 <jsp:include page="/WEB-INF/fragments/footer.jsp" />
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const mobileFilterBtn = document.getElementById("mobileFilterBtn");
+                        const closeFilterBtn = document.getElementById("closeFilterBtn");
+                        const catalogSidebar = document.getElementById("catalogSidebar");
+                        const filterOverlay = document.getElementById("filterOverlay");
+
+                        function toggleFilters() {
+                            catalogSidebar.classList.toggle("active");
+                            filterOverlay.classList.toggle("active");
+                            if(catalogSidebar.classList.contains("active")) {
+                                document.body.style.overflow = "hidden"; // blocca lo scroll della pagina
+                            } else {
+                                document.body.style.overflow = "";
+                            }
+                        }
+
+                        if(mobileFilterBtn && closeFilterBtn && catalogSidebar && filterOverlay) {
+                            mobileFilterBtn.addEventListener("click", toggleFilters);
+                            closeFilterBtn.addEventListener("click", toggleFilters);
+                            filterOverlay.addEventListener("click", toggleFilters);
+                        }
+                    });
+                </script>
             </body>
 
             </html>

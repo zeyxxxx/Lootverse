@@ -106,3 +106,29 @@
     font-size: 0.8rem;
     opacity: 0.7;
 }
+
+/* ==========================================
+   MEDIA QUERIES (RESPONSIVE)
+   ========================================== */
+@media (max-width: 768px) {
+    .error-box {
+        padding: 30px 20px;
+    }
+
+    .error-code {
+        font-size: 4rem;
+    }
+
+    .error-box h2 {
+        font-size: 1.5rem;
+    }
+
+    .error-message {
+        font-size: 1rem;
+    }
+
+    .btn-return {
+        width: 100%;
+        text-align: center;
+    }
+}

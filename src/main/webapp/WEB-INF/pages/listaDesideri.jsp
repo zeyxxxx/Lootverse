@@ -9,7 +9,7 @@
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     <main class="container main-content">
-        <div class="cyber-divider-wrapper" style="margin-top: 10px;">
+        <div class="cyber-divider-wrapper">
             <div class="cyber-divider"></div>
             <div class="cyber-left-module pink-neon">SYS.LOG.WISHLIST</div>
             <div class="cyber-center-text pink-neon">LA TUA WISHLIST</div>
@@ -62,7 +62,7 @@
                                     <button type="submit" class="btn btn-primary">Aggiungi 🛒</button>
                                 </form>
 
-                                <a href="${pageContext.request.contextPath}/dettaglio-prodotto?id=${p.idProdotto}" class="btn btn-secondary" style="text-align: center;">Dettagli</a>
+                                <a href="${pageContext.request.contextPath}/dettaglio-prodotto?id=${p.idProdotto}" class="btn btn-secondary">Dettagli</a>
 
                                 <form action="${pageContext.request.contextPath}/lista-desideri" method="post" class="inline-form">
                                     <input type="hidden" name="action" value="remove">

@@ -91,14 +91,7 @@ a:hover {
     flex: 1;
 }
 
-/* Prezzo barrato in generale */
-.old-price {
-    text-decoration: line-through;
-    color: #888;
-    font-size: 0.85em;
-    margin-right: 6px;
-    font-weight: normal;
-}
+
 
 
 
@@ -112,10 +105,47 @@ a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #000000;             /* Sfondo interamente NERO SOLIDO */
-    padding: 20px 5%;                      /* Spaziatura maggiorata per una navbar più grande */
-    border-bottom: 3px solid var(--accent-color); /* Bordo di risalto giallo neon */
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7);    /* Ombra profonda scura */
+    background-color: #000000;
+    padding: 20px 5%;
+    border-bottom: 3px solid var(--accent-color);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7);
+    flex-wrap: wrap;
+    gap: 60px; /* Aumentato da 40px a 60px per garantire che il logo non si attacchi alla barra di ricerca */
+}
+
+.navbar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--accent-color);
+    cursor: pointer;
+    font-size: 2rem;
+    padding: 5px;
+}
+
+.mobile-menu-btn .material-symbols-outlined {
+    font-size: 36px;
+}
+
+.nav-menu {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 60px; /* Aumentato da 40px a 60px per lasciare più spazio */
+}
+
+.search-wrapper {
+    position: relative;
+    flex: 1;
+    margin: 0 auto;
+    max-width: 550px;
+    padding: 0;
 }
 
 .nav-icon-link {
@@ -187,11 +217,11 @@ a:hover .material-symbols-outlined {
 }
 
 /* ==========================================
-   PARAGRAFO 8: BARRA DI RICERCA XL
+   PARAGRAFO 8: BARRA DI RICERCA XL E SUGGERIMENTI
    ========================================== */
 .search-container {
     position: relative;
-    width: 550px;
+    width: 100%;
     max-width: 100%;
     clip-path: polygon(
         0 0,
@@ -204,6 +234,13 @@ a:hover .material-symbols-outlined {
     background-color: #000000;
     padding: 2px;
     transition: all 0.3s ease;
+}
+
+.search-container form {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    width: 100%;
 }
 
 .search-container input {
@@ -287,16 +324,337 @@ a:hover .material-symbols-outlined {
 }
 
 /* ==========================================
-   PARAGRAFO 11: FOOTER
+   PARAGRAFO 11: FOOTER CYBERPUNK (RESPONSIVE)
    ========================================== */
-.footer {
-    background-color: var(--dark-surface);
+.cyber-footer, .footer {
+    background-color: #0c0e17;
     border-top: 3px solid var(--accent-color);
-    text-align: center;
-    padding: 20px;
+    box-shadow: 0 -8px 25px rgba(254, 247, 47, 0.2);
+    color: var(--text-light);
+    margin-top: auto;
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    font-family: var(--font-body);
+}
+
+/* --- Barra Perks / Trust Bar --- */
+.footer-perks-wrapper {
+    background: rgba(17, 19, 30, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 25px 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.footer-perks-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.perk-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 16px;
+    background: rgba(26, 29, 43, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.perk-card:hover {
+    border-color: rgba(254, 247, 47, 0.4);
+    background: rgba(254, 247, 47, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.perk-icon {
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(254, 247, 47, 0.1);
+    border: 1px solid rgba(254, 247, 47, 0.25);
+    border-radius: 8px;
+    flex-shrink: 0;
+    box-shadow: 0 0 10px rgba(254, 247, 47, 0.15);
+}
+
+.perk-text h4 {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+}
+
+.perk-text p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+    margin: 0;
+}
+
+/* --- Contenitore Principale a Colonne --- */
+.footer-main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 50px 25px 40px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 40px;
+    box-sizing: border-box;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Brand Column */
+.footer-brand {
+    text-decoration: none;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+.footer-brand h2 {
+    font-family: var(--font-heading);
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1;
+}
+
+.footer-brand h2 span {
+    color: var(--accent-color);
+    text-shadow: 0 0 12px rgba(254, 247, 47, 0.6);
+}
+
+.brand-desc {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    max-width: 360px;
+}
+
+.system-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(254, 247, 47, 0.3);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.78rem;
+    letter-spacing: 1px;
+    margin-bottom: 22px;
+    width: fit-content;
+}
+
+.status-pulse {
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #10b981;
+    animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.85); }
+}
+
+.neon-yellow {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 12px;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: rgba(26, 29, 43, 0.8);
+    border: 1px solid #33384e;
+    border-radius: 6px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    color: #000000;
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(254, 247, 47, 0.6);
+    transform: translateY(-3px);
+}
+
+/* Footer Titles & Links */
+.footer-title {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 35px;
+    height: 2px;
+    background: var(--accent-color);
+    box-shadow: 0 0 8px var(--accent-color);
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);
+    transform: translateX(5px);
+    text-shadow: 0 0 8px rgba(254, 247, 47, 0.5);
+}
+
+/* Colonna Progetto Accademico */
+.unisa-tag {
+    display: inline-block;
+    background: rgba(254, 247, 47, 0.12);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    box-shadow: 0 0 8px rgba(254, 247, 47, 0.2);
+}
+
+.project-desc {
     color: var(--text-muted);
     font-size: 0.9rem;
-    margin-top: auto;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.project-desc strong {
+    color: #ffffff;
+}
+
+.project-meta {
+    background: rgba(17, 19, 30, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.project-meta p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #d1d5db;
+}
+
+.meta-label {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+/* --- Bottom Bar --- */
+.footer-bottom-bar {
+    background: #08090f;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 18px 25px;
+    box-sizing: border-box;
+}
+
+.footer-bottom-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.copyright-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.copyright-text strong {
+    color: #ffffff;
+}
+
+.footer-bottom-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.cyber-chip {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.7rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #9ca3af;
+    letter-spacing: 0.5px;
+}
+
+.cyber-chip.unisa-chip {
+    border-color: rgba(254, 247, 47, 0.4);
+    color: var(--accent-color);
 }
 
 /* ==========================================
@@ -348,78 +706,7 @@ a:hover .material-symbols-outlined {
 }
 
 /* ==========================================
-   PARAGRAFO 13: FORM E CONTENITORI FORM (FORM BOX)
-   ========================================== */
-.form-box {
-    background-color: var(--dark-surface);
-    padding: 30px;
-    border-radius: 8px;
-    border: 2px solid #000000;
-    color: var(--text-light);
-}
-
-.form-box h2 {
-    color: var(--accent-color);
-}
-
-.form-group {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group label {
-    margin-bottom: 8px;
-    color: var(--text-muted);
-}
-
-.inline-form {
-    display: inline-block;
-}
-
-.form-group input, .form-group select {
-    padding: 12px;
-    background-color: var(--dark-card);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    color: #ffffff;
-    font-size: 1rem;
-}
-
-.form-group input:focus, .form-group select:focus {
-    outline: none;
-    border-color: var(--accent-color);
-}
-
-/* ==========================================
-   PARAGRAFO 14: TABELLE (CARRELLO ED ADMIN)
-   ========================================== */
-.cart-table, .admin-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    background-color: var(--dark-surface);
-    color: var(--text-light);
-    border-radius: 8px;
-    overflow: hidden;
-    border: 2px solid #000000;
-}
-
-.cart-table th, .admin-table th {
-    background-color: #1c2030;
-    padding: 15px;
-    text-align: left;
-    color: var(--accent-color);
-    font-family: var(--font-heading);
-}
-
-.cart-table td, .admin-table td {
-    padding: 15px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-/* ==========================================
-   PARAGRAFO 15: AVVISI ED ERRORI (ALERTS)
+   PARAGRAFO 13: AVVISI ED ERRORI (ALERTS)
    ========================================== */
 .alert {
     padding: 15px;
@@ -438,39 +725,132 @@ a:hover .material-symbols-outlined {
     color: #ffffff;
 }
 
-
 /* ==========================================
-   BADGE BEST SELLER INLINE (CYBERPUNK)
+   PARAGRAFO 14: MEDIA QUERIES E RESPONSIVE (NAVBAR, CONTAINER, FOOTER)
    ========================================== */
-.best-seller-badge {
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 10px;
-    background: linear-gradient(135deg, #FEF72F, #ffaa00);
-    color: #000000;
-    font-weight: 900;
-    padding: 3px 8px;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    border: 1px solid #000000;
-    box-shadow: 0 0 8px rgba(254, 247, 47, 0.8);
-    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+@media (max-width: 1200px) {
+    .navbar {
+        flex-direction: column;
+        padding: 15px 5%;
+    }
+
+    .navbar-header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .nav-menu {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin-top: 10px;
+        background-color: #0b0b0c;
+        padding: 20px 0;
+        border-radius: 8px;
+        border: 1px solid var(--accent-color);
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .search-wrapper {
+        width: 90%;
+        margin: 10px 0;
+        order: 1;
+        max-width: none;
+    }
+
+    .search-container {
+        width: 100% !important;
+    }
+
+    .nav-links {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        order: 2;
+    }
 }
 
-/* ==========================================
-   BADGE SCONTO INLINE (CYBERPUNK)
-   ========================================== */
-.discount-badge {
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 10px;
-    background: linear-gradient(135deg, #00f0ff, #0055ff);
-    color: #ffffff;
-    font-weight: 900;
-    padding: 3px 8px;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    border: 1px solid #00f0ff;
-    box-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
-    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+@media (max-width: 1100px) {
+    .footer-perks-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .footer-main-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 35px;
+        padding: 40px 20px 30px;
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        width: 95%;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+
+    .nav-brand h1 {
+        font-size: 1.5rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 650px) {
+    .footer-perks-container {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .footer-main-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 30px 15px 25px;
+    }
+
+    .brand-desc {
+        max-width: 100%;
+    }
+
+    .footer-bottom-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+
+    .footer-bottom-badges {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.2rem; }
+    
+    .container {
+        width: 100%;
+        padding: 15px 10px;
+    }
 }

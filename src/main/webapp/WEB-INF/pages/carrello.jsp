@@ -10,7 +10,7 @@
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     <main class="container main-content">
-        <div class="cyber-divider-wrapper" style="margin-top: 10px;">
+        <div class="cyber-divider-wrapper">
             <div class="cyber-divider"></div>
             <div class="cyber-left-module green-neon">SYS.LOG.CART</div>
             <div class="cyber-center-text green-neon">IL TUO CARRELLO</div>
@@ -47,7 +47,7 @@
                     <tbody>
                         <c:forEach var="item" items="${elementiCarrello}">
                             <tr>
-                                <td>
+                                <td data-label="Prodotto">
                                     <div class="cart-product-info">
                                         <c:choose>
                                             <c:when test="${not empty item.prodotto.immagine}">
@@ -60,19 +60,23 @@
                                         <strong>${item.prodotto.nome}</strong>
                                     </div>
                                 </td>
-                                <td>
-                                    <c:choose>
-                                        <c:when test="${item.prodotto.sconto > 0}">
-                                            <span class="old-price">€ <fmt:formatNumber value="${item.prodotto.prezzoIvato}" pattern="0.00" /></span><br>
-                                            € <fmt:formatNumber value="${item.prodotto.prezzoFinale}" pattern="0.00" />
-                                        </c:when>
-                                        <c:otherwise>
-                                            € <fmt:formatNumber value="${item.prodotto.prezzoFinale}" pattern="0.00" />
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <br><span style="font-size: 0.8rem; color: #aaa;">(IVA inclusa)</span>
+                                <td data-label="Prezzo Unitario">
+                                    <div class="cart-price-info">
+                                        <div class="prices-row">
+                                            <c:choose>
+                                                <c:when test="${item.prodotto.sconto > 0}">
+                                                    <span class="old-price">€ <fmt:formatNumber value="${item.prodotto.prezzoIvato}" pattern="0.00" /></span>
+                                                    <span class="final-price">€ <fmt:formatNumber value="${item.prodotto.prezzoFinale}" pattern="0.00" /></span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="final-price">€ <fmt:formatNumber value="${item.prodotto.prezzoFinale}" pattern="0.00" /></span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+                                        <span class="iva-info">(IVA inclusa)</span>
+                                    </div>
                                 </td>
-                                <td>
+                                <td data-label="Quantità">
                                     <form action="${pageContext.request.contextPath}/carrello" method="post" class="inline-form">
                                         <input type="hidden" name="action" value="update">
                                         <input type="hidden" name="idProdotto" value="${item.prodotto.idProdotto}">
@@ -80,8 +84,8 @@
                                         <button type="submit" class="btn btn-update">Modifica</button>
                                     </form>
                                 </td>
-                                <td>€ <fmt:formatNumber value="${item.subtotale}" pattern="0.00" /></td>
-                                <td>
+                                <td data-label="Subtotale">€ <fmt:formatNumber value="${item.subtotale}" pattern="0.00" /></td>
+                                <td data-label="Azioni">
                                     <form action="${pageContext.request.contextPath}/carrello" method="post" class="inline-form">
                                         <input type="hidden" name="action" value="remove">
                                         <input type="hidden" name="idProdotto" value="${item.prodotto.idProdotto}">
@@ -93,7 +97,7 @@
                     </tbody>
                 </table>
                 <div class="cart-summary">
-                    <h3>Totale Ordine: € <fmt:formatNumber value="${totaleCarrello}" pattern="0.00" /> <span style="font-size: 1rem; color: #ccc; font-weight: normal;">(IVA inclusa)</span></h3>
+                    <h3>Totale Ordine: € <fmt:formatNumber value="${totaleCarrello}" pattern="0.00" /> <span class="tax-included">(IVA inclusa)</span></h3>
                     <a href="${pageContext.request.contextPath}/checkout" class="btn btn-checkout">Procedi al Checkout ➔</a>
                 </div>
             </c:otherwise>

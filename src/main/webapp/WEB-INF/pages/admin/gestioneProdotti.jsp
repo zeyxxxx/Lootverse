@@ -13,8 +13,16 @@
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     
     <main class="admin-container">
-        <div class="admin-header">
-            <h2>Gestione Catalogo Prodotti</h2>
+        <div class="cyber-divider-wrapper">
+            <div class="cyber-divider"></div>
+            <div class="cyber-left-module red-neon">SYS.ADMIN.PRODUCTS</div>
+            <div class="cyber-center-text red-neon">GESTIONE PRODOTTI</div>
+            <div class="cyber-right-hud">
+                <div class="cyber-hud-line red-neon"></div>
+                <div class="cyber-hud-line red-neon"></div>
+                <div class="cyber-hud-line red-neon"></div>
+                <div class="cyber-hud-text red-neon">ROOT</div>
+            </div>
         </div>
 
         <c:if test="${not empty sessionScope.messaggioSuccesso}">
@@ -200,12 +208,12 @@
                 <tbody>
                     <c:forEach var="p" items="${prodotti}">
                         <tr>
-                            <td>#${p.idProdotto}</td>
-                            <td>${p.nome}</td>
-                            <td>€ <fmt:formatNumber value="${p.prezzo}" pattern="0.00" /></td>
-                            <td>${p.sconto}%</td>
-                            <td>€ <fmt:formatNumber value="${p.prezzoFinale}" pattern="0.00" /></td>
-                            <td>
+                            <td data-label="ID">#${p.idProdotto}</td>
+                            <td data-label="Nome">${p.nome}</td>
+                            <td data-label="Prezzo Base">€ <fmt:formatNumber value="${p.prezzo}" pattern="0.00" /></td>
+                            <td data-label="Sconto">${p.sconto}%</td>
+                            <td data-label="Prezzo Finale">€ <fmt:formatNumber value="${p.prezzoFinale}" pattern="0.00" /></td>
+                            <td data-label="Disp.">
                                 <c:choose>
                                     <c:when test="${p.disponibilita}">
                                         <span class="badge-disp yes">Sì</span>
@@ -215,11 +223,11 @@
                                     </c:otherwise>
                                 </c:choose>
                             </td>
-                            <td>
+                            <td data-label="Azioni">
                                 <div class="action-links">
                                     <a href="${pageContext.request.contextPath}/admin-prodotti?action=edit&id=${p.idProdotto}" class="action-btn edit">Modifica</a>
                                     
-                                    <form action="${pageContext.request.contextPath}/admin-prodotti" method="POST" style="display:inline;" onsubmit="return confirm('Sei sicuro di voler eliminare questo prodotto?');">
+                                    <form action="${pageContext.request.contextPath}/admin-prodotti" method="POST" class="form-delete" onsubmit="return confirm('Sei sicuro di voler eliminare questo prodotto?');">
                                         <input type="hidden" name="action" value="delete">
                                         <input type="hidden" name="idProdotto" value="${p.idProdotto}">
                                         <button type="submit" class="action-btn delete">Elimina</button>
@@ -230,7 +238,7 @@
                     </c:forEach>
                     <c:if test="${empty prodotti}">
                         <tr>
-                            <td colspan="7" style="text-align:center; padding: 20px;">Nessun prodotto trovato.</td>
+                            <td colspan="7" class="empty-table-msg">Nessun prodotto trovato.</td>
                         </tr>
                     </c:if>
                 </tbody>

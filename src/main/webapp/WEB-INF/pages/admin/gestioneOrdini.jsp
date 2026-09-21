@@ -13,8 +13,16 @@
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     
     <main class="admin-container">
-        <div class="admin-header">
-            <h2>Gestione Tutti gli Ordini</h2>
+        <div class="cyber-divider-wrapper">
+            <div class="cyber-divider"></div>
+            <div class="cyber-left-module red-neon">SYS.ADMIN.ORDERS</div>
+            <div class="cyber-center-text red-neon">GESTIONE ORDINI</div>
+            <div class="cyber-right-hud">
+                <div class="cyber-hud-line red-neon"></div>
+                <div class="cyber-hud-line red-neon"></div>
+                <div class="cyber-hud-line red-neon"></div>
+                <div class="cyber-hud-text red-neon">ROOT</div>
+            </div>
         </div>
 
         <c:if test="${not empty sessionScope.messaggioSuccesso}">
@@ -31,7 +39,7 @@
         </c:if>
 
         <c:if test="${not empty filtroApplicato}">
-            <div class="alert alert-success" style="padding: 10px; margin-bottom: 15px; font-size: 0.9rem;">
+            <div class="alert alert-success">
                 Stai visualizzando ordini filtrati per: <strong>${filtroApplicato}</strong>
             </div>
         </c:if>
@@ -75,10 +83,10 @@
                 <tbody>
                     <c:forEach var="o" items="${ordini}">
                         <tr>
-                            <td>#${o.idOrdine}</td>
-                            <td>Utente #${o.idUtente}</td>
-                            <td>€ <fmt:formatNumber value="${o.totale}" pattern="0.00" /></td>
-                            <td>
+                            <td data-label="ID Ordine">#${o.idOrdine}</td>
+                            <td data-label="ID Utente">Utente #${o.idUtente}</td>
+                            <td data-label="Totale">€ <fmt:formatNumber value="${o.totale}" pattern="0.00" /></td>
+                            <td data-label="Stato Attuale">
                                 <c:choose>
                                     <c:when test="${o.stato == 'In lavorazione'}">
                                         <span class="status-badge status-elaborazione">${o.stato}</span>
@@ -100,7 +108,7 @@
                                     </c:otherwise>
                                 </c:choose>
                             </td>
-                            <td>
+                            <td data-label="Cambia Stato">
                                 <form action="${pageContext.request.contextPath}/admin-ordini" method="post" class="inline-form">
                                     <input type="hidden" name="action" value="updateStato">
                                     <input type="hidden" name="idOrdine" value="${o.idOrdine}">
@@ -114,14 +122,14 @@
                                     <button type="submit" class="btn-update">Aggiorna</button>
                                 </form>
                             </td>
-                            <td>
-                                <a href="${pageContext.request.contextPath}/dettaglio-ordine?id=${o.idOrdine}" class="btn-update" style="background-color: #444; border-color: #555; text-decoration: none; padding: 6px 12px; display: inline-block;">Vedi Prodotti</a>
+                            <td data-label="Dettagli">
+                                <a href="${pageContext.request.contextPath}/dettaglio-ordine?id=${o.idOrdine}" class="btn-view-products">Vedi Prodotti</a>
                             </td>
                         </tr>
                     </c:forEach>
                     <c:if test="${empty ordini}">
                         <tr>
-                            <td colspan="6" style="text-align:center; padding: 20px;">Nessun ordine trovato.</td>
+                            <td colspan="6" class="empty-table-msg">Nessun ordine trovato.</td>
                         </tr>
                     </c:if>
                 </tbody>

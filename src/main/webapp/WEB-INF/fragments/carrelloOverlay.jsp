@@ -116,7 +116,7 @@
                                     '</div>' +
                                     '<div class="drawer-item-actions">' +
                                     '<a href="' + contextPath + '/dettaglio-prodotto?id=' + p.idProdotto + '" class="btn-cyber btn-vedi">VEDI</a>' +
-                                    '<form action="' + contextPath + '/carrello" method="post" class="cart-form" style="margin:0; width:100%;">' +
+                                    '<form action="' + contextPath + '/carrello" method="post" class="cart-form">' +
                                     '<input type="hidden" name="action" value="remove">' +
                                     '<input type="hidden" name="idProdotto" value="' + p.idProdotto + '">' +
                                     '<input type="hidden" name="quantita" value="1">' +
@@ -132,8 +132,8 @@
                                 '</div>';
 
                             if (products.length > 0) {
-                                html += '<div style="margin-top: 15px;">' +
-                                        '<button onclick="checkoutCart()" class="btn-cyber btn-cart" style="width: 100%; padding: 10px 0; font-size: 0.8rem;">PROCEDI ALL\'ACQUISTO</button>' +
+                                html += '<div class="drawer-action-btn-wrap">' +
+                                        '<button onclick="checkoutCart()" class="btn-cyber btn-cart">PROCEDI ALL\'ACQUISTO</button>' +
                                         '</div>';
                             }
 

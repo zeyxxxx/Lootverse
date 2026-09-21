@@ -7,7 +7,7 @@
 <body>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     <main class="container auth-container">
-        <div class="cyber-divider-wrapper" style="margin-top: 20px; margin-bottom: 40px;">
+        <div class="cyber-divider-wrapper">
             <div class="cyber-divider"></div>
             <div class="cyber-left-module green-neon">// MODULE.LOGIN loading...</div>
             <div class="cyber-center-text green-neon">ACCEDI A LOOTVERSE</div>

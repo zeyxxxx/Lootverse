@@ -38,6 +38,32 @@
     font-size: 1.1rem;
 }
 
+.cart-price-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+}
+
+.prices-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+
+.cart-table th:nth-child(2), .cart-table td:nth-child(2) {
+    text-align: center;
+}
+
+.cart-price-info .iva-info {
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+
 .cart-product-info {
     display: flex;
     align-items: center;
@@ -182,7 +208,7 @@
     position: relative;
     width: 100%;
     height: 85px;
-    margin: 50px 0 20px 0;
+    margin: 10px 0 20px 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -218,3 +244,163 @@
 .green-neon .cyber-hud-line { background-color: #39ff14; box-shadow: 0 0 5px #39ff14; }
 .cyber-hud-text.green-neon { color: #39ff14; }
 .cyber-left-module.green-neon { color: #39ff14; text-shadow: 0 0 5px rgba(57, 255, 20, 0.6); }
+
+.tax-included {
+    font-size: 1rem;
+    color: #ccc;
+    font-weight: normal;
+}
+
+/* ==========================================
+   MEDIA QUERIES (RESPONSIVE)
+   ========================================== */
+@media (max-width: 950px) {
+    /* Tabella Responsive - Layout a schede */
+    .cart-table, .cart-table tbody, .cart-table tr, .cart-table td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .cart-table {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+    }
+
+    .cart-table thead {
+        display: none; /* Nasconde l'intestazione classica */
+    }
+
+    .cart-table tr {
+        margin-bottom: 25px;
+        border: 2px solid var(--accent-color, #00f0ff);
+        border-radius: 8px;
+        background-color: var(--dark-surface);
+    }
+
+    .cart-table td {
+        text-align: right;
+        padding: 15px 15px 15px 40%;
+        position: relative;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        min-height: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+    }
+
+    .cart-table tr td:last-child {
+        border-bottom: none;
+    }
+
+    .cart-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 35%;
+        text-align: left;
+        font-weight: bold;
+        color: var(--accent-color, #00f0ff);
+        font-family: 'Orbitron', sans-serif;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+    }
+
+    /* Prodotto in riga (Immagine + Nome) */
+    .cart-product-info {
+        flex-direction: row-reverse; /* Immagine a destra, nome a sinistra */
+        align-items: center;
+        justify-content: flex-end;
+        gap: 15px;
+    }
+
+    .cart-price-info {
+        align-items: flex-end;
+    }
+
+    .cart-product-img {
+        width: 60px;
+        height: 60px;
+    }
+
+    /* Allinea il form della quantità sulla stessa riga (Input Group) */
+    .cart-table td form {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: flex-end;
+        gap: 0;
+    }
+
+    .qty-input {
+        margin: 0;
+        width: 60px;
+        border-radius: 6px 0 0 6px; /* Solo angoli a sinistra */
+        border-right: none;
+        height: 40px;
+        box-sizing: border-box;
+    }
+
+    .btn-update {
+        border-radius: 0 6px 6px 0; /* Solo angoli a destra */
+        height: 40px;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-remove {
+        width: auto;
+        padding: 0 15px;
+        height: 40px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Riepilogo */
+    .cart-summary {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+        padding: 40px 20px 20px 20px;
+    }
+
+    .cart-summary::before {
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .cart-summary h3 {
+        font-size: 1.5rem;
+    }
+
+    .btn-checkout {
+        width: 100%;
+        font-size: 1.1rem;
+    }
+
+    .cyber-divider-wrapper {
+        height: auto;
+        padding: 10px 0;
+        margin: 30px 0 15px 0;
+    }
+
+    .cyber-center-text {
+        font-size: 1.3rem;
+        position: relative;
+    }
+
+    .cyber-left-module, .cyber-right-hud {
+        display: none;
+    }
+}

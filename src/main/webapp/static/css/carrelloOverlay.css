@@ -113,6 +113,21 @@
     gap: 5px;
 }
 
+.drawer-item-actions .cart-form {
+    margin: 0;
+    width: 100%;
+}
+
+.drawer-action-btn-wrap {
+    margin-top: 15px;
+}
+
+.drawer-action-btn-wrap .btn-cart {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 0.8rem;
+}
+
 .drawer-subtotal {
     padding: 15px;
     border-top: 1px dashed #444;
