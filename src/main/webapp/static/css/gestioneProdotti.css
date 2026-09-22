@@ -1,6 +1,19 @@
-/* ==========================================
-   STILE GESTIONE PRODOTTI (CYBERPUNK ADMIN)
-   ========================================== */
+/* ==========================================================================
+   FOGLIO DI STILE: gestioneProdotti.css
+   Descrizione: Stili per il pannello di gestione prodotti (catalogo CRUD admin).
+                Dispone a sinistra il form di aggiunta/modifica prodotto (con validazione
+                e upload immagine multipart) e a destra la tabella interattiva degli articoli
+                con indicatori di disponibilita (stock), pulsanti di modifica e cancellazione,
+                con adattamento fluido per monitor desktop e conversione responsive a schede
+                per tablet e smartphone.
+   ========================================================================== */
+
+/* ==========================================================================
+   GRUPPO 1: CONTENITORE AMMINISTRAZIONE PRINCIPALE
+   Contenitore panoramico (fino a 1600px) per ospitare form CRUD e tabella affiancati.
+   ========================================================================== */
+
+/* Contenitore principale ad ampia visibilita */
 .admin-container {
     width: 100%;
     max-width: 1600px;
@@ -10,9 +23,12 @@
     color: var(--text-light);
 }
 
-/* ==========================================
-   INTESTAZIONE SEZIONI (CYBERPUNK DIVIDER)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 2: INTESTAZIONE CYBERPUNK (BANNER HUD ROSSO ADMIN)
+   Elementi geometrici del banner di sezione con accenti rosso neon (#ff3333).
+   ========================================================================== */
+
+/* Contenitore flessibile del divisore superiore con bagliore rosso */
 .cyber-divider-wrapper {
     position: relative;
     width: 100%;
@@ -24,39 +40,104 @@
     align-items: center;
     box-shadow: 0 0 15px rgba(255, 51, 51, 0.4);
 }
+
+/* Sfondo geometrico poligonale con pattern punteggiato rosso */
 .cyber-divider {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: #0b0b0c;
     clip-path: polygon(0% 10px, 10% 10px, 15% 0%, 25% 0%, 28% 15px, 45% 15px, 48% 5px, 60% 5px, 65% 20px, 75% 20px, 80% 0%, 90% 0%, 95% 10px, 100% 10px, 100% calc(100% - 10px), 85% calc(100% - 10px), 80% 100%, 65% 100%, 60% calc(100% - 15px), 45% calc(100% - 15px), 40% calc(100% - 5px), 25% calc(100% - 5px), 20% calc(100% - 20px), 10% calc(100% - 20px), 5% 100%, 0% 100%);
     background-image: radial-gradient(rgba(255, 51, 51, 0.25) 1px, transparent 1px), radial-gradient(rgba(70, 70, 70, 0.5) 1px, transparent 1px);
-    background-size: 15px 15px, 25px 25px; background-position: 0 0, 7px 7px;
+    background-size: 15px 15px, 25px 25px;
+    background-position: 0 0, 7px 7px;
 }
+
+/* Testo centrale del banner in evidenza */
 .cyber-center-text {
-    position: absolute; z-index: 2; font-family: 'Inter', 'Segoe UI', sans-serif;
-    font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
-    padding: 6px 30px; background: rgba(11, 11, 12, 0.85); border: 1px solid transparent;
+    position: absolute;
+    z-index: 2;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding: 6px 30px;
+    background: rgba(11, 11, 12, 0.85);
+    border: 1px solid transparent;
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 0);
 }
+
+/* Modulo di log a sinistra */
 .cyber-left-module {
-    position: absolute; z-index: 2; left: 20px; top: 50%; transform: translateY(-50%);
-    font-family: 'Courier New', Courier, monospace; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold;
+    position: absolute;
+    z-index: 2;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    font-weight: bold;
 }
+
+/* Modulo grafico HUD a destra */
 .cyber-right-hud {
-    position: absolute; z-index: 2; right: 25px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+    position: absolute;
+    z-index: 2;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
 }
-.cyber-hud-line { height: 2px; }
-.cyber-hud-line:nth-child(1) { width: 35px; } .cyber-hud-line:nth-child(2) { width: 15px; } .cyber-hud-line:nth-child(3) { width: 50px; }
-.cyber-hud-text { font-family: 'Courier New', Courier, monospace; font-size: 0.6rem; margin-top: 2px; font-weight: bold; opacity: 0.9; }
 
-/* RED NEON VARIANT */
-.cyber-center-text.red-neon { color: #ff3333; border-color: #ff3333; text-shadow: 0 0 10px rgba(255, 51, 51, 0.6), 0 0 20px rgba(255, 51, 51, 0.3); box-shadow: inset 0 0 12px rgba(255, 51, 51, 0.2); }
-.cyber-hud-line.red-neon { background-color: #ff3333; box-shadow: 0 0 5px #ff3333; }
-.cyber-hud-text.red-neon { color: #ff3333; }
-.cyber-left-module.red-neon { color: #ff3333; text-shadow: 0 0 5px rgba(255, 51, 51, 0.6); }
+/* Linee grafiche decorative HUD */
+.cyber-hud-line {
+    height: 2px;
+}
+.cyber-hud-line:nth-child(1) { width: 35px; }
+.cyber-hud-line:nth-child(2) { width: 15px; }
+.cyber-hud-line:nth-child(3) { width: 50px; }
 
-/* ==========================================
-   LAYOUT AFFIANCATO FLUIDO (DESKTOP > 1200px)
-   ========================================== */
+/* Testo versione HUD */
+.cyber-hud-text {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6rem;
+    margin-top: 2px;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* Variante cromatica rossa admin ('red-neon') */
+.cyber-center-text.red-neon {
+    color: #ff3333;
+    border-color: #ff3333;
+    text-shadow: 0 0 10px rgba(255, 51, 51, 0.6), 0 0 20px rgba(255, 51, 51, 0.3);
+    box-shadow: inset 0 0 12px rgba(255, 51, 51, 0.2);
+}
+.cyber-hud-line.red-neon {
+    background-color: #ff3333;
+    box-shadow: 0 0 5px #ff3333;
+}
+.cyber-hud-text.red-neon {
+    color: #ff3333;
+}
+.cyber-left-module.red-neon {
+    color: #ff3333;
+    text-shadow: 0 0 5px rgba(255, 51, 51, 0.6);
+}
+
+/* ==========================================================================
+   GRUPPO 3: LAYOUT AFFIANCATO FLUIDO DESKTOP
+   Disposizione orizzontale a due blocchi: form a sinistra e tabella a destra.
+   ========================================================================== */
+
+/* Layout flessibile orizzontale a due sezioni */
 .admin-content-layout {
     display: flex;
     flex-direction: row;
@@ -66,9 +147,12 @@
     box-sizing: border-box;
 }
 
-/* ==========================================
-   FORM INSERIMENTO/MODIFICA (CYBERPUNK CARD)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 4: FORM INSERIMENTO/MODIFICA PRODOTTO CRUD
+   Card laterale per la gestione dei campi prodotto (nome, prezzo, iva, ecc.).
+   ========================================================================== */
+
+/* Contenitore del modulo CRUD: larghezza fissa iniziale 380px con bordo rosso admin */
 .crud-form-container {
     flex: 0 0 380px;
     min-width: 320px;
@@ -83,6 +167,7 @@
     transition: all 0.3s ease;
 }
 
+/* Foro decorativo superiore destro: cerchio scavato con bordo rosso admin */
 .crud-form-container::after {
     content: '';
     position: absolute;
@@ -98,6 +183,7 @@
     z-index: 6;
 }
 
+/* Titolo del modulo CRUD */
 .crud-form-container h3 {
     color: #ffffff;
     font-size: 1.5rem;
@@ -109,6 +195,7 @@
     box-shadow: 0 5px 0 -3px rgba(255, 51, 51, 0.5);
 }
 
+/* Griglia per disporre compattamente i campi del form */
 .form-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -116,10 +203,12 @@
     width: 100%;
 }
 
+/* Campo esteso su tutte le colonne della griglia (es. nome, descrizione) */
 .form-group.full-width {
     grid-column: 1 / -1;
 }
 
+/* Etichetta arancione del campo */
 .form-group label {
     font-weight: 600;
     letter-spacing: 1px;
@@ -130,6 +219,7 @@
     text-transform: uppercase;
 }
 
+/* Caselle di testo, selettori e textarea */
 .form-group input,
 .form-group select,
 .form-group textarea {
@@ -144,6 +234,7 @@
     box-sizing: border-box;
 }
 
+/* Focus sui campi del form CRUD: bordo rosso e alone luminoso */
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
@@ -153,11 +244,13 @@
     outline: none;
 }
 
+/* Area di testo per descrizione prodotto */
 .form-group textarea {
     resize: vertical;
     min-height: 100px;
 }
 
+/* Contenitore dei bottoni di salvataggio/annullamento */
 .form-actions {
     margin-top: 30px;
     display: flex;
@@ -165,6 +258,7 @@
     justify-content: flex-end;
 }
 
+/* Pulsanti cyberpunk del modulo di amministrazione */
 .btn-cyber {
     display: inline-block;
     padding: 18px 30px !important;
@@ -181,17 +275,20 @@
     transition: all 0.3s ease;
 }
 
+/* Pulsante primario di salvataggio/conferma: contorno rosso admin */
 .btn-cyber.primary {
     color: #ff3333;
     border: 2px solid #ff3333;
 }
 
+/* Hover pulsante primario: sfondo rosso pieno e testo nero */
 .btn-cyber.primary:hover {
     background: #ff3333;
     color: #000;
     box-shadow: 0 0 15px rgba(255, 51, 51, 0.6);
 }
 
+/* Pulsante secondario di annullamento modalita modifica */
 .btn-cyber.secondary {
     color: #ffffff;
     border: 2px solid #555;
@@ -201,14 +298,18 @@
     padding: 16px 30px;
 }
 
+/* Hover pulsante secondario */
 .btn-cyber.secondary:hover {
     background: #555;
     color: #fff;
 }
 
-/* ==========================================
-   MESSAGGI DI SUCCESSO/ERRORE
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 5: MESSAGGI DI SUCCESSO ED ERRORE (ALERT)
+   Notifiche visive di avvenuto salvataggio o cancellazione prodotto.
+   ========================================================================== */
+
+/* Struttura base del messaggio di notifica */
 .alert {
     padding: 15px 20px;
     border-radius: 8px;
@@ -218,6 +319,7 @@
     letter-spacing: 1px;
 }
 
+/* Notifica verde di successo */
 .alert-success {
     background-color: rgba(0, 100, 0, 0.6);
     border: 1px solid #00ff00;
@@ -225,6 +327,7 @@
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
 }
 
+/* Notifica rossa di errore */
 .alert-error {
     background-color: rgba(100, 0, 0, 0.6);
     border: 1px solid #ff3333;
@@ -232,9 +335,12 @@
     box-shadow: 0 0 10px rgba(255, 51, 51, 0.3);
 }
 
-/* ==========================================
-   TABELLA PRODOTTI FLUIDA (DESKTOP > 1200px)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 6: TABELLA PRODOTTI (DESKTOP)
+   Griglia tabellare degli articoli con visualizzazione stock e pulsanti azione.
+   ========================================================================== */
+
+/* Contenitore con scroll orizzontale di protezione */
 .table-responsive {
     flex: 1 1 0;
     min-width: 0;
@@ -247,6 +353,7 @@
     box-sizing: border-box;
 }
 
+/* Tabella prodotti principale */
 .cyber-table {
     width: 100%;
     border-collapse: collapse;
@@ -254,10 +361,12 @@
     table-layout: auto;
 }
 
+/* Header della tabella: sfondo scuro */
 .cyber-table thead {
     background-color: #1a1a1a;
 }
 
+/* Celle di intestazione: testo arancione */
 .cyber-table th {
     padding: 12px 10px;
     color: #ff9900;
@@ -270,6 +379,7 @@
     line-height: 1.25;
 }
 
+/* Celle dei dati prodotto */
 .cyber-table td {
     padding: 12px 10px;
     border-bottom: 1px solid #333;
@@ -278,10 +388,12 @@
     font-size: 0.92rem;
 }
 
+/* Hover sulla riga prodotto */
 .cyber-table tbody tr:hover {
     background-color: rgba(255, 51, 51, 0.05);
 }
 
+/* Messaggio quando la tabella prodotti e vuota */
 .cyber-table .empty-table-msg,
 .cyber-table td[colspan] {
     text-align: center;
@@ -289,6 +401,7 @@
     color: var(--text-muted);
 }
 
+/* Badge di disponibilita del prodotto a magazzino */
 .badge-disp {
     padding: 4px 8px;
     border-radius: 4px;
@@ -298,18 +411,21 @@
     display: inline-block;
 }
 
+/* Disponibile: verde */
 .badge-disp.yes {
     background-color: rgba(0, 255, 0, 0.2);
     color: #00ff00;
     border: 1px solid #00ff00;
 }
 
+/* Non disponibile: rosso */
 .badge-disp.no {
     background-color: rgba(255, 0, 0, 0.2);
     color: #ff3333;
     border: 1px solid #ff3333;
 }
 
+/* Gruppo contenitore per i bottoni 'Modifica' ed 'Elimina' */
 .action-links {
     display: flex;
     gap: 6px;
@@ -317,11 +433,13 @@
     align-items: center;
 }
 
+/* Form compatto di eliminazione */
 .action-links form {
     margin: 0;
     display: inline-flex;
 }
 
+/* Struttura base dei bottoni di azione della tabella */
 .action-btn {
     padding: 6px 10px;
     border-radius: 4px;
@@ -337,34 +455,38 @@
     box-sizing: border-box;
 }
 
+/* Bottone Modifica: contorno arancione */
 .action-btn.edit {
     color: #ff9900;
     border: 1px solid #ff9900;
     background: transparent;
 }
 
+/* Hover bottone modifica */
 .action-btn.edit:hover {
     background: #ff9900;
     color: #000;
     box-shadow: 0 0 10px rgba(255, 153, 0, 0.5);
 }
 
+/* Bottone Elimina: contorno rosso */
 .action-btn.delete {
     color: #ff3333;
     border: 1px solid #ff3333;
     background: transparent;
 }
 
+/* Hover bottone elimina */
 .action-btn.delete:hover {
     background: #ff3333;
     color: #000;
     box-shadow: 0 0 10px rgba(255, 51, 51, 0.5);
 }
 
-/* ==========================================
-   OTTIMIZZAZIONE FLUIDA DESKTOP (1201px - 1600px)
-   Garantisce che la tabella rimpicciolisca senza scrollbar
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 7: OTTIMIZZAZIONI FLUIDE DESKTOP (1201px - 1600px)
+   Larghezze fisse e wrapping ottimizzato per evitare scrollbar orizzontale.
+   ========================================================================== */
 @media (min-width: 1201px) {
     .cyber-table th:nth-child(1),
     .cyber-table td:nth-child(1) {
@@ -448,15 +570,16 @@
     }
 }
 
-/* ==========================================
-   MEDIA QUERIES (RESPONSIVE <= 1200px)
-   Trasformazione a schede fluide per schermo <= 1200px
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 8: TRASFORMAZIONE RESPONSIVE A SCHEDE PER DISPLAY STRETTI (<= 1200px)
+   Disposizione a colonna del layout e conversione delle righe in card.
+   ========================================================================== */
 @media (max-width: 1200px) {
     .admin-container {
         padding: 25px 15px;
     }
 
+    /* Form e tabella impilati verticalmente */
     .admin-content-layout {
         flex-direction: column;
         gap: 25px;
@@ -487,7 +610,7 @@
         box-sizing: border-box;
     }
 
-    /* Tabella Responsive - Layout a schede fluide */
+    /* Tabella trasformata in schede */
     .cyber-table {
         display: block;
         width: 100%;
@@ -537,6 +660,7 @@
         border-bottom: none;
     }
 
+    /* Generazione etichetta da data-label */
     .cyber-table td::before {
         content: attr(data-label);
         font-weight: 700;
@@ -571,9 +695,13 @@
     }
 }
 
-/* Smartphone & piccoli schermi */
+/* ==========================================================================
+   GRUPPO 9: OTTIMIZZAZIONI PER SMARTPHONE (<= 600px)
+   Adattamento compatto di banner, griglia form e pulsanti.
+   ========================================================================== */
 @media (max-width: 600px) {
-    .cyber-left-module, .cyber-right-hud {
+    .cyber-left-module,
+    .cyber-right-hud {
         display: none !important;
     }
     
@@ -592,6 +720,7 @@
         padding: 25px 15px;
     }
 
+    /* Griglia a colonna singola per i campi su mobile */
     .form-grid {
         grid-template-columns: 1fr;
         gap: 15px;

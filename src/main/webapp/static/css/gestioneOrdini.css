@@ -1,6 +1,18 @@
-/* ==========================================
-   STILE GESTIONE ORDINI (CYBERPUNK ADMIN)
-   ========================================== */
+/* ==========================================================================
+   FOGLIO DI STILE: gestioneOrdini.css
+   Descrizione: Stili per il pannello di amministrazione dedicato alla gestione ordini.
+                Include la barra dei filtri (per intervallo date, cliente o stato),
+                la tabella fluida con aggiornamento dello stato in tempo reale via form inline,
+                badge cromatici per gli avanzamenti dell'ordine, banner cyberpunk rosso neon
+                e trasformazione responsive a schede per schermi inferiori a 1200px e smartphone.
+   ========================================================================== */
+
+/* ==========================================================================
+   GRUPPO 1: CONTENITORE AMMINISTRAZIONE PRINCIPALE
+   Area a larghezza estesa (fino a 1600px) per ospitare comodamente tabelle dati dense.
+   ========================================================================== */
+
+/* Contenitore principale dell'area admin con spaziatura abbondante e colore testo chiaro */
 .admin-container {
     width: 100%;
     max-width: 1600px;
@@ -10,9 +22,12 @@
     color: var(--text-light);
 }
 
-/* ==========================================
-   INTESTAZIONE SEZIONI (CYBERPUNK DIVIDER)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 2: INTESTAZIONE CYBERPUNK (BANNER HUD ROSSO ADMIN)
+   Elementi geometrici del banner di sezione con accenti rosso neon (#ff3333).
+   ========================================================================== */
+
+/* Contenitore flessibile del divisore superiore con bagliore rosso admin */
 .cyber-divider-wrapper {
     position: relative;
     width: 100%;
@@ -24,39 +39,104 @@
     align-items: center;
     box-shadow: 0 0 15px rgba(255, 51, 51, 0.4);
 }
+
+/* Sfondo geometrico poligonale con pattern punteggiato rosso neon */
 .cyber-divider {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: #0b0b0c;
     clip-path: polygon(0% 10px, 10% 10px, 15% 0%, 25% 0%, 28% 15px, 45% 15px, 48% 5px, 60% 5px, 65% 20px, 75% 20px, 80% 0%, 90% 0%, 95% 10px, 100% 10px, 100% calc(100% - 10px), 85% calc(100% - 10px), 80% 100%, 65% 100%, 60% calc(100% - 15px), 45% calc(100% - 15px), 40% calc(100% - 5px), 25% calc(100% - 5px), 20% calc(100% - 20px), 10% calc(100% - 20px), 5% 100%, 0% 100%);
     background-image: radial-gradient(rgba(255, 51, 51, 0.25) 1px, transparent 1px), radial-gradient(rgba(70, 70, 70, 0.5) 1px, transparent 1px);
-    background-size: 15px 15px, 25px 25px; background-position: 0 0, 7px 7px;
+    background-size: 15px 15px, 25px 25px;
+    background-position: 0 0, 7px 7px;
 }
+
+/* Testo centrale del banner in evidenza */
 .cyber-center-text {
-    position: absolute; z-index: 2; font-family: 'Inter', 'Segoe UI', sans-serif;
-    font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
-    padding: 6px 30px; background: rgba(11, 11, 12, 0.85); border: 1px solid transparent;
+    position: absolute;
+    z-index: 2;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding: 6px 30px;
+    background: rgba(11, 11, 12, 0.85);
+    border: 1px solid transparent;
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 0);
 }
+
+/* Modulo di log a sinistra */
 .cyber-left-module {
-    position: absolute; z-index: 2; left: 20px; top: 50%; transform: translateY(-50%);
-    font-family: 'Courier New', Courier, monospace; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold;
+    position: absolute;
+    z-index: 2;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    font-weight: bold;
 }
+
+/* Modulo grafico HUD a destra */
 .cyber-right-hud {
-    position: absolute; z-index: 2; right: 25px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+    position: absolute;
+    z-index: 2;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
 }
-.cyber-hud-line { height: 2px; }
-.cyber-hud-line:nth-child(1) { width: 35px; } .cyber-hud-line:nth-child(2) { width: 15px; } .cyber-hud-line:nth-child(3) { width: 50px; }
-.cyber-hud-text { font-family: 'Courier New', Courier, monospace; font-size: 0.6rem; margin-top: 2px; font-weight: bold; opacity: 0.9; }
 
-/* RED NEON VARIANT */
-.cyber-center-text.red-neon { color: #ff3333; border-color: #ff3333; text-shadow: 0 0 10px rgba(255, 51, 51, 0.6), 0 0 20px rgba(255, 51, 51, 0.3); box-shadow: inset 0 0 12px rgba(255, 51, 51, 0.2); }
-.cyber-hud-line.red-neon { background-color: #ff3333; box-shadow: 0 0 5px #ff3333; }
-.cyber-hud-text.red-neon { color: #ff3333; }
-.cyber-left-module.red-neon { color: #ff3333; text-shadow: 0 0 5px rgba(255, 51, 51, 0.6); }
+/* Linee grafiche decorative HUD */
+.cyber-hud-line {
+    height: 2px;
+}
+.cyber-hud-line:nth-child(1) { width: 35px; }
+.cyber-hud-line:nth-child(2) { width: 15px; }
+.cyber-hud-line:nth-child(3) { width: 50px; }
 
-/* ==========================================
-   MESSAGGI DI SUCCESSO/ERRORE
-   ========================================== */
+/* Testo versione HUD */
+.cyber-hud-text {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6rem;
+    margin-top: 2px;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* Variante cromatica rossa per l'amministrazione ('red-neon') */
+.cyber-center-text.red-neon {
+    color: #ff3333;
+    border-color: #ff3333;
+    text-shadow: 0 0 10px rgba(255, 51, 51, 0.6), 0 0 20px rgba(255, 51, 51, 0.3);
+    box-shadow: inset 0 0 12px rgba(255, 51, 51, 0.2);
+}
+.cyber-hud-line.red-neon {
+    background-color: #ff3333;
+    box-shadow: 0 0 5px #ff3333;
+}
+.cyber-hud-text.red-neon {
+    color: #ff3333;
+}
+.cyber-left-module.red-neon {
+    color: #ff3333;
+    text-shadow: 0 0 5px rgba(255, 51, 51, 0.6);
+}
+
+/* ==========================================================================
+   GRUPPO 3: MESSAGGI DI SUCCESSO ED ERRORE (ALERT)
+   Banner di stato per conferme di aggiornamento ordine o fallimenti.
+   ========================================================================== */
+
+/* Struttura base del messaggio di notifica */
 .alert {
     padding: 15px 20px;
     border-radius: 8px;
@@ -66,6 +146,7 @@
     letter-spacing: 1px;
 }
 
+/* Notifica di successo: verde neon con bagliore */
 .alert-success {
     background-color: rgba(0, 100, 0, 0.6);
     border: 1px solid #00ff00;
@@ -73,6 +154,7 @@
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
 }
 
+/* Notifica di errore: rosso neon con bagliore */
 .alert-error {
     background-color: rgba(100, 0, 0, 0.6);
     border: 1px solid #ff3333;
@@ -80,9 +162,12 @@
     box-shadow: 0 0 10px rgba(255, 51, 51, 0.3);
 }
 
-/* ==========================================
-   FILTRI FLUIDI (DESKTOP > 1200px)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 4: BARRA DI RICERCA E FILTRI ORDINI
+   Form orizzontale con filtri data, cliente, pulsanti 'Filtra' e 'Azzera'.
+   ========================================================================== */
+
+/* Contenitore flessibile della barra filtri: superficie scura e bordo bluastro */
 .filter-container {
     width: 100%;
     background-color: var(--dark-surface);
@@ -98,6 +183,7 @@
     box-sizing: border-box;
 }
 
+/* Singolo gruppo etichetta/input all'interno dei filtri */
 .filter-group {
     display: flex;
     align-items: center;
@@ -105,6 +191,7 @@
     flex-wrap: wrap;
 }
 
+/* Etichetta arancione brillante per i campi di ricerca */
 .filter-group label {
     font-size: 0.85rem;
     color: #ff9900;
@@ -114,6 +201,7 @@
     white-space: nowrap;
 }
 
+/* Caselle di testo o date nei filtri */
 .filter-group input {
     background-color: var(--dark-card);
     border: 1px solid #444;
@@ -125,11 +213,13 @@
     transition: all 0.3s ease;
 }
 
+/* Focus sul campo filtro: contorno rosso admin */
 .filter-group input:focus {
     border-color: #ff3333;
     box-shadow: 0 0 10px rgba(255, 51, 51, 0.3);
 }
 
+/* Pulsante 'Filtra': bordo verde neon trasparente */
 .btn-filter {
     padding: 10px 18px;
     border-radius: 6px;
@@ -145,12 +235,14 @@
     white-space: nowrap;
 }
 
+/* Hover sul pulsante filtra: sfondo verde brillante e testo nero */
 .btn-filter:hover {
     background: #00ff00;
     color: #000;
     box-shadow: 0 0 12px rgba(0, 255, 0, 0.5);
 }
 
+/* Pulsante 'Azzera Filtri': colore neutro grigio allineato a destra */
 .btn-clear {
     padding: 10px 18px;
     border-radius: 6px;
@@ -168,14 +260,18 @@
     margin-left: auto;
 }
 
+/* Hover pulsante azzera filtri */
 .btn-clear:hover {
     background: #ccc;
     color: #000;
 }
 
-/* ==========================================
-   TABELLA ORDINI FLUIDA (DESKTOP > 1200px)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 5: TABELLA DEGLI ORDINI (DESKTOP)
+   Griglia tabellare con righe ad alto contrasto e bordo rosso neon.
+   ========================================================================== */
+
+/* Contenitore con scroll orizzontale di sicurezza per la tabella ordini */
 .table-responsive {
     width: 100%;
     overflow-x: auto;
@@ -187,16 +283,19 @@
     box-sizing: border-box;
 }
 
+/* Tabella dati principale */
 .cyber-table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
 }
 
+/* Intestazione della tabella ordini: sfondo bluastro scuro */
 .cyber-table thead {
     background-color: #161928;
 }
 
+/* Celle di intestazione: testo arancione in grassetto con bordo rosso inferiore */
 .cyber-table th {
     padding: 16px 20px;
     color: #ff9900;
@@ -208,6 +307,7 @@
     white-space: nowrap;
 }
 
+/* Celle dati del corpo della tabella */
 .cyber-table td {
     padding: 16px 20px;
     border-bottom: 1px solid #282c3f;
@@ -216,23 +316,29 @@
     font-size: 0.95rem;
 }
 
+/* Transizione delicata sulle righe della tabella */
 .cyber-table tbody tr {
     transition: background-color 0.2s ease;
 }
 
+/* Evidenziazione riga al passaggio del mouse con leggera sfumatura rossa */
 .cyber-table tbody tr:hover {
     background-color: rgba(255, 51, 51, 0.06);
 }
 
-/* ==========================================
-   FORM INLINE & COMPONENTI
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 6: CONTROLLI INLINE DI MODIFICA STATO ORDINE E DETTAGLIO
+   Form orizzontale interno alla cella per aggiornare lo stato e visualizzare gli articoli.
+   ========================================================================== */
+
+/* Form compatto per l'aggiornamento rapido dello stato */
 .inline-form {
     display: flex;
     gap: 10px;
     align-items: center;
 }
 
+/* Selettore a tendina per lo stato dell'ordine: sfondo scuro e testo bianco */
 .select-status {
     background-color: var(--dark-card);
     border: 1px solid #444;
@@ -245,11 +351,13 @@
     transition: all 0.3s ease;
 }
 
+/* Focus sul selettore di stato */
 .select-status:focus {
     border-color: #ff3333;
     box-shadow: 0 0 10px rgba(255, 51, 51, 0.3);
 }
 
+/* Pulsante per confermare il cambio di stato: contorno arancione neon */
 .btn-update {
     padding: 8px 15px;
     border-radius: 4px;
@@ -264,12 +372,14 @@
     cursor: pointer;
 }
 
+/* Hover sul pulsante aggiorna */
 .btn-update:hover {
     background: #ff9900;
     color: #000;
     box-shadow: 0 0 10px rgba(255, 153, 0, 0.5);
 }
 
+/* Pulsante per accedere al dettaglio dei prodotti dell'ordine */
 .btn-view-products {
     background-color: #444;
     border: 1px solid #555;
@@ -284,11 +394,13 @@
     transition: all 0.2s ease;
 }
 
+/* Hover sul pulsante prodotti */
 .btn-view-products:hover {
     background-color: #555;
     color: #fff;
 }
 
+/* Messaggio di tabella vuota quando nessun ordine corrisponde ai criteri */
 .cyber-table .empty-table-msg,
 .cyber-table td[colspan] {
     text-align: center;
@@ -297,7 +409,12 @@
     font-style: italic;
 }
 
-/* Badge Stati Ordine */
+/* ==========================================================================
+   GRUPPO 7: BADGE CROMATICI DEGLI STATI DELL'ORDINE
+   Etichette colorate per una distinzione immediata degli stati.
+   ========================================================================== */
+
+/* Struttura base del badge di stato admin */
 .status-badge {
     padding: 6px 12px;
     border-radius: 4px;
@@ -307,45 +424,51 @@
     display: inline-block;
 }
 
+/* Stato ordine 'In Elaborazione': arancione */
 .status-elaborazione {
     background-color: rgba(255, 153, 0, 0.2);
     color: #ff9900;
     border: 1px solid #ff9900;
 }
 
+/* Stato ordine 'Spedito': blu/ciano */
 .status-spedito {
     background-color: rgba(0, 153, 255, 0.2);
     color: #0099ff;
     border: 1px solid #0099ff;
 }
 
+/* Stato ordine 'Consegnato': verde brillante */
 .status-consegnato {
     background-color: rgba(0, 255, 0, 0.2);
     color: #00ff00;
     border: 1px solid #00ff00;
 }
 
+/* Stato ordine 'Annullato': rosso neon */
 .status-annullato {
     background-color: rgba(255, 51, 51, 0.2);
     color: #ff3333;
     border: 1px solid #ff3333;
 }
 
+/* Stato ordine 'Rimborsato': grigio chiaro */
 .status-rimborsato {
     background-color: rgba(200, 200, 200, 0.2);
     color: #cccccc;
     border: 1px solid #cccccc;
 }
 
-/* ==========================================
-   MEDIA QUERIES (RESPONSIVE <= 1200px)
-   Trasformazione a schede fluide per schermo <= 1200px
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 8: TRASFORMAZIONE RESPONSIVE A SCHEDE PER DISPLAY STRETTI (<= 1200px)
+   Riorganizzazione fluida delle righe d'ordine in card verticali autonome.
+   ========================================================================== */
 @media (max-width: 1200px) {
     .admin-container {
         padding: 25px 15px;
     }
 
+    /* Barra filtri disposta verticalmente */
     .filter-container {
         width: 100%;
         max-width: 100%;
@@ -373,7 +496,8 @@
         min-width: 150px;
     }
 
-    .btn-filter, .btn-clear {
+    .btn-filter,
+    .btn-clear {
         width: 100%;
         text-align: center;
         margin-left: 0;
@@ -381,7 +505,7 @@
         padding: 12px;
     }
 
-    /* Tabella Responsive - Layout a schede fluide da 1200px in giù */
+    /* Rimozione bordi del contenitore tabella per lasciare spazio alle singole card */
     .table-responsive {
         width: 100%;
         max-width: 100%;
@@ -399,6 +523,7 @@
         border: none;
     }
 
+    /* Oculatamento intestazione thead */
     .cyber-table thead {
         display: none;
     }
@@ -408,6 +533,7 @@
         width: 100%;
     }
 
+    /* Ogni riga tr diventa una card autonoma con bordo rosso */
     .cyber-table tr {
         display: block;
         width: 100%;
@@ -424,6 +550,7 @@
         background-color: #161928;
     }
 
+    /* Cella td trasformata in riga flessibile chiave/valore */
     .cyber-table td {
         display: flex;
         justify-content: space-between;
@@ -442,6 +569,7 @@
         border-bottom: none;
     }
 
+    /* Generazione etichetta a sinistra da data-label */
     .cyber-table td::before {
         content: attr(data-label);
         font-weight: 700;
@@ -480,9 +608,14 @@
     }
 }
 
-/* Smartphone & piccoli schermi */
+/* ==========================================================================
+   GRUPPO 9: OTTIMIZZAZIONI PER SMARTPHONE (<= 600px)
+   Adattamento compatto di banner, filtri e controlli per schermi piccoli.
+   ========================================================================== */
 @media (max-width: 600px) {
-    .cyber-left-module, .cyber-right-hud {
+    /* Nasconde i moduli laterali HUD */
+    .cyber-left-module,
+    .cyber-right-hud {
         display: none !important;
     }
     
@@ -502,13 +635,15 @@
         flex: 1 1 100%;
     }
 
+    /* Disposizione in colonna dei comandi di cambio stato */
     .inline-form {
         flex-direction: column;
         align-items: stretch;
         width: 100%;
     }
 
-    .select-status, .btn-update {
+    .select-status,
+    .btn-update {
         width: 100%;
         text-align: center;
     }

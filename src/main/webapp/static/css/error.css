@@ -1,7 +1,17 @@
-/* ==========================================
-   CSS PER LE PAGINE DI ERRORE CYBERPUNK
-   ========================================== */
+/* ==========================================================================
+   FOGLIO DI STILE: error.css
+   Descrizione: Stili per le pagine di errore HTTP (400, 403, 404, 500).
+                Presenta un'estetica cyberpunk a tema 'avaria del sistema' con
+                animazione glitch sul codice numerico di errore, box con bordo rosso neon,
+                etichette HUD da terminale e pulsante di reindirizzamento sicuro.
+   ========================================================================== */
 
+/* ==========================================================================
+   GRUPPO 1: CONTENITORE CENTRALE E BOX DELL'ERRORE
+   Layout centrato e card di notifica avaria del sistema.
+   ========================================================================== */
+
+/* Contenitore flessibile centrato su tutta l'altezza utile */
 .error-container {
     display: flex;
     justify-content: center;
@@ -10,6 +20,7 @@
     padding: 40px 20px;
 }
 
+/* Card centrale di avaria: sfondo scuro, spesso bordo rosso neon e alone luminoso */
 .error-box {
     background-color: var(--dark-surface);
     border: 3px solid var(--danger-color);
@@ -23,7 +34,12 @@
     width: 100%;
 }
 
-/* Effetto Glitch per il Codice di Errore */
+/* ==========================================================================
+   GRUPPO 2: TIPOGRAFIA ED EFFETTO GLITCH CYBERPUNK
+   Codice HTTP animato con ombre sfasate ciano/rosso e messaggi descrittivi.
+   ========================================================================== */
+
+/* Codice di errore numerico gigante con animazione glitch e doppie ombre cromatiche */
 .error-code {
     font-size: 6rem;
     font-family: var(--font-heading);
@@ -34,6 +50,7 @@
     letter-spacing: 5px;
 }
 
+/* Titolo descrittivo dell'errore (es. 'ACCESSO NEGATO', 'PAGINA NON TROVATA') con linea rossa */
 .error-box h2 {
     color: #ffffff;
     font-size: 2rem;
@@ -44,6 +61,7 @@
     margin-bottom: 20px;
 }
 
+/* Messaggio esplicativo per l'utente sui motivi dell'errore */
 .error-message {
     color: var(--text-muted);
     font-size: 1.2rem;
@@ -51,7 +69,69 @@
     line-height: 1.6;
 }
 
-/* Bottone di ritorno alla base */
+/* Animazione fotogramma per l'effetto interferenza ottica glitch sul testo */
+@keyframes glitch {
+    0% {
+        text-shadow: 3px 3px 0px #00f0ff, -3px -3px 0px #f00;
+        transform: translate(0, 0);
+    }
+    20% {
+        text-shadow: -3px 3px 0px #00f0ff, 3px -3px 0px #f00;
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        text-shadow: 3px -3px 0px #00f0ff, -3px 3px 0px #f00;
+        transform: translate(2px, -2px);
+    }
+    60% {
+        text-shadow: -3px -3px 0px #00f0ff, 3px 3px 0px #f00;
+        transform: translate(-2px, -2px);
+    }
+    80% {
+        text-shadow: 2px 2px 0px #00f0ff, -2px -2px 0px #f00;
+        transform: translate(2px, 2px);
+    }
+    100% {
+        text-shadow: 3px 3px 0px #00f0ff, -3px -3px 0px #f00;
+        transform: translate(0, 0);
+    }
+}
+
+/* ==========================================================================
+   GRUPPO 3: DECORAZIONI TERMINALE HUD
+   Scritte decorative negli angoli che simulano l'interfaccia di un sistema operativo.
+   ========================================================================== */
+
+/* Etichetta superiore sinistra: codice diagnostico di errore di sistema */
+.error-box::before {
+    content: "SYS.ERR";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: var(--danger-color);
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* Etichetta inferiore destra: notifica di fallimento critico del processo */
+.error-box::after {
+    content: "CRITICAL FAILURE";
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: var(--danger-color);
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* ==========================================================================
+   GRUPPO 4: PULSANTE DI RITORNO ALLA HOME
+   Link stilizzato a pulsante per ripristinare la navigazione.
+   ========================================================================== */
+
+/* Pulsante trasparente con bordo rosso e bagliore tenue */
 .btn-return {
     background-color: transparent;
     color: var(--danger-color);
@@ -67,6 +147,7 @@
     box-shadow: 0 0 10px rgba(225, 29, 72, 0.2);
 }
 
+/* Hover sul pulsante di ripristino: sfondo rosso pieno, testo bianco e ingrandimento */
 .btn-return:hover {
     background-color: var(--danger-color);
     color: #ffffff;
@@ -74,59 +155,32 @@
     transform: scale(1.05);
 }
 
-/* Animazione Glitch */
-@keyframes glitch {
-    0% { text-shadow: 3px 3px 0px #00f0ff, -3px -3px 0px #f00; transform: translate(0, 0); }
-    20% { text-shadow: -3px 3px 0px #00f0ff, 3px -3px 0px #f00; transform: translate(-2px, 2px); }
-    40% { text-shadow: 3px -3px 0px #00f0ff, -3px 3px 0px #f00; transform: translate(2px, -2px); }
-    60% { text-shadow: -3px -3px 0px #00f0ff, 3px 3px 0px #f00; transform: translate(-2px, -2px); }
-    80% { text-shadow: 2px 2px 0px #00f0ff, -2px -2px 0px #f00; transform: translate(2px, 2px); }
-    100% { text-shadow: 3px 3px 0px #00f0ff, -3px -3px 0px #f00; transform: translate(0, 0); }
-}
-
-/* Decorazioni HUD Cyberpunk */
-.error-box::before {
-    content: "SYS.ERR";
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    color: var(--danger-color);
-    font-family: var(--font-heading);
-    font-size: 0.8rem;
-    opacity: 0.7;
-}
-
-.error-box::after {
-    content: "CRITICAL FAILURE";
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    color: var(--danger-color);
-    font-family: var(--font-heading);
-    font-size: 0.8rem;
-    opacity: 0.7;
-}
-
-/* ==========================================
-   MEDIA QUERIES (RESPONSIVE)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 5: ADATTAMENTO RESPONSIVE PER SMARTPHONE
+   Regole per schermi con larghezza fino a 768px.
+   ========================================================================== */
 @media (max-width: 768px) {
+    /* Padding ridotto della card d'errore */
     .error-box {
         padding: 30px 20px;
     }
 
+    /* Codice di errore ridimensionato a 4rem per non debordare */
     .error-code {
         font-size: 4rem;
     }
 
+    /* Titolo scalato per dispositivi mobili */
     .error-box h2 {
         font-size: 1.5rem;
     }
 
+    /* Testo del messaggio compatto */
     .error-message {
         font-size: 1rem;
     }
 
+    /* Pulsante esteso a larghezza intera per facilitare il tocco */
     .btn-return {
         width: 100%;
         text-align: center;

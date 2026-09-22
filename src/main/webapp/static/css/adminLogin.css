@@ -1,6 +1,16 @@
-/* ==========================================
-   STILE AUTENTICAZIONE (ADMIN LOGIN)
-   ========================================== */
+/* ==========================================================================
+   FOGLIO DI STILE: adminLogin.css
+   Descrizione: Stili per la pagina di autenticazione dell'amministratore (Admin Login).
+                Utilizza un tema scuro con accenti rosso neon (#ff3333) per differenziare
+                l'area amministrativa dal resto del sito e conferire un look cyberpunk/tech.
+   ========================================================================== */
+
+/* ==========================================================================
+   GRUPPO 1: CONTENITORE PRINCIPALE DI AUTENTICAZIONE
+   Layout centrato verticalmente e orizzontalmente per la schermata di login.
+   ========================================================================== */
+
+/* Contenitore flessibile dell'intera schermata di autenticazione: centra il box di login sia in orizzontale che in verticale */
 .auth-container {
     display: flex;
     flex-direction: column;
@@ -10,6 +20,7 @@
     padding: 40px 20px;
 }
 
+/* Titolo principale della pagina di autenticazione: testo nero in maiuscolo con spaziatura marcata tra i caratteri */
 .auth-container h2 {
     color: #000000;
     font-size: 2.2rem;
@@ -20,7 +31,12 @@
     letter-spacing: 2px;
 }
 
-/* Base stile Card Prodotto */
+/* ==========================================================================
+   GRUPPO 2: BOX DEL FORM ADMIN E DETTAGLI GRAFICI CYBERPUNK
+   Card centrale del modulo di login con fori laterali e ombreggiature rosse.
+   ========================================================================== */
+
+/* Box centrale contenitore del form: superficie scura, bordo netto, angoli arrotondati e padding superiore maggiorato per i fori decorativi */
 .form-box {
     background-color: var(--dark-surface);
     border: 2px solid #000000;
@@ -34,12 +50,13 @@
     color: var(--text-light);
 }
 
+/* Effetto al passaggio del mouse: sollevamento della card e bagliore rosso dedicato all'amministrazione */
 .form-box:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(255, 0, 0, 0.15); /* Red shadow for admin */
+    box-shadow: 0 15px 30px rgba(255, 0, 0, 0.15); /* Bagliore rosso per admin */
 }
 
-/* Foro a sinistra */
+/* Foro decorativo sinistro: cerchio scavato che svela lo sfondo primario con bordo rosso neon */
 .form-box::before {
     content: '';
     position: absolute;
@@ -49,13 +66,13 @@
     width: 28px;
     height: 28px;
     background-color: var(--primary-bg);
-    border: 2px solid #ff0000; /* Rosso per admin */
+    border: 2px solid #ff0000; /* Bordo rosso neon admin */
     border-radius: 50%;
     box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.6);
     z-index: 6;
 }
 
-/* Foro a destra */
+/* Foro decorativo destro: cerchio scavato che svela lo sfondo primario con bordo arancione di contrasto */
 .form-box::after {
     content: '';
     position: absolute;
@@ -65,16 +82,23 @@
     width: 28px;
     height: 28px;
     background-color: var(--primary-bg);
-    border: 2px solid #ff9900; /* Arancione per admin */
+    border: 2px solid #ff9900; /* Bordo arancione di contrasto */
     border-radius: 50%;
     box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.6);
     z-index: 6;
 }
 
+/* ==========================================================================
+   GRUPPO 3: CAMPI DI INPUT E TIPOGRAFIA DEL FORM
+   Etichette e caselle di testo con stati di focus a tema neon rosso.
+   ========================================================================== */
+
+/* Gruppo form: distanziatore verticale per separare le coppie etichetta/input */
 .form-group {
     margin-bottom: 25px;
 }
 
+/* Etichetta del campo di input: testo bianco maiuscolo, in grassetto, con spaziatura aumentata */
 .form-group label {
     font-weight: 600;
     letter-spacing: 1px;
@@ -85,6 +109,7 @@
     text-transform: uppercase;
 }
 
+/* Caselle di testo e selettori a discesa: sfondo scuro, bordo sottile e transizione fluida su tutti gli stati */
 .form-group input,
 .form-group select {
     background-color: var(--dark-card);
@@ -97,18 +122,26 @@
     width: 100%;
 }
 
+/* Testo segnaposto (placeholder) all'interno degli input con trasparenza attenuata */
 .form-group input::placeholder {
     color: rgba(255, 255, 255, 0.4);
 }
 
+/* Stato attivo/focus degli input: evidenziazione con contorno rosso neon e bagliore diffuso */
 .form-group input:focus,
 .form-group select:focus {
-    border-color: #ff3333; /* Rosso admin */
+    border-color: #ff3333; /* Bordo rosso neon admin */
     box-shadow: 0 0 12px rgba(255, 51, 51, 0.3);
     background-color: rgba(30, 20, 20, 0.8);
     outline: none;
 }
 
+/* ==========================================================================
+   GRUPPO 4: PULSANTE DI INVIO ACCESSO ADMIN
+   Bottone stilizzato con contorno rosso neon ed effetto hover pieno.
+   ========================================================================== */
+
+/* Pulsante principale di login admin: sfondo trasparente con bordo e testo rosso brillante */
 .form-box .btn-primary {
     width: 100%;
     padding: 14px;
@@ -125,6 +158,7 @@
     transition: all 0.3s ease;
 }
 
+/* Hover sul pulsante: riempimento rosso neon, testo nero e bagliore esterno */
 .form-box .btn-primary:hover {
     background: #ff3333;
     color: #000;
@@ -132,9 +166,12 @@
     transform: translateY(-2px);
 }
 
-/* ==========================================
-   INTESTAZIONE SEZIONI (CYBERPUNK DIVIDER)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 5: INTESTAZIONE CYBERPUNK (BANNER E MODULO HUD ROSSO)
+   Elementi geometrici cyberpunk per l'intestazione grafica della pagina.
+   ========================================================================== */
+
+/* Contenitore principale del banner divisore cyberpunk con bagliore rosso */
 .cyber-divider-wrapper {
     position: relative;
     width: 100%;
@@ -145,34 +182,104 @@
     align-items: center;
     box-shadow: 0 0 15px rgba(255, 51, 51, 0.4);
 }
+
+/* Sfondo geometrico poligonale con pattern a griglia di punti neon */
 .cyber-divider {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: #0b0b0c;
     clip-path: polygon(0% 10px, 10% 10px, 15% 0%, 25% 0%, 28% 15px, 45% 15px, 48% 5px, 60% 5px, 65% 20px, 75% 20px, 80% 0%, 90% 0%, 95% 10px, 100% 10px, 100% calc(100% - 10px), 85% calc(100% - 10px), 80% 100%, 65% 100%, 60% calc(100% - 15px), 45% calc(100% - 15px), 40% calc(100% - 5px), 25% calc(100% - 5px), 20% calc(100% - 20px), 10% calc(100% - 20px), 5% 100%, 0% 100%);
     background-image: radial-gradient(rgba(255, 51, 51, 0.25) 1px, transparent 1px), radial-gradient(rgba(70, 70, 70, 0.5) 1px, transparent 1px);
-    background-size: 15px 15px, 25px 25px; background-position: 0 0, 7px 7px;
+    background-size: 15px 15px, 25px 25px;
+    background-position: 0 0, 7px 7px;
 }
+
+/* Badge testuale centrale con taglio ad angolo cyberpunk e testo luminescente */
 .cyber-center-text {
-    position: absolute; z-index: 2; color: #ff3333; font-family: 'Inter', 'Segoe UI', sans-serif;
-    font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
+    position: absolute;
+    z-index: 2;
+    color: #ff3333;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
     text-shadow: 0 0 10px rgba(255, 51, 51, 0.6), 0 0 20px rgba(255, 51, 51, 0.3);
-    border: 1px solid #ff3333; padding: 6px 30px; background: rgba(11, 11, 12, 0.85);
+    border: 1px solid #ff3333;
+    padding: 6px 30px;
+    background: rgba(11, 11, 12, 0.85);
     box-shadow: inset 0 0 12px rgba(255, 51, 51, 0.2);
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 0);
 }
-.cyber-left-module {
-    position: absolute; z-index: 2; left: 20px; top: 50%; transform: translateY(-50%);
-    color: #ff3333; font-family: 'Courier New', Courier, monospace; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold; text-shadow: 0 0 5px rgba(255, 51, 51, 0.6);
-}
-.cyber-right-hud {
-    position: absolute; z-index: 2; right: 25px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
-}
-.cyber-hud-line { height: 2px; background-color: #ff3333; box-shadow: 0 0 5px #ff3333; }
-.cyber-hud-line:nth-child(1) { width: 35px; } .cyber-hud-line:nth-child(2) { width: 15px; } .cyber-hud-line:nth-child(3) { width: 50px; }
-.cyber-hud-text { color: #ff3333; font-family: 'Courier New', Courier, monospace; font-size: 0.6rem; margin-top: 2px; font-weight: bold; opacity: 0.9; }
-  
-.cyber-center-text.red-neon { color: #ff3333; border-color: #ff3333; text-shadow: 0 0 10px rgba(255, 51, 51, 0.6), 0 0 20px rgba(255, 51, 51, 0.3); box-shadow: inset 0 0 12px rgba(255, 51, 51, 0.2); }
-.red-neon .cyber-hud-line { background-color: #ff3333; box-shadow: 0 0 5px #ff3333; }
-.cyber-hud-text.red-neon { color: #ff3333; }
-.cyber-left-module.red-neon { color: #ff3333; text-shadow: 0 0 5px rgba(255, 51, 51, 0.6); }
 
+/* Modulo sinistro HUD in stile terminale con font monospace */
+.cyber-left-module {
+    position: absolute;
+    z-index: 2;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ff3333;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(255, 51, 51, 0.6);
+}
+
+/* Modulo destro HUD: indicatori grafici a barre orizzontali e codice di versione */
+.cyber-right-hud {
+    position: absolute;
+    z-index: 2;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+/* Linee dell'interfaccia HUD con spessore di 2px e bagliore rosso */
+.cyber-hud-line {
+    height: 2px;
+    background-color: #ff3333;
+    box-shadow: 0 0 5px #ff3333;
+}
+
+/* Lunghezze differenziate per creare l'effetto scanline HUD */
+.cyber-hud-line:nth-child(1) { width: 35px; }
+.cyber-hud-line:nth-child(2) { width: 15px; }
+.cyber-hud-line:nth-child(3) { width: 50px; }
+
+/* Dicitura di versione/sistema nell'indicatore HUD destro */
+.cyber-hud-text {
+    color: #ff3333;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6rem;
+    margin-top: 2px;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* Varianti con classe esplicita 'red-neon' per coerenza grafica */
+.cyber-center-text.red-neon {
+    color: #ff3333;
+    border-color: #ff3333;
+    text-shadow: 0 0 10px rgba(255, 51, 51, 0.6), 0 0 20px rgba(255, 51, 51, 0.3);
+    box-shadow: inset 0 0 12px rgba(255, 51, 51, 0.2);
+}
+.red-neon .cyber-hud-line {
+    background-color: #ff3333;
+    box-shadow: 0 0 5px #ff3333;
+}
+.cyber-hud-text.red-neon {
+    color: #ff3333;
+}
+.cyber-left-module.red-neon {
+    color: #ff3333;
+    text-shadow: 0 0 5px rgba(255, 51, 51, 0.6);
+}

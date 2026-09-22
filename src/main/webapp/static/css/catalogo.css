@@ -1,18 +1,31 @@
-/* ==========================================
-   LAYOUT CATALOGO (SIDEBAR + GRIGLIA)
-   ========================================== */
-/* Espande il contenitore principale per fare spazio a sidebar + 3 carte prodotto */
+/* ==========================================================================
+   FOGLIO DI STILE: catalogo.css
+   Descrizione: Stili per il catalogo principale dei prodotti in vendita.
+                Gestisce il layout flessibile con sidebar per filtri dinamici (prezzo,
+                categoria, novita, sconti), griglia responsive di card cyberpunk
+                con fori e pulsante wishlist a cuore, badge per best seller e sconti,
+                drawer off-canvas dei filtri per dispositivi mobili e visualizzazione a due colonne.
+   ========================================================================== */
+
+/* ==========================================================================
+   GRUPPO 1: LAYOUT DEL CATALOGO E SIDEBAR DEI FILTRI
+   Contenitore principale esteso (fino a 1550px) e sidebar fissa con fori decorativi.
+   ========================================================================== */
+
+/* Contenitore panoramico del catalogo con larghezza del 95% fino a un massimo di 1550px */
 .catalog-container {
     max-width: 1550px;
     width: 95%;
 }
 
+/* Disposizione a due colonne: sidebar dei filtri a sinistra e griglia dei prodotti a destra */
 .catalog-layout {
     display: flex;
     gap: 60px;
     align-items: flex-start;
 }
 
+/* Sidebar dei filtri: ancorata in posizione sticky durante lo scorrimento, con sfondo scuro e scroll interno */
 .catalog-sidebar {
     flex: 0 0 280px;
     position: sticky;
@@ -29,7 +42,7 @@
     overflow-y: auto;
 }
 
-/* Foro a sinistra (Azzurro) */
+/* Foro decorativo superiore sinistro: intaglio circolare ciano neon che svela il giallo */
 .catalog-sidebar::before {
     content: '';
     position: absolute;
@@ -44,7 +57,7 @@
     z-index: 6;
 }
 
-/* Foro a destra (Magenta) */
+/* Foro decorativo superiore destro: intaglio circolare magenta neon che svela il giallo */
 .catalog-sidebar::after {
     content: '';
     position: absolute;
@@ -59,26 +72,32 @@
     z-index: 6;
 }
 
+/* Titolo della sidebar filtri: colore verde acido maiuscolo e centrato */
 .catalog-sidebar h3 {
     margin-top: 0;
-    color: #39ff14; /* Verde Acido */
+    color: #39ff14;
     font-size: 1.3rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     text-align: center;
 }
 
+/* Area dei contenuti del catalogo (griglia e banner) */
 .catalog-content {
     flex: 1;
 }
 
-/* ==========================================
-   FORM FILTRI
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 2: MODULO DEI FILTRI IN SIDEBAR
+   Campi numerici di prezzo, selettori a tendina, checkbox e pulsanti applica/reset.
+   ========================================================================== */
+
+/* Spaziatura inferiore tra i gruppi del form filtri */
 .filter-form .form-group {
     margin-bottom: 15px;
 }
 
+/* Etichetta del singolo filtro */
 .filter-form label {
     font-size: 0.9rem;
     font-weight: bold;
@@ -87,6 +106,7 @@
     margin-bottom: 5px;
 }
 
+/* Caselle numeriche per intervallo prezzi e selettori di categoria */
 .filter-form input[type="number"],
 .filter-form select {
     width: 100%;
@@ -98,14 +118,16 @@
     font-family: var(--font-body);
 }
 
+/* Focus sui campi del filtro: contorno verde acido luminescente */
 .filter-form input[type="number"]:focus,
 .filter-form select:focus {
     outline: none;
-    border-color: #39ff14; /* Verde acido focus */
+    border-color: #39ff14;
     box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
     background-color: rgba(20, 30, 20, 0.8);
 }
 
+/* Raggruppamento orizzontale per caselle di spunta (checkbox) */
 .filter-form .checkbox-group {
     display: flex;
     flex-direction: row;
@@ -113,11 +135,13 @@
     gap: 10px;
 }
 
+/* Etichetta della checkbox con cursore a puntatore */
 .filter-form .checkbox-group label {
     margin: 0;
     cursor: pointer;
 }
 
+/* Pulsante principale 'Applica Filtri': contorno verde acido */
 .filter-form .btn-primary {
     width: 100%;
     background: transparent;
@@ -128,12 +152,14 @@
     transition: all 0.3s ease;
 }
 
+/* Hover sul pulsante applica filtri */
 .filter-form .btn-primary:hover {
     background: #39ff14;
     color: #000;
     box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
 }
 
+/* Pulsante secondario 'Resetta Filtri': contorno magenta neon */
 .filter-form .btn-secondary {
     width: 100%;
     margin-top: 10px;
@@ -147,12 +173,14 @@
     transition: all 0.3s ease;
 }
 
+/* Hover sul pulsante resetta filtri */
 .filter-form .btn-secondary:hover {
     background: #ff00ff;
     color: #000;
     box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
 }
 
+/* Pulsante di apertura filtri per dispositivi mobili */
 #mobileFilterBtn {
     width: 100%;
     margin-bottom: 20px;
@@ -162,6 +190,7 @@
     gap: 8px;
 }
 
+/* Dicitura 'IVA inclusa' di supporto */
 .tax-included {
     font-size: 0.8rem;
     font-weight: normal;
@@ -170,9 +199,12 @@
     margin-top: 5px;
 }
 
-/* ==========================================
-   GRIGLIA E SCHEDA PRODOTTO (CATALOGO COMPATTO)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 3: GRIGLIA DEI PRODOTTI E SCHEDE ARTICOLO
+   Griglia responsive ad auto-riempimento e card stile schedario cyberpunk.
+   ========================================================================== */
+
+/* Griglia dei prodotti con colonne minime di 280px e distanziamento di 25px */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -180,6 +212,7 @@
     margin-top: 20px;
 }
 
+/* Card del singolo prodotto: superficie scura, bordo nero, flex column e centrata */
 .product-card {
     position: relative !important;
     background-color: var(--dark-surface);
@@ -193,15 +226,17 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     max-width: 330px;
     width: 100%;
-    justify-self: center; /* Centra le carte se la griglia si allarga */
+    justify-self: center;
     box-sizing: border-box !important;
 }
 
+/* Hover sulla card: sollevamento e ombra pronunciata */
 .product-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
 }
 
+/* Titolo/Nome del prodotto: colore d'accento ciano o giallo */
 .product-card h3 {
     color: var(--accent-color);
     font-size: 1.25rem;
@@ -209,6 +244,7 @@
     margin-bottom: 4px;
 }
 
+/* Breve descrizione del prodotto: limitata a massimo 2 righe con troncatura ellittica */
 .product-desc {
     font-size: 0.9rem;
     color: var(--text-muted);
@@ -219,12 +255,14 @@
     overflow: hidden;
 }
 
+/* Indicazione del materiale o caratteristica accessoria */
 .product-material {
     font-size: 0.85rem;
     color: var(--text-muted);
     margin-bottom: 6px;
 }
 
+/* Prezzo di vendita: grande, in grassetto e col colore d'accento */
 .product-price {
     font-size: 1.35rem;
     color: var(--accent-color);
@@ -232,9 +270,12 @@
     margin: 4px 0;
 }
 
-/* ==========================================
-   1. BUCO A SINISTRA (28px)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 4: FORO SINISTRO E PULSANTE WISHLIST A DESTRA
+   Dettagli iconici della card: intaglio a sinistra e bottone salva nei desideri a destra.
+   ========================================================================== */
+
+/* Foro decorativo sinistro: cerchio scavato nello sfondo con bordo ciano neon */
 .product-card::before {
     content: '';
     position: absolute !important;
@@ -252,9 +293,7 @@
     box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.6);
 }
 
-/* ==========================================
-   2. PULSANTE WISHLIST A DESTRA (34px)
-   ========================================== */
+/* Form posizionato in alto a destra per il toggle rapido della lista desideri */
 .wishlist-form {
     position: absolute !important;
     top: 24px !important;
@@ -266,6 +305,7 @@
     z-index: 10;
 }
 
+/* Pulsante circolare con icona cuore: sfondo semitrasparente rosa/magenta e sfocatura */
 .wishlist-btn {
     background-color: rgba(255, 105, 180, 0.25) !important;
     border: 2px solid rgba(255, 105, 180, 0.5) !important;
@@ -283,13 +323,14 @@
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
+/* Hover sul pulsante wishlist: ingrandimento e bagliore rosa */
 .wishlist-btn:hover {
     background-color: rgba(255, 105, 180, 0.45) !important;
     transform: scale(1.1);
     box-shadow: 0 0 10px rgba(225, 27, 100, 0.4);
 }
 
-/* Stato base: Cuore vuoto */
+/* Icona cuore vuoto (non salvato) */
 .wishlist-btn .material-symbols-outlined {
     color: #c2185b !important; 
     font-size: 20px !important;
@@ -298,27 +339,32 @@
     display: block !important;
 }
 
-/* Stato attivo: Cuore PIENO (FILL 1) */
+/* Icona cuore pieno (gia presente nella lista desideri dell'utente) */
 .wishlist-btn.in-wishlist .material-symbols-outlined {
     font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24 !important;
     color: #e1172e !important;
 }
 
-/* ==========================================
-   AZIONI SCHEDA PRODOTTO (PULSANTI IDENTICI)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 5: AZIONI DELLA SCHEDA PRODOTTO (PULSANTI DETTAGLIO E CARRELLO)
+   Pulsanti affiancati di uguale larghezza posizionati in fondo alla card.
+   ========================================================================== */
+
+/* Contenitore orizzontale dei bottoni d'azione della card */
 .product-actions {
     display: flex;
     gap: 8px;
     margin-top: 8px;
 }
 
+/* I link e i form occupano meta larghezza ciascuno */
 .product-actions > a,
 .product-actions > form {
     flex: 1;
     display: flex;
 }
 
+/* Pulsanti d'azione interni alla card: compatti e centrati */
 .product-actions .btn {
     width: 100%;
     padding: 7px 0;
@@ -329,9 +375,12 @@
     box-sizing: border-box;
 }
 
-/* ==========================================
-   RIDIMENSIONAMENTO IMMAGINI PRODOTTI
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 6: IMMAGINI PRODOTTO CON EFFETTO DROP-SHADOW
+   Immagini responsive proporzionali con alone ciano neon.
+   ========================================================================== */
+
+/* Immagine di anteprima del prodotto: altezza 190px con ombra luminosa azzurra */
 .card img,
 .product-card img {
     width: 100%;
@@ -341,241 +390,14 @@
     border-radius: 8px;
     padding: 5px;
     filter: drop-shadow(0 0 12px rgba(0, 240, 255, 0.25)); 
-}  
-/* ==========================================
-   INTESTAZIONE SEZIONI (CYBERPUNK DIVIDER)
-   ========================================== */
-.cyber-divider-wrapper {
-    position: relative;
-    width: 100%;
-    height: 85px;
-    margin: 20px 0 40px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 0 15px rgba(252, 226, 5, 0.4);
-}
-.cyber-divider {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: #0b0b0c;
-    clip-path: polygon(0% 10px, 10% 10px, 15% 0%, 25% 0%, 28% 15px, 45% 15px, 48% 5px, 60% 5px, 65% 20px, 75% 20px, 80% 0%, 90% 0%, 95% 10px, 100% 10px, 100% calc(100% - 10px), 85% calc(100% - 10px), 80% 100%, 65% 100%, 60% calc(100% - 15px), 45% calc(100% - 15px), 40% calc(100% - 5px), 25% calc(100% - 5px), 20% calc(100% - 20px), 10% calc(100% - 20px), 5% 100%, 0% 100%);
-    background-image: radial-gradient(rgba(0, 240, 255, 0.25) 1px, transparent 1px), radial-gradient(rgba(70, 70, 70, 0.5) 1px, transparent 1px);
-    background-size: 15px 15px, 25px 25px; background-position: 0 0, 7px 7px;
-}
-.cyber-center-text {
-    position: absolute; z-index: 2; color: #00f0ff; font-family: 'Inter', 'Segoe UI', sans-serif;
-    font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3);
-    border: 1px solid #00f0ff; padding: 6px 30px; background: rgba(11, 11, 12, 0.85);
-    box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.2);
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 0);
-}
-.cyber-left-module {
-    position: absolute; z-index: 2; left: 20px; top: 50%; transform: translateY(-50%);
-    color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold; text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
-}
-.cyber-right-hud {
-    position: absolute; z-index: 2; right: 25px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
-}
-.cyber-hud-line { height: 2px; background-color: #00f0ff; box-shadow: 0 0 5px #00f0ff; }
-.cyber-hud-line:nth-child(1) { width: 35px; } .cyber-hud-line:nth-child(2) { width: 15px; } .cyber-hud-line:nth-child(3) { width: 50px; }
-.cyber-hud-text { color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.6rem; margin-top: 2px; font-weight: bold; opacity: 0.9; }
-  
-.cyber-center-text.pink-neon { color: #ff0055; border-color: #ff0055; text-shadow: 0 0 10px rgba(255, 0, 85, 0.6), 0 0 20px rgba(255, 0, 85, 0.3); box-shadow: inset 0 0 12px rgba(255, 0, 85, 0.2); }
-.pink-neon .cyber-hud-line { background-color: #ff0055; box-shadow: 0 0 5px #ff0055; }
-.cyber-hud-text.pink-neon { color: #ff0055; }
-.cyber-left-module.pink-neon { color: #ff0055; text-shadow: 0 0 5px rgba(255, 0, 85, 0.6); }
-.cyber-link-container { display: flex; justify-content: flex-end; margin-top: -10px; margin-bottom: 25px; padding-right: 15px; }
-.cyber-link-catalogo { color: #00f0ff; font-size: 0.95rem; font-weight: bold; text-transform: uppercase; text-shadow: 0 0 5px rgba(0, 240, 255, 0.5); background: rgba(11, 11, 12, 0.8); padding: 6px 18px; border: 1px solid rgba(0, 240, 255, 0.4); text-decoration: none; transition: all 0.2s ease; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 0); }
-.cyber-link-catalogo:hover { background: #00f0ff; color: #000; box-shadow: 0 0 12px #00f0ff; }
-.cyber-link-catalogo.pink-neon { color: #ff0055; text-shadow: 0 0 5px rgba(255, 0, 85, 0.5); border-color: rgba(255, 0, 85, 0.4); }
-.cyber-link-catalogo.pink-neon:hover { background: #ff0055; color: #000; box-shadow: 0 0 12px #ff0055; }
-
-/* ==========================================
-   OFF-CANVAS FILTRI (MOBILE & TABLET)
-   ========================================== */
-.mobile-filter-container {
-    display: none;
 }
 
-.close-filter-btn {
-    display: none;
-    background: transparent;
-    border: none;
-    color: #ff00ff;
-    cursor: pointer;
-    font-size: 1.5rem;
-    padding: 0;
-}
-.close-filter-btn:hover {
-    color: #fff;
-    text-shadow: 0 0 10px #ff00ff;
-}
+/* ==========================================================================
+   GRUPPO 7: BADGE SPECIALI (BEST SELLER E SCONTO)
+   Distintivi grafici cyberpunk per evidenziare promozioni e bestseller.
+   ========================================================================== */
 
-.sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.sidebar-header h3 {
-    margin-bottom: 0;
-}
-
-.filter-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
-    z-index: 1999;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-    width: 28px !important;
-    height: 28px !important;
-    box-sizing: border-box !important;
-    background-color: var(--primary-bg);
-    border: 2px solid #00f0ff !important;
-    border-radius: 50% !important;
-    z-index: 6;
-    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.6);
-}
-
-/* ==========================================
-   2. PULSANTE WISHLIST A DESTRA (34px)
-   ========================================== */
-.wishlist-form {
-    position: absolute !important;
-    top: 24px !important;
-    transform: translateY(-50%) !important;
-    right: 18px !important;
-    left: auto !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    z-index: 10;
-}
-
-.wishlist-btn {
-    background-color: rgba(255, 105, 180, 0.25) !important;
-    border: 2px solid rgba(255, 105, 180, 0.5) !important;
-    width: 34px !important;
-    height: 34px !important;
-    box-sizing: border-box !important;
-    border-radius: 50% !important;
-    aspect-ratio: 1 / 1;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    cursor: pointer;
-    backdrop-filter: blur(4px);
-    padding: 0 !important;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.wishlist-btn:hover {
-    background-color: rgba(255, 105, 180, 0.45) !important;
-    transform: scale(1.1);
-    box-shadow: 0 0 10px rgba(225, 27, 100, 0.4);
-}
-
-/* Stato base: Cuore vuoto */
-.wishlist-btn .material-symbols-outlined {
-    color: #c2185b !important; 
-    font-size: 20px !important;
-    font-variation-settings: 'FILL' 0, 'wght' 600, 'GRAD' 0, 'opsz' 24 !important;
-    line-height: 1;
-    display: block !important;
-}
-
-/* Stato attivo: Cuore PIENO (FILL 1) */
-.wishlist-btn.in-wishlist .material-symbols-outlined {
-    font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24 !important;
-    color: #e1172e !important;
-}
-
-/* ==========================================
-   AZIONI SCHEDA PRODOTTO (PULSANTI IDENTICI)
-   ========================================== */
-.product-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 8px;
-}
-
-.product-actions > a,
-.product-actions > form {
-    flex: 1;
-    display: flex;
-}
-
-.product-actions .btn {
-    width: 100%;
-    padding: 7px 0;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-}
-
-/* ==========================================
-   OFF-CANVAS FILTRI (MOBILE & TABLET)
-   ========================================== */
-.mobile-filter-container {
-    display: none;
-}
-
-.close-filter-btn {
-    display: none;
-    background: transparent;
-    border: none;
-    color: #ff00ff;
-    cursor: pointer;
-    font-size: 1.5rem;
-    padding: 0;
-}
-.close-filter-btn:hover {
-    color: #fff;
-    text-shadow: 0 0 10px #ff00ff;
-}
-
-.sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.sidebar-header h3 {
-    margin-bottom: 0;
-}
-
-.filter-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
-    z-index: 1999;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.filter-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Prezzo barrato e Badge per la scheda prodotto del Catalogo */
+/* Prezzo di listino barrato */
 .old-price {
     text-decoration: line-through;
     color: #888;
@@ -584,6 +406,7 @@
     font-weight: normal;
 }
 
+/* Badge 'Best Seller': gradiente dorato con taglio geometrico ad angolo */
 .best-seller-badge {
     display: inline-block;
     vertical-align: middle;
@@ -599,6 +422,7 @@
     clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
 }
 
+/* Badge 'Sconto': gradiente ciano-blu con taglio geometrico ad angolo */
 .discount-badge {
     display: inline-block;
     vertical-align: middle;
@@ -614,19 +438,239 @@
     clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
 }
 
+/* ==========================================================================
+   GRUPPO 8: INTESTAZIONE CYBERPUNK (BANNER HUD E LINK AL CATALOGO)
+   Elementi visivi del banner divisore con moduli HUD e link di navigazione.
+   ========================================================================== */
+
+/* Contenitore principale del divisore cyberpunk */
+.cyber-divider-wrapper {
+    position: relative;
+    width: 100%;
+    height: 85px;
+    margin: 20px 0 40px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 15px rgba(252, 226, 5, 0.4);
+}
+
+/* Sfondo geometrico poligonale con texture ciano */
+.cyber-divider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0b0b0c;
+    clip-path: polygon(0% 10px, 10% 10px, 15% 0%, 25% 0%, 28% 15px, 45% 15px, 48% 5px, 60% 5px, 65% 20px, 75% 20px, 80% 0%, 90% 0%, 95% 10px, 100% 10px, 100% calc(100% - 10px), 85% calc(100% - 10px), 80% 100%, 65% 100%, 60% calc(100% - 15px), 45% calc(100% - 15px), 40% calc(100% - 5px), 25% calc(100% - 5px), 20% calc(100% - 20px), 10% calc(100% - 20px), 5% 100%, 0% 100%);
+    background-image: radial-gradient(rgba(0, 240, 255, 0.25) 1px, transparent 1px), radial-gradient(rgba(70, 70, 70, 0.5) 1px, transparent 1px);
+    background-size: 15px 15px, 25px 25px;
+    background-position: 0 0, 7px 7px;
+}
+
+/* Testo centrale del banner */
+.cyber-center-text {
+    position: absolute;
+    z-index: 2;
+    color: #00f0ff;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3);
+    border: 1px solid #00f0ff;
+    padding: 6px 30px;
+    background: rgba(11, 11, 12, 0.85);
+    box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.2);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 0);
+}
+
+/* Modulo di log a sinistra */
+.cyber-left-module {
+    position: absolute;
+    z-index: 2;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
+}
+
+/* Modulo grafico HUD a destra */
+.cyber-right-hud {
+    position: absolute;
+    z-index: 2;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+/* Linee grafiche decorative HUD */
+.cyber-hud-line {
+    height: 2px;
+    background-color: #00f0ff;
+    box-shadow: 0 0 5px #00f0ff;
+}
+.cyber-hud-line:nth-child(1) { width: 35px; }
+.cyber-hud-line:nth-child(2) { width: 15px; }
+.cyber-hud-line:nth-child(3) { width: 50px; }
+
+/* Testo versione HUD */
+.cyber-hud-text {
+    color: #00f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6rem;
+    margin-top: 2px;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* Variante magenta neon ('pink-neon') */
+.cyber-center-text.pink-neon {
+    color: #ff0055;
+    border-color: #ff0055;
+    text-shadow: 0 0 10px rgba(255, 0, 85, 0.6), 0 0 20px rgba(255, 0, 85, 0.3);
+    box-shadow: inset 0 0 12px rgba(255, 0, 85, 0.2);
+}
+.pink-neon .cyber-hud-line {
+    background-color: #ff0055;
+    box-shadow: 0 0 5px #ff0055;
+}
+.cyber-hud-text.pink-neon {
+    color: #ff0055;
+}
+.cyber-left-module.pink-neon {
+    color: #ff0055;
+    text-shadow: 0 0 5px rgba(255, 0, 85, 0.6);
+}
+
+/* Contenitore per il link al catalogo completo */
+.cyber-link-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -10px;
+    margin-bottom: 25px;
+    padding-right: 15px;
+}
+
+/* Link stilizzato al catalogo */
+.cyber-link-catalogo {
+    color: #00f0ff;
+    font-size: 0.95rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
+    background: rgba(11, 11, 12, 0.8);
+    padding: 6px 18px;
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 0);
+}
+
+/* Hover sul link catalogo */
+.cyber-link-catalogo:hover {
+    background: #00f0ff;
+    color: #000;
+    box-shadow: 0 0 12px #00f0ff;
+}
+
+/* Variante magenta del link catalogo */
+.cyber-link-catalogo.pink-neon {
+    color: #ff0055;
+    text-shadow: 0 0 5px rgba(255, 0, 85, 0.5);
+    border-color: rgba(255, 0, 85, 0.4);
+}
+.cyber-link-catalogo.pink-neon:hover {
+    background: #ff0055;
+    color: #000;
+    box-shadow: 0 0 12px #ff0055;
+}
+
+/* ==========================================================================
+   GRUPPO 9: OFF-CANVAS DEI FILTRI PER TABLET E MOBILE (<= 1200px)
+   Trasformazione della sidebar in pannello scorrevole con pulsante di apertura.
+   ========================================================================== */
+
+/* Contenitore del pulsante mobile filtri */
+.mobile-filter-container {
+    display: none;
+}
+
+/* Pulsante icona per chiudere il cassetto filtri */
+.close-filter-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #ff00ff;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0;
+}
+.close-filter-btn:hover {
+    color: #fff;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+/* Header interno della sidebar per allineare titolo e chiusura */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sidebar-header h3 {
+    margin-bottom: 0;
+}
+
+/* Backdrop scuro con sfocatura per la sidebar dei filtri su mobile */
+.filter-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Stato attivo del backdrop */
+.filter-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Regole per schermi intermedi (<= 1200px) */
 @media (max-width: 1200px) {
+    /* Disposizione verticale per impilare sidebar e griglia */
     .catalog-layout {
         flex-direction: column;
-        align-items: stretch; /* Ensures catalog-content takes full width */
+        align-items: stretch;
         gap: 20px;
     }
     
+    /* Mostra il pulsante per aprire i filtri */
     .mobile-filter-container {
         display: block;
         width: 100%;
     }
 
-    /* Stile Cyberpunk per il bottone Filtri Mobile */
+    /* Stile cyberpunk per il bottone filtri mobile */
     .mobile-filter-container .cyber-btn {
         background-color: rgba(11, 11, 12, 0.85);
         color: #00f0ff;
@@ -646,9 +690,10 @@
         box-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
     }
     .mobile-filter-container .cyber-btn .material-symbols-outlined {
-        color: inherit; /* Ensure icon matches text color */
+        color: inherit;
     }
 
+    /* Sidebar trasformata in drawer off-canvas scorrevole da sinistra */
     .catalog-sidebar {
         position: fixed;
         top: 0;
@@ -663,6 +708,7 @@
         overflow-y: auto;
     }
 
+    /* Stato aperto del cassetto filtri */
     .catalog-sidebar.active {
         left: 0;
     }
@@ -672,22 +718,27 @@
     }
 }
 
-/* ==========================================
-   SMARTPHONE (2 CARTE AFFIANCATE)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 10: OTTIMIZZAZIONI SMARTPHONE A 2 COLONNE (<= 647px)
+   Adattamento compatto per visualizzare 2 card per riga senza overflow.
+   ========================================================================== */
 @media (max-width: 647px) {
+    /* Griglia fissa a 2 colonne */
     .product-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
     }
 
+    /* Card compatta */
     .product-card {
         padding: 35px 10px 10px 10px;
         max-width: 100%;
-        min-width: 0; /* Previene l'overflow del grid item */
+        min-width: 0;
     }
 
-    .card img, .product-card img {
+    /* Miniatura ridimensionata */
+    .card img,
+    .product-card img {
         height: 110px;
         margin-bottom: 5px;
     }
@@ -704,7 +755,7 @@
         font-size: 1.1rem;
     }
 
-    /* Ridimensiona i cerchietti decorativi e la wishlist per farli entrare */
+    /* Ridimensionamento del foro decorativo sinistro */
     .product-card::before {
         top: 16px !important;
         left: 10px !important;
@@ -712,6 +763,7 @@
         height: 18px !important;
     }
 
+    /* Posizionamento del pulsante wishlist */
     .wishlist-form {
         top: 16px !important;
         right: 10px !important;
@@ -726,7 +778,7 @@
         font-size: 15px !important;
     }
 
-    /* Impila i pulsanti di azione (dettagli / carrello) per non schiacciarli orizzontalmente */
+    /* Pulsanti impilati verticalmente per massima leggibilita */
     .product-actions {
         flex-direction: column;
         gap: 6px;
@@ -737,6 +789,7 @@
         padding: 5px 0;
     }
 
+    /* Banner HUD ridotto per smartphone */
     .cyber-divider-wrapper {
         margin: 20px 0 10px 0 !important;
         height: 60px !important;

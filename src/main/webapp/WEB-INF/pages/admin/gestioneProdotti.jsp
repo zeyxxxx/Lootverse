@@ -1,3 +1,20 @@
+<%-- ==============================================================================
+     Pagina JSP: Gestione Prodotti (Pannello Amministratore)
+     Descrizione: Pannello CRUD completo per l'amministrazione del catalogo articoli.
+                  Permette di inserire un nuovo prodotto, modificare i dati di un prodotto esistente
+                  (prezzo, aliquota IVA, percentuale sconto, caratteristiche tecniche, immagini),
+                  consultare la tabella dei prodotti correnti e richiederne l'eliminazione.
+     Inoltrata da: GestioneProdottiServlet (GET/POST /admin-prodotti)
+     Dati in ingresso:
+       - requestScope.prodotti (List<Prodotto>): catalogo di tutti i prodotti a sistema
+       - requestScope.prodottoEdit (Prodotto): prodotto da modificare (se action=edit)
+       - requestScope.errore (String): eventuale messaggio di errore di validazione o SQL
+       - sessionScope.messaggioSuccesso (String): notifica di avvenuto inserimento/modifica/cancellazione
+     Form Actions:
+       - POST /admin-prodotti (action=add): creazione nuovo prodotto
+       - POST /admin-prodotti (action=update): aggiornamento prodotto esistente
+       - POST /admin-prodotti (action=delete): rimozione prodotto (confermata via JavaScript)
+     ============================================================================== --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -5,14 +22,19 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <%-- Intestazione HTML condivisa (meta, favicon, fogli di stile globali) --%>
     <jsp:include page="/WEB-INF/fragments/header.jsp" />
+    <%-- Foglio di stile dedicato per il pannello di gestione prodotti --%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/gestioneProdotti.css">
     <title>Gestione Prodotti - Admin</title>
 </head>
 <body>
+    <%-- Barra di navigazione principale del sito --%>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
     
+    <%-- Contenitore principale per l'interfaccia amministrativa --%>
     <main class="admin-container">
+        <%-- Barra superiore decorativa HUD Cyberpunk --%>
         <div class="cyber-divider-wrapper">
             <div class="cyber-divider"></div>
             <div class="cyber-left-module red-neon">SYS.ADMIN.PRODUCTS</div>
@@ -25,6 +47,7 @@
             </div>
         </div>
 
+        <%-- Notifica flash per operazioni completate con successo --%>
         <c:if test="${not empty sessionScope.messaggioSuccesso}">
             <div class="alert alert-success">
                 ${sessionScope.messaggioSuccesso}
@@ -32,6 +55,7 @@
             </div>
         </c:if>
         
+        <%-- Notifica di errore in caso di fallimento validazione o query --%>
         <c:if test="${not empty errore}">
             <div class="alert alert-error">
                 ${errore}
@@ -39,9 +63,10 @@
         </c:if>
 
         <div class="admin-content-layout">
-            <!-- Form Inserimento / Modifica -->
+            <%-- Form di Inserimento / Modifica Prodotto (CRUD) --%>
             <div class="crud-form-container">
             <c:choose>
+                <%-- Sezione di Modifica Prodotto: attivata quando è presente 'prodottoEdit' nella request --%>
                 <c:when test="${not empty prodottoEdit}">
                     <h3>Modifica Prodotto #${prodottoEdit.idProdotto}</h3>
                     <form action="${pageContext.request.contextPath}/admin-prodotti" method="POST">
@@ -116,6 +141,8 @@
                         </div>
                     </form>
                 </c:when>
+
+                <%-- Sezione di Inserimento Nuovo Prodotto: form vuoto con valori di default --%>
                 <c:otherwise>
                     <h3>Inserisci Nuovo Prodotto</h3>
                     <form action="${pageContext.request.contextPath}/admin-prodotti" method="POST">
@@ -191,7 +218,7 @@
             </c:choose>
         </div>
 
-        <!-- Lista Prodotti -->
+        <%-- Tabella panoramica dei prodotti registrati nel catalogo --%>
         <div class="table-responsive">
             <table class="cyber-table">
                 <thead>
@@ -206,6 +233,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <%-- Iterazione sull'elenco dei prodotti --%>
                     <c:forEach var="p" items="${prodotti}">
                         <tr>
                             <td data-label="ID">#${p.idProdotto}</td>
@@ -213,6 +241,7 @@
                             <td data-label="Prezzo Base">€ <fmt:formatNumber value="${p.prezzo}" pattern="0.00" /></td>
                             <td data-label="Sconto">${p.sconto}%</td>
                             <td data-label="Prezzo Finale">€ <fmt:formatNumber value="${p.prezzoFinale}" pattern="0.00" /></td>
+                            <%-- Badge di disponibilità a magazzino --%>
                             <td data-label="Disp.">
                                 <c:choose>
                                     <c:when test="${p.disponibilita}">
@@ -223,6 +252,7 @@
                                     </c:otherwise>
                                 </c:choose>
                             </td>
+                            <%-- Pulsanti di azione per modifica ed eliminazione --%>
                             <td data-label="Azioni">
                                 <div class="action-links">
                                     <a href="${pageContext.request.contextPath}/admin-prodotti?action=edit&id=${p.idProdotto}" class="action-btn edit">Modifica</a>
@@ -236,6 +266,7 @@
                             </td>
                         </tr>
                     </c:forEach>
+                    <%-- Riga di fallback se non vi sono prodotti --%>
                     <c:if test="${empty prodotti}">
                         <tr>
                             <td colspan="7" class="empty-table-msg">Nessun prodotto trovato.</td>
@@ -247,6 +278,7 @@
         </div>
     </main>
     
+    <%-- Piè di pagina comune del portale --%>
     <jsp:include page="/WEB-INF/fragments/footer.jsp" />
 </body>
 </html>

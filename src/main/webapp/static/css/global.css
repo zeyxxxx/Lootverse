@@ -1,30 +1,44 @@
-/* ==========================================
-   PARAGRAFO 1: VARIABILI GLOBALI (ROOT)
-   ========================================== */
+/* ==========================================================================
+   FOGLIO DI STILE GLOBALE: global.css
+   Descrizione: Foglio di stile principale dell'applicazione web Lootverse.
+                Definisce i token di design (:root), il reset universale, lo sfondo con pattern
+                vettoriale deformato, la navbar sticky cyberpunk (con ricerca AJAX e badge dinamico),
+                il footer strutturato a colonne (trust bar, informazioni di sistema, credit accademici UNISA),
+                la gerarchia dei bottoni e delle notifiche, e tutte le media query responsive.
+   ========================================================================== */
+
+/* ==========================================================================
+   GRUPPO 1: VARIABILI GLOBALI (ROOT DESIGN TOKENS)
+   Tavolozza colori cyberpunk, font tipografici e sfondi tematici.
+   ========================================================================== */
 :root {
     --primary-bg: #FEF72F;          /* Giallo brillante principale della pagina */
-    --text-main: #111827;           /* Testo scuro per sfondo giallo */
-    --dark-surface: #11131e;        /* Sfondo per Navbar, Card e Footer */
-    --dark-card: #1a1d2b;           /* Sfondo interno per campi e sottosezioni */
-    --border-color: #33384e;        /* Bordi e divisori */
-    --text-light: #f3f4f6;          /* Testo chiaro per contenitori scuri */
-    --text-muted: #9ca3af;          /* Testo secondario o segnaposto */
-    --accent-color: #FEF72F;        /* Giallo neon per risalti e bordi */
-    --danger-color: #e11d48;        /* Rosso per errori ed eliminazioni */
-    --success-color: #10b981;       /* Verde per conferme e prezzi */
-    --font-heading: 'Orbitron', 'Segoe UI', sans-serif;
-    --font-body: 'Rajdhani', 'Segoe UI', sans-serif;
+    --text-main: #111827;           /* Testo scuro ad alto contrasto per sfondo giallo */
+    --dark-surface: #11131e;        /* Sfondo scuro per Navbar, Card e Footer */
+    --dark-card: #1a1d2b;           /* Sfondo interno per campi form e sottosezioni */
+    --border-color: #33384e;        /* Bordi e linee divisorie */
+    --text-light: #f3f4f6;          /* Testo chiaro su contenitori scuri */
+    --text-muted: #9ca3af;          /* Testo secondario, note o segnaposto */
+    --accent-color: #FEF72F;        /* Giallo neon per evidenziazioni e bordi attivi */
+    --danger-color: #e11d48;        /* Rosso neon per errori, avvisi ed eliminazioni */
+    --success-color: #10b981;       /* Verde per conferme, prezzi e stati positivi */
+    --font-heading: 'Orbitron', 'Segoe UI', sans-serif; /* Font futuristico per titoli */
+    --font-body: 'Rajdhani', 'Segoe UI', sans-serif;    /* Font tecnologico ad alta leggibilita per testi */
 }
 
-/* ==========================================
-   PARAGRAFO 2: RESET E REGOLE BASE
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 2: RESET DEL BOX MODEL E CORPO DELLA PAGINA
+   Normalizzazione margini, padding e sfondo vettoriale dinamico a griglia deformata.
+   ========================================================================== */
+
+/* Reset universale del modello a scatola per tutti gli elementi */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Corpo della pagina: sfondo giallo primario, layout flex a colonna su tutta l'altezza dello schermo */
 body {
     background-color: var(--primary-bg);
     color: var(--text-main);
@@ -34,31 +48,32 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    position: relative; /* Necessario per il posizionamento del pattern */
+    position: relative;
 }
 
-/* Pattern CSS Griglia Deformata (Warped Grid) ad alte prestazioni */
+/* Pseudo-elemento per il pattern SVG di griglia deformata (Warped Grid) topografica */
 body::before {
     content: '';
     position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     z-index: -1;
     pointer-events: none;
-    
-    /* OPACITÀ REGOLABILE (mantenuta a 0.10 per l'effetto richiesto) */
-    opacity: 0.10; 
-    
-    /* Sfondo vettoriale: Griglia distorta / Topografica creata con filtri di turbolenza SVG */
+    opacity: 0.10; /* Trasparenza attenuata al 10% per non compromettere la leggibilita */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3000' height='3000'%3E%3Cfilter id='warp' x='-10%25' y='-10%25' width='120%25' height='120%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.002' numOctaves='1' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='150' xChannelSelector='R' yChannelSelector='G' /%3E%3C/filter%3E%3Cpattern id='grid' width='60' height='60' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 60 0 L 0 0 0 60' fill='none' stroke='%23000' stroke-width='3'/%3E%3C/pattern%3E%3Crect width='3000' height='3000' fill='url(%23grid)' filter='url(%23warp)'/%3E%3C/svg%3E");
-    
     background-size: 3000px 3000px;
     background-position: center center;
     background-repeat: no-repeat;
 }
 
-/* ==========================================
-   PARAGRAFO 3: TIPOGRAFIA E TITOLI
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 3: TIPOGRAFIA, TITOLI E LINK GLOBALI
+   Gerarchia dei titoli h1-h6 con font Orbitron e stili per ancore testuali.
+   ========================================================================== */
+
+/* Titoli delle sezioni con font Orbitron e spaziatura tra caratteri */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     letter-spacing: 1px;
@@ -66,9 +81,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 15px;
 }
 
-/* ==========================================
-   PARAGRAFO 4: LINK E ANCORE GLOBALI
-   ========================================== */
+/* Link ipertestuali generici */
 a {
     color: #000000;
     font-weight: bold;
@@ -76,13 +89,17 @@ a {
     transition: all 0.2s ease;
 }
 
+/* Hover sui link ipertestuali */
 a:hover {
     color: #444444;
 }
 
-/* ==========================================
-   PARAGRAFO 5: CONTENITORI E LAYOUT
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 4: CONTENITORE PRINCIPALE DI PAGINA
+   Box centrato per delimitare la larghezza massima dei contenuti.
+   ========================================================================== */
+
+/* Contenitore centrale responsive fino a 1200px */
 .container {
     width: 90%;
     max-width: 1200px;
@@ -91,13 +108,12 @@ a:hover {
     flex: 1;
 }
 
+/* ==========================================================================
+   GRUPPO 5: NAVBAR STICKY CYBERPUNK
+   Barra di navigazione superiore fissa con logo, ricerca, menu e pulsante mobile.
+   ========================================================================== */
 
-
-
-
-/* ==========================================
-   PARAGRAFO 6: NAVBAR SEMI-TRASPARENTE (STICKY)
-   ========================================== */
+/* Navbar fissa in alto con sfondo nero, bordo giallo fluorescente ed ombra scura */
 .navbar {
     position: sticky;
     top: 0;
@@ -110,15 +126,17 @@ a:hover {
     border-bottom: 3px solid var(--accent-color);
     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7);
     flex-wrap: wrap;
-    gap: 60px; /* Aumentato da 40px a 60px per garantire che il logo non si attacchi alla barra di ricerca */
+    gap: 60px; /* Spazio abbondante per distanziare logo, ricerca e icone */
 }
 
+/* Testata interna della navbar contenente logo e toggle mobile */
 .navbar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+/* Pulsante hamburger per il menu mobile (nascosto su desktop) */
 .mobile-menu-btn {
     display: none;
     background: transparent;
@@ -129,25 +147,37 @@ a:hover {
     padding: 5px;
 }
 
+/* Icona del pulsante hamburger */
 .mobile-menu-btn .material-symbols-outlined {
     font-size: 36px;
 }
 
+/* Sezione menu della navbar con ricerca e collegamenti */
 .nav-menu {
     display: flex;
     flex: 1;
     align-items: center;
-    gap: 60px; /* Aumentato da 40px a 60px per lasciare più spazio */
+    gap: 60px;
 }
 
-.search-wrapper {
-    position: relative;
-    flex: 1;
-    margin: 0 auto;
-    max-width: 550px;
-    padding: 0;
+/* Marchio/Logo della testata */
+.nav-brand h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #ffffff;
 }
 
+/* Parte evidenziata in giallo neon del logo */
+.nav-brand span {
+    color: var(--accent-color);
+}
+
+/* ==========================================================================
+   GRUPPO 6: ICONE GOOGLE MATERIAL SYMBOLS E BADGE CARRELLO
+   Icone grafiche luminescenti ed etichetta contatore articoli del carrello.
+   ========================================================================== */
+
+/* Link contenente l'icona della navbar */
 .nav-icon-link {
     display: flex;
     align-items: center;
@@ -155,38 +185,39 @@ a:hover {
     text-decoration: none;
 }
 
+/* Configurazione dell'icona Google Material Symbols: colore bianco di base */
 .material-symbols-outlined {
     font-variation-settings:
         'FILL' 0,
         'wght' 400,
         'GRAD' 0,
         'opsz' 24;
-    font-size: 30px;               /* Dimensione ben visibile dell'icona */
-    color: #ffffff;                /* ⚪ Colore iniziale: BIANCO PURO */
+    font-size: 30px;
+    color: #ffffff;
     vertical-align: middle;
     transition: all 0.25s ease;
 }
 
-/* 🟡 Quando l'utente passa il mouse sopra l'icona o il link */
+/* Hover sulle icone: trasformazione a giallo neon (#FEF72F), ingrandimento e bagliore */
 .nav-icon-link:hover .material-symbols-outlined,
 a:hover .material-symbols-outlined {
-    color: var(--accent-color);    /* Diventa GIALLO (#FEF72F) */
-    transform: scale(1.2);         /* Si ingrandisce leggermente */
-    filter: drop-shadow(0 0 10px var(--accent-color)); /* Bagliore neon giallo */
+    color: var(--accent-color);
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 10px var(--accent-color));
 }
 
-/* Container relativo per il badge del carrello */
+/* Contenitore relativo per consentire il posizionamento assoluto del badge */
 .cart-icon-container {
     position: relative;
     display: inline-block;
 }
 
-/* Badge numerico stile cyberpunk */
+/* Badge numerico sul carrello: cerchio rosso neon (#ff0055) con numero di articoli */
 .cart-badge {
     position: absolute;
     top: -5px;
     right: -10px;
-    background-color: #ff0055; /* Rosso neon cyberpunk */
+    background-color: #ff0055;
     color: #ffffff;
     font-size: 0.75rem;
     font-weight: 900;
@@ -199,26 +230,25 @@ a:hover .material-symbols-outlined {
     border-radius: 50%;
     border: 1px solid #000000;
     box-shadow: 0 0 8px rgba(255, 0, 85, 0.8);
-    pointer-events: none; /* Lascia che i clic passino al link */
+    pointer-events: none;
     z-index: 10;
 }
 
-/* ==========================================
-   PARAGRAFO 7: BRAND E LOGO NAVBAR
-   ========================================== */
-.nav-brand h1 {
-    margin: 0;
-    font-size: 1.8rem;
-    color: #ffffff;
+/* ==========================================================================
+   GRUPPO 7: BARRA DI RICERCA CYBERPUNK E SUGGERIMENTI AJAX
+   Barra di ricerca con bordi smussati e menu a comparsa dei risultati istantanei.
+   ========================================================================== */
+
+/* Wrapper contenitore per la barra di ricerca */
+.search-wrapper {
+    position: relative;
+    flex: 1;
+    margin: 0 auto;
+    max-width: 550px;
+    padding: 0;
 }
 
-.nav-brand span {
-    color: var(--accent-color);
-}
-
-/* ==========================================
-   PARAGRAFO 8: BARRA DI RICERCA XL E SUGGERIMENTI
-   ========================================== */
+/* Contorno poligonale esterno della barra di ricerca con angoli tagliati */
 .search-container {
     position: relative;
     width: 100%;
@@ -236,6 +266,7 @@ a:hover .material-symbols-outlined {
     transition: all 0.3s ease;
 }
 
+/* Form della barra di ricerca */
 .search-container form {
     margin: 0;
     padding: 0;
@@ -243,6 +274,7 @@ a:hover .material-symbols-outlined {
     width: 100%;
 }
 
+/* Campo input della ricerca: sfondo giallo primario con taglio interno coordinato */
 .search-container input {
     width: 100%;
     padding: 7px 18px;
@@ -264,23 +296,24 @@ a:hover .material-symbols-outlined {
     transition: background-color 0.3s ease;
 }
 
+/* Segnaposto della barra di ricerca */
 .search-container input::placeholder {
     color: rgba(0, 0, 0, 0.65);
     font-weight: 500;
 }
 
+/* Focus sul campo di ricerca: leggera sfumatura chiara */
 .search-container input:focus {
     background-color: #fffb66;
 }
 
+/* Ombra della barra di ricerca all'interazione */
 .search-container:hover,
 .search-container:focus-within {
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
 }
 
-/* ==========================================
-   PARAGRAFO 9: TENDINA SUGGERIMENTI SEARCH (AJAX)
-   ========================================== */
+/* Tendina a discesa con i suggerimenti AJAX istantanei */
 .suggestions-box {
     display: none;
     position: absolute;
@@ -296,9 +329,12 @@ a:hover .material-symbols-outlined {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
 }
 
-/* ==========================================
-   PARAGRAFO 10: LINK DI NAVIGAZIONE NAVBAR
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 8: LINK DI NAVIGAZIONE E BADGE UTENTE
+   Elenco delle voci di menu della navbar e indicatore dell'utente autenticato.
+   ========================================================================== */
+
+/* Lista orizzontale dei collegamenti */
 .nav-links {
     display: flex;
     list-style: none;
@@ -306,27 +342,34 @@ a:hover .material-symbols-outlined {
     gap: 20px;
 }
 
+/* Voci di navigazione testuali */
 .nav-links a {
     color: var(--text-light);
     font-size: 1rem;
     font-weight: 600;
 }
 
+/* Hover sulle voci di navigazione: colore giallo neon con bagliore */
 .nav-links a:hover {
     color: var(--accent-color);
     text-shadow: 0 0 8px var(--accent-color);
 }
 
+/* Badge con nome dell'utente loggato */
 .user-badge {
     color: var(--accent-color);
     font-weight: bold;
     font-size: 0.95rem;
 }
 
-/* ==========================================
-   PARAGRAFO 11: FOOTER CYBERPUNK (RESPONSIVE)
-   ========================================== */
-.cyber-footer, .footer {
+/* ==========================================================================
+   GRUPPO 9: FOOTER CYBERPUNK COMPLETO
+   Barra dei vantaggi (trust bar), colonne informative, metadati accademici UNISA e copyright.
+   ========================================================================== */
+
+/* Contenitore principale del footer: sfondo scuro, bordo superiore giallo neon */
+.cyber-footer,
+.footer {
     background-color: #0c0e17;
     border-top: 3px solid var(--accent-color);
     box-shadow: 0 -8px 25px rgba(254, 247, 47, 0.2);
@@ -338,7 +381,7 @@ a:hover .material-symbols-outlined {
     font-family: var(--font-body);
 }
 
-/* --- Barra Perks / Trust Bar --- */
+/* Fascia superiore dei vantaggi (Trust Bar / Perks) */
 .footer-perks-wrapper {
     background: rgba(17, 19, 30, 0.7);
     border-bottom: 1px solid rgba(255, 255, 255, 0.07);
@@ -347,6 +390,7 @@ a:hover .material-symbols-outlined {
     box-sizing: border-box;
 }
 
+/* Griglia per le card dei vantaggi */
 .footer-perks-container {
     max-width: 900px;
     margin: 0 auto;
@@ -355,6 +399,7 @@ a:hover .material-symbols-outlined {
     gap: 24px;
 }
 
+/* Card del singolo vantaggio: transizione ed effetto sollevamento */
 .perk-card {
     display: flex;
     align-items: center;
@@ -366,6 +411,7 @@ a:hover .material-symbols-outlined {
     transition: all 0.3s ease;
 }
 
+/* Hover sulla card del vantaggio */
 .perk-card:hover {
     border-color: rgba(254, 247, 47, 0.4);
     background: rgba(254, 247, 47, 0.05);
@@ -373,6 +419,7 @@ a:hover .material-symbols-outlined {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
+/* Riquadro icona del vantaggio: colore giallo neon */
 .perk-icon {
     color: var(--accent-color);
     display: flex;
@@ -387,6 +434,7 @@ a:hover .material-symbols-outlined {
     box-shadow: 0 0 10px rgba(254, 247, 47, 0.15);
 }
 
+/* Titolo del vantaggio */
 .perk-text h4 {
     font-family: var(--font-heading);
     font-size: 0.95rem;
@@ -396,6 +444,7 @@ a:hover .material-symbols-outlined {
     margin-bottom: 2px;
 }
 
+/* Descrizione del vantaggio */
 .perk-text p {
     font-size: 0.85rem;
     color: var(--text-muted);
@@ -403,7 +452,7 @@ a:hover .material-symbols-outlined {
     margin: 0;
 }
 
-/* --- Contenitore Principale a Colonne --- */
+/* Griglia principale a 4 colonne del footer */
 .footer-main-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -414,12 +463,13 @@ a:hover .material-symbols-outlined {
     box-sizing: border-box;
 }
 
+/* Singola colonna del footer */
 .footer-col {
     display: flex;
     flex-direction: column;
 }
 
-/* Brand Column */
+/* Brand/Logo nel footer */
 .footer-brand {
     text-decoration: none;
     margin-bottom: 15px;
@@ -441,6 +491,7 @@ a:hover .material-symbols-outlined {
     text-shadow: 0 0 12px rgba(254, 247, 47, 0.6);
 }
 
+/* Descrizione aziendale nel footer */
 .brand-desc {
     color: var(--text-muted);
     font-size: 0.92rem;
@@ -449,6 +500,7 @@ a:hover .material-symbols-outlined {
     max-width: 360px;
 }
 
+/* Indicatore di stato operativo del sistema in stile HUD */
 .system-status {
     display: inline-flex;
     align-items: center;
@@ -464,6 +516,7 @@ a:hover .material-symbols-outlined {
     width: fit-content;
 }
 
+/* Pallino verde lampeggiante che simula lo status live del server */
 .status-pulse {
     width: 8px;
     height: 8px;
@@ -473,21 +526,25 @@ a:hover .material-symbols-outlined {
     animation: pulse-green 2s infinite;
 }
 
+/* Animazione di pulsazione per il pallino di stato */
 @keyframes pulse-green {
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.3; transform: scale(0.85); }
 }
 
+/* Testo giallo neon di evidenziazione */
 .neon-yellow {
     color: var(--accent-color);
     font-weight: bold;
 }
 
+/* Contenitore delle icone social */
 .footer-socials {
     display: flex;
     gap: 12px;
 }
 
+/* Icona social quadrata con bordo scuro */
 .social-icon {
     display: flex;
     align-items: center;
@@ -502,6 +559,7 @@ a:hover .material-symbols-outlined {
     transition: all 0.3s ease;
 }
 
+/* Hover sull'icona social: riempimento giallo neon e testo nero */
 .social-icon:hover {
     color: #000000;
     background: var(--accent-color);
@@ -510,7 +568,7 @@ a:hover .material-symbols-outlined {
     transform: translateY(-3px);
 }
 
-/* Footer Titles & Links */
+/* Titoli delle colonne del footer con trattino decorativo inferiore */
 .footer-title {
     font-family: var(--font-heading);
     font-size: 1.05rem;
@@ -523,6 +581,7 @@ a:hover .material-symbols-outlined {
     padding-bottom: 10px;
 }
 
+/* Linea decorativa gialla neon sotto il titolo */
 .footer-title::after {
     content: '';
     position: absolute;
@@ -534,6 +593,7 @@ a:hover .material-symbols-outlined {
     box-shadow: 0 0 8px var(--accent-color);
 }
 
+/* Elenco verticale dei link nel footer */
 .footer-links {
     list-style: none;
     padding: 0;
@@ -543,6 +603,7 @@ a:hover .material-symbols-outlined {
     gap: 12px;
 }
 
+/* Singolo link del footer */
 .footer-links a {
     color: var(--text-muted);
     text-decoration: none;
@@ -553,13 +614,14 @@ a:hover .material-symbols-outlined {
     width: fit-content;
 }
 
+/* Hover sul link del footer: scivolamento verso destra e colore giallo */
 .footer-links a:hover {
     color: var(--accent-color);
     transform: translateX(5px);
     text-shadow: 0 0 8px rgba(254, 247, 47, 0.5);
 }
 
-/* Colonna Progetto Accademico */
+/* Tag identificativo del progetto universitario UNISA */
 .unisa-tag {
     display: inline-block;
     background: rgba(254, 247, 47, 0.12);
@@ -575,6 +637,7 @@ a:hover .material-symbols-outlined {
     box-shadow: 0 0 8px rgba(254, 247, 47, 0.2);
 }
 
+/* Descrizione del corso accademico nel footer */
 .project-desc {
     color: var(--text-muted);
     font-size: 0.9rem;
@@ -586,6 +649,7 @@ a:hover .material-symbols-outlined {
     color: #ffffff;
 }
 
+/* Riquadro dei dettagli dell'anno accademico e ateneo */
 .project-meta {
     background: rgba(17, 19, 30, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -607,7 +671,7 @@ a:hover .material-symbols-outlined {
     font-weight: 600;
 }
 
-/* --- Bottom Bar --- */
+/* Barra orizzontale di chiusura inferiore del footer */
 .footer-bottom-bar {
     background: #08090f;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -615,6 +679,7 @@ a:hover .material-symbols-outlined {
     box-sizing: border-box;
 }
 
+/* Contenitore flex dei crediti di copyright e badge chip */
 .footer-bottom-content {
     max-width: 1400px;
     margin: 0 auto;
@@ -625,6 +690,7 @@ a:hover .material-symbols-outlined {
     gap: 15px;
 }
 
+/* Testo copyright */
 .copyright-text {
     font-size: 0.85rem;
     color: var(--text-muted);
@@ -635,12 +701,14 @@ a:hover .material-symbols-outlined {
     color: #ffffff;
 }
 
+/* Raggruppamento per i badge chip in stile terminale */
 .footer-bottom-badges {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
 }
 
+/* Chip decorativo in font Courier */
 .cyber-chip {
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.7rem;
@@ -652,14 +720,18 @@ a:hover .material-symbols-outlined {
     letter-spacing: 0.5px;
 }
 
+/* Chip con bordo e testo giallo UNISA */
 .cyber-chip.unisa-chip {
     border-color: rgba(254, 247, 47, 0.4);
     color: var(--accent-color);
 }
 
-/* ==========================================
-   PARAGRAFO 12: PULSANTI STRUTTURA BASE
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 10: PULSANTI UNIVERSALI DI SISTEMA
+   Stili base per bottoni primari, secondari e di pericolo (logout/elimina).
+   ========================================================================== */
+
+/* Struttura base condivisa per i bottoni dell'applicazione */
 .btn {
     display: inline-block;
     padding: 10px 20px;
@@ -674,40 +746,51 @@ a:hover .material-symbols-outlined {
     text-align: center;
 }
 
+/* Pulsante primario: sfondo nero e testo giallo primario */
 .btn-primary {
     background-color: #000000;
     color: var(--primary-bg);
 }
 
+/* Hover pulsante primario */
 .btn-primary:hover {
     background-color: #222222;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
+/* Pulsante secondario: trasparente con bordo e testo giallo d'accento */
 .btn-secondary {
     background-color: transparent;
     color: #ffffff;
     border: 2px solid var(--accent-color);
 }
 
+/* Hover pulsante secondario: riempimento giallo */
 .btn-secondary:hover {
     background-color: var(--accent-color);
     color: #000000;
 }
 
-.btn-danger, .btn-logout {
+/* Pulsante di pericolo e logout: sfondo rosso brillante */
+.btn-danger,
+.btn-logout {
     background-color: var(--danger-color);
     color: #ffffff;
     border: none;
 }
 
-.btn-danger:hover, .btn-logout:hover {
+/* Hover pulsante di pericolo */
+.btn-danger:hover,
+.btn-logout:hover {
     background-color: #b91c1c;
 }
 
-/* ==========================================
-   PARAGRAFO 13: AVVISI ED ERRORI (ALERTS)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 11: MESSAGGI DI AVVISO E NOTIFICA (ALERTS)
+   Scatole di testo evidenziate per comunicazioni di errore e successo.
+   ========================================================================== */
+
+/* Box base per messaggi all'utente */
 .alert {
     padding: 15px;
     border-radius: 4px;
@@ -715,19 +798,24 @@ a:hover .material-symbols-outlined {
     font-weight: bold;
 }
 
+/* Alert di errore o pericolo: rosso */
 .alert-danger {
     background-color: var(--danger-color);
     color: #ffffff;
 }
 
+/* Alert di conferma o operazione riuscita: verde */
 .alert-success {
     background-color: var(--success-color);
     color: #ffffff;
 }
 
-/* ==========================================
-   PARAGRAFO 14: MEDIA QUERIES E RESPONSIVE (NAVBAR, CONTAINER, FOOTER)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 12: MEDIA QUERIES E RESPONSIVE DESIGN (NAVBAR, CONTAINER, FOOTER)
+   Punti di interruzione e ottimizzazioni per tutte le risoluzioni di schermo.
+   ========================================================================== */
+
+/* Schermi inferiori a 1200px: menu mobile a comparsa per la navbar */
 @media (max-width: 1200px) {
     .navbar {
         flex-direction: column;
@@ -783,6 +871,7 @@ a:hover .material-symbols-outlined {
     }
 }
 
+/* Schermi inferiori a 1100px: riorganizzazione a 2 colonne per il footer */
 @media (max-width: 1100px) {
     .footer-perks-container {
         grid-template-columns: repeat(2, 1fr);
@@ -796,12 +885,14 @@ a:hover .material-symbols-outlined {
     }
 }
 
+/* Schermi inferiori a 992px: allargamento del contenitore al 95% */
 @media (max-width: 992px) {
     .container {
         width: 95%;
     }
 }
 
+/* Schermi inferiori a 768px: font compatto e bottoni a larghezza totale */
 @media (max-width: 768px) {
     body {
         font-size: 16px;
@@ -817,6 +908,7 @@ a:hover .material-symbols-outlined {
     }
 }
 
+/* Schermi inferiori a 650px: footer a colonna singola */
 @media (max-width: 650px) {
     .footer-perks-container {
         grid-template-columns: 1fr;
@@ -844,6 +936,7 @@ a:hover .material-symbols-outlined {
     }
 }
 
+/* Schermi molto piccoli (<= 480px): ridimensionamento titoli e padding compatto */
 @media (max-width: 480px) {
     h1 { font-size: 1.8rem; }
     h2 { font-size: 1.5rem; }

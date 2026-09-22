@@ -1,6 +1,17 @@
-/* ==========================================
-   CSS Storico Ordini (Stile Cyberpunk)
-   ========================================== */
+/* ==========================================================================
+   FOGLIO DI STILE: storicoOrdini.css
+   Descrizione: Stili per la pagina dello storico degli ordini effettuati dall'utente.
+                Include card individuali per ciascun ordine con fori cyberpunk laterali,
+                badge colorati per gli stati di avanzamento (in lavorazione, spedito, consegnato, ecc.),
+                box per cronologia vuota e banner HUD geometrico blu neon.
+   ========================================================================== */
+
+/* ==========================================================================
+   GRUPPO 1: TITOLO PRINCIPALE E MESSAGGIO LISTA VUOTA
+   Intestazione della pagina e box visualizzato in assenza di ordini.
+   ========================================================================== */
+
+/* Titolo principale h2 della pagina: nero solido, testo centrato e maiuscolo */
 .main-content h2 {
     color: #000000;
     text-align: center;
@@ -9,6 +20,7 @@
     margin-bottom: 30px;
 }
 
+/* Box visualizzato quando l'utente non ha ancora effettuato ordini */
 .empty-box {
     text-align: center;
     padding: 50px;
@@ -21,6 +33,12 @@
     margin: 0 auto;
 }
 
+/* ==========================================================================
+   GRUPPO 2: LISTA DEGLI ORDINI E CARD ORDINE CYBERPUNK
+   Contenitore a colonna e card scura per ogni ordine con foro laterale ciano.
+   ========================================================================== */
+
+/* Contenitore principale che incolonna tutte le card degli ordini */
 .ordini-container {
     display: flex;
     flex-direction: column;
@@ -29,6 +47,7 @@
     margin: 0 auto;
 }
 
+/* Singola card dell'ordine: sfondo scuro, bordo nero e transizione al passaggio del mouse */
 .ordine-card {
     background-color: var(--dark-surface);
     border: 2px solid #000000;
@@ -40,12 +59,13 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Hover sulla card dell'ordine: leggero sollevamento e bagliore ciano neon */
 .ordine-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(0, 240, 255, 0.3);
 }
 
-/* Foro decorativo azzurro */
+/* Foro decorativo sinistro: intaglio circolare con contorno ciano neon */
 .ordine-card::before {
     content: '';
     position: absolute;
@@ -61,11 +81,18 @@
     z-index: 6;
 }
 
-/* Spazio a sinistra per far respirare il contenuto rispetto al foro */
-.ordine-header, .ordine-body {
+/* Spaziatura a sinistra per evitare sovrapposizioni con il foro decorativo */
+.ordine-header,
+.ordine-body {
     padding-left: 30px;
 }
 
+/* ==========================================================================
+   GRUPPO 3: INTESTAZIONE E CORPO DELLA CARD ORDINE
+   Numero identificativo dell'ordine, data, importo totale e pulsante dettaglio.
+   ========================================================================== */
+
+/* Header della card: raggruppa il codice ordine e il badge di stato con linea di separazione */
 .ordine-header {
     display: flex;
     justify-content: space-between;
@@ -75,6 +102,7 @@
     margin-bottom: 15px;
 }
 
+/* Titolo dell'ordine (es. 'Ordine #123'): testo ciano neon in maiuscolo */
 .ordine-header h3 {
     color: #00f0ff;
     margin: 0;
@@ -82,69 +110,29 @@
     text-transform: uppercase;
 }
 
+/* Paragrafi informativi nel corpo della card (data acquisto, indirizzo, totale) */
 .ordine-body p {
     font-size: 1.1rem;
     margin: 8px 0;
 }
 
+/* Testo evidenziato in grassetto: colore magenta neon per risaltare importi e etichette */
 .ordine-body strong {
     color: #ff00ff;
 }
 
+/* Pulsante secondario per aprire la scheda di dettaglio dell'ordine */
 .ordine-card .btn-secondary {
     margin-top: 15px;
     display: inline-block;
 }
 
+/* ==========================================================================
+   GRUPPO 4: BADGE DI STATO DEGLI ORDINI
+   Indicatori visivi cromatici per monitorare lo stato di avanzamento.
+   ========================================================================== */
 
-  
-/* ==========================================
-   INTESTAZIONE SEZIONI (CYBERPUNK DIVIDER)
-   ========================================== */
-.cyber-divider-wrapper {
-    position: relative;
-    width: 100%;
-    height: 85px;
-    margin: 10px 0 20px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 0 15px rgba(252, 226, 5, 0.4);
-}
-.cyber-divider {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: #0b0b0c;
-    clip-path: polygon(0% 10px, 10% 10px, 15% 0%, 25% 0%, 28% 15px, 45% 15px, 48% 5px, 60% 5px, 65% 20px, 75% 20px, 80% 0%, 90% 0%, 95% 10px, 100% 10px, 100% calc(100% - 10px), 85% calc(100% - 10px), 80% 100%, 65% 100%, 60% calc(100% - 15px), 45% calc(100% - 15px), 40% calc(100% - 5px), 25% calc(100% - 5px), 20% calc(100% - 20px), 10% calc(100% - 20px), 5% 100%, 0% 100%);
-    background-image: radial-gradient(rgba(0, 240, 255, 0.25) 1px, transparent 1px), radial-gradient(rgba(70, 70, 70, 0.5) 1px, transparent 1px);
-    background-size: 15px 15px, 25px 25px; background-position: 0 0, 7px 7px;
-}
-.cyber-center-text {
-    position: absolute; z-index: 2; color: #00f0ff; font-family: 'Inter', 'Segoe UI', sans-serif;
-    font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3);
-    border: 1px solid #00f0ff; padding: 6px 30px; background: rgba(11, 11, 12, 0.85);
-    box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.2);
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 0);
-}
-.cyber-left-module {
-    position: absolute; z-index: 2; left: 20px; top: 50%; transform: translateY(-50%);
-    color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold; text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
-}
-.cyber-right-hud {
-    position: absolute; z-index: 2; right: 25px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
-}
-.cyber-hud-line { height: 2px; background-color: #00f0ff; box-shadow: 0 0 5px #00f0ff; }
-.cyber-hud-line:nth-child(1) { width: 35px; } .cyber-hud-line:nth-child(2) { width: 15px; } .cyber-hud-line:nth-child(3) { width: 50px; }
-.cyber-hud-text { color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.6rem; margin-top: 2px; font-weight: bold; opacity: 0.9; }
-  
-.cyber-center-text.blue-neon { color: #00bfff; border-color: #00bfff; text-shadow: 0 0 10px rgba(0, 191, 255, 0.6), 0 0 20px rgba(0, 191, 255, 0.3); box-shadow: inset 0 0 12px rgba(0, 191, 255, 0.2); }
-.blue-neon .cyber-hud-line { background-color: #00bfff; box-shadow: 0 0 5px #00bfff; }
-.cyber-hud-text.blue-neon { color: #00bfff; }
-.cyber-left-module.blue-neon { color: #00bfff; text-shadow: 0 0 5px rgba(0, 191, 255, 0.6); }
-
-/* ==========================================
-   BADGE DI STATO (ORDINI)
-   ========================================== */
+/* Struttura base del badge di stato: testo maiuscolo, angoli smussati e bordo sottile */
 .status-badge {
     padding: 6px 12px;
     border-radius: 4px;
@@ -157,6 +145,7 @@
     display: inline-block;
 }
 
+/* Stato ordine 'In Lavorazione' / 'In Elaborazione': accento arancione/ambra */
 .status-badge.status-inlavorazione,
 .status-badge.status-inelaborazione {
     background: rgba(255, 170, 0, 0.1);
@@ -165,6 +154,7 @@
     box-shadow: 0 0 8px rgba(255, 170, 0, 0.3);
 }
 
+/* Stato ordine 'Spedito': accento ciano neon */
 .status-badge.status-spedito {
     background: rgba(0, 240, 255, 0.1);
     color: #00f0ff;
@@ -172,6 +162,7 @@
     box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
 }
 
+/* Stato ordine 'Consegnato': accento verde neon di avvenuta consegna */
 .status-badge.status-consegnato {
     background: rgba(57, 255, 20, 0.1);
     color: #39ff14;
@@ -179,6 +170,7 @@
     box-shadow: 0 0 8px rgba(57, 255, 20, 0.3);
 }
 
+/* Stato ordine 'Annullato': accento rosso vivo per ordine cancellato */
 .status-badge.status-annullato {
     background: rgba(225, 29, 72, 0.1);
     color: #ff003c;
@@ -186,6 +178,7 @@
     box-shadow: 0 0 8px rgba(255, 0, 60, 0.3);
 }
 
+/* Stato ordine 'Rimborsato': accento magenta neon */
 .status-badge.status-rimborsato {
     background: rgba(255, 0, 255, 0.1);
     color: #ff00ff;
@@ -193,44 +186,171 @@
     box-shadow: 0 0 8px rgba(255, 0, 255, 0.3);
 }
 
-/* ==========================================
-   MEDIA QUERIES (RESPONSIVE)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 5: INTESTAZIONE CYBERPUNK (BANNER E MODULI HUD BLU NEON)
+   Banner a nastro geometrico con variante cromatica blu/ciano.
+   ========================================================================== */
+
+/* Contenitore principale del banner superiore */
+.cyber-divider-wrapper {
+    position: relative;
+    width: 100%;
+    height: 85px;
+    margin: 10px 0 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 15px rgba(252, 226, 5, 0.4);
+}
+
+/* Sfondo poligonale con pattern a griglia di punti */
+.cyber-divider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0b0b0c;
+    clip-path: polygon(0% 10px, 10% 10px, 15% 0%, 25% 0%, 28% 15px, 45% 15px, 48% 5px, 60% 5px, 65% 20px, 75% 20px, 80% 0%, 90% 0%, 95% 10px, 100% 10px, 100% calc(100% - 10px), 85% calc(100% - 10px), 80% 100%, 65% 100%, 60% calc(100% - 15px), 45% calc(100% - 15px), 40% calc(100% - 5px), 25% calc(100% - 5px), 20% calc(100% - 20px), 10% calc(100% - 20px), 5% 100%, 0% 100%);
+    background-image: radial-gradient(rgba(0, 240, 255, 0.25) 1px, transparent 1px), radial-gradient(rgba(70, 70, 70, 0.5) 1px, transparent 1px);
+    background-size: 15px 15px, 25px 25px;
+    background-position: 0 0, 7px 7px;
+}
+
+/* Testo centrale del banner in evidenza */
+.cyber-center-text {
+    position: absolute;
+    z-index: 2;
+    color: #00f0ff;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3);
+    border: 1px solid #00f0ff;
+    padding: 6px 30px;
+    background: rgba(11, 11, 12, 0.85);
+    box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.2);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 0);
+}
+
+/* Modulo di log a sinistra */
+.cyber-left-module {
+    position: absolute;
+    z-index: 2;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
+}
+
+/* Modulo grafico HUD a destra */
+.cyber-right-hud {
+    position: absolute;
+    z-index: 2;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+/* Linee grafiche decorative HUD */
+.cyber-hud-line {
+    height: 2px;
+    background-color: #00f0ff;
+    box-shadow: 0 0 5px #00f0ff;
+}
+.cyber-hud-line:nth-child(1) { width: 35px; }
+.cyber-hud-line:nth-child(2) { width: 15px; }
+.cyber-hud-line:nth-child(3) { width: 50px; }
+
+/* Testo versione HUD */
+.cyber-hud-text {
+    color: #00f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6rem;
+    margin-top: 2px;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* Varianti decorative con accento blu elettrico ('blue-neon') */
+.cyber-center-text.blue-neon {
+    color: #00bfff;
+    border-color: #00bfff;
+    text-shadow: 0 0 10px rgba(0, 191, 255, 0.6), 0 0 20px rgba(0, 191, 255, 0.3);
+    box-shadow: inset 0 0 12px rgba(0, 191, 255, 0.2);
+}
+.blue-neon .cyber-hud-line {
+    background-color: #00bfff;
+    box-shadow: 0 0 5px #00bfff;
+}
+.cyber-hud-text.blue-neon {
+    color: #00bfff;
+}
+.cyber-left-module.blue-neon {
+    color: #00bfff;
+    text-shadow: 0 0 5px rgba(0, 191, 255, 0.6);
+}
+
+/* ==========================================================================
+   GRUPPO 6: REGOLE RESPONSIVE PER SCHERMI MOBILI
+   Adattamento per schermi con larghezza fino a 768px.
+   ========================================================================== */
 @media (max-width: 768px) {
+    /* Titolo scalato per dispositivi mobili */
     .main-content h2 {
         font-size: 1.8rem;
     }
 
+    /* Padding compatto della card */
     .ordine-card {
         padding: 30px 15px 15px 15px;
     }
 
+    /* Rimozione del foro decorativo per recuperare spazio */
     .ordine-card::before {
         display: none;
     }
 
-    .ordine-header, .ordine-body {
+    /* Azzeramento del padding sinistro interno */
+    .ordine-header,
+    .ordine-body {
         padding-left: 0;
     }
 
+    /* Disposizione in colonna di ID ordine e badge di stato */
     .ordine-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
     }
 
+    /* Altezza dinamica per il divisore cyberpunk */
     .cyber-divider-wrapper {
         height: auto;
         padding: 10px 0;
         margin: 30px 0 15px 0;
     }
 
+    /* Testo centrale compatto */
     .cyber-center-text {
         font-size: 1.3rem;
         position: relative;
     }
 
-    .cyber-left-module, .cyber-right-hud {
+    /* Nasconde i moduli laterali HUD su smartphone */
+    .cyber-left-module,
+    .cyber-right-hud {
         display: none;
     }
 }

@@ -1,11 +1,23 @@
-/* ==========================================
-   CSS Dettaglio Ordine (Stile Cyberpunk)
-   ========================================== */
+/* ==========================================================================
+   FOGLIO DI STILE: dettaglioOrdine.css
+   Descrizione: Stili per la pagina di dettaglio del singolo ordine (consultazione per utente e admin).
+                Mostra le righe degli articoli acquistati con prezzi storici congelati all'acquisto,
+                indicatori HUD di data e stato, riepilogo economico finale con opzione
+                di stampa fattura (formattazione cartacea ottimizzata) ed estetica cyberpunk.
+   ========================================================================== */
+
+/* ==========================================================================
+   GRUPPO 1: INTESTAZIONE DELL'ORDINE E METADATI CYBERPUNK
+   Intestazione centrata con codice ordine e riquadri HUD per data e stato.
+   ========================================================================== */
+
+/* Contenitore principale limitato a 900px e centrato orizzontalmente */
 .main-content {
     max-width: 900px;
     margin: 0 auto;
 }
 
+/* Intestazione dell'ordine: allineamento centrato e bordo tratteggiato ciano */
 .order-header-info {
     text-align: center;
     margin-bottom: 40px;
@@ -13,6 +25,7 @@
     border-bottom: 2px dashed #00f0ff;
 }
 
+/* Titolo principale h2 con numero identificativo dell'ordine */
 .order-header-info h2 {
     color: #000000;
     text-transform: uppercase;
@@ -20,7 +33,7 @@
     margin-bottom: 15px;
 }
 
-/* STILI CYBERPUNK PER DATA E STATO */
+/* Contenitore flessibile dei metadati diagnostici dell'ordine */
 .cyber-info-container {
     display: flex;
     justify-content: center;
@@ -29,6 +42,7 @@
     margin-top: 15px;
 }
 
+/* Singolo modulo informativo HUD (es. Data o Stato): sfondo scuro con trama a punti ciano */
 .cyber-info-line {
     display: inline-flex;
     align-items: center;
@@ -43,6 +57,7 @@
     margin: 0;
 }
 
+/* Etichetta del metadato in font Orbitron ciano neon */
 .cyber-label {
     color: #00f0ff;
     font-family: 'Orbitron', sans-serif;
@@ -53,6 +68,7 @@
     font-weight: bold;
 }
 
+/* Valore del metadato in font Courier monospace bianco */
 .cyber-value {
     color: #fff;
     font-family: 'Courier New', Courier, monospace;
@@ -61,11 +77,12 @@
     letter-spacing: 1px;
 }
 
+/* ==========================================================================
+   GRUPPO 2: INTESTAZIONE CYBERPUNK (BANNER HUD POLIGONALE)
+   Banner orizzontale a forma di nastro geometrico.
+   ========================================================================== */
 
-
-/* ==========================================
-   INTESTAZIONE SEZIONI (CYBERPUNK DIVIDER)
-   ========================================== */
+/* Contenitore flessibile del divisore superiore */
 .cyber-divider-wrapper {
     position: relative;
     width: 100%;
@@ -76,40 +93,100 @@
     align-items: center;
     box-shadow: 0 0 15px rgba(252, 226, 5, 0.4);
 }
+
+/* Sfondo poligonale ritagliato con pattern ciano */
 .cyber-divider {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: #0b0b0c;
     clip-path: polygon(0% 10px, 10% 10px, 15% 0%, 25% 0%, 28% 15px, 45% 15px, 48% 5px, 60% 5px, 65% 20px, 75% 20px, 80% 0%, 90% 0%, 95% 10px, 100% 10px, 100% calc(100% - 10px), 85% calc(100% - 10px), 80% 100%, 65% 100%, 60% calc(100% - 15px), 45% calc(100% - 15px), 40% calc(100% - 5px), 25% calc(100% - 5px), 20% calc(100% - 20px), 10% calc(100% - 20px), 5% 100%, 0% 100%);
     background-image: radial-gradient(rgba(0, 240, 255, 0.25) 1px, transparent 1px), radial-gradient(rgba(70, 70, 70, 0.5) 1px, transparent 1px);
-    background-size: 15px 15px, 25px 25px; background-position: 0 0, 7px 7px;
+    background-size: 15px 15px, 25px 25px;
+    background-position: 0 0, 7px 7px;
 }
+
+/* Testo centrale del banner in risalto */
 .cyber-center-text {
-    position: absolute; z-index: 2; color: #00f0ff; font-family: 'Inter', 'Segoe UI', sans-serif;
-    font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
+    position: absolute;
+    z-index: 2;
+    color: #00f0ff;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
     text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3);
-    border: 1px solid #00f0ff; padding: 6px 30px; background: rgba(11, 11, 12, 0.85);
+    border: 1px solid #00f0ff;
+    padding: 6px 30px;
+    background: rgba(11, 11, 12, 0.85);
     box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.2);
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 0);
 }
+
+/* Modulo di log a sinistra */
 .cyber-left-module {
-    position: absolute; z-index: 2; left: 20px; top: 50%; transform: translateY(-50%);
-    color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold; text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
+    position: absolute;
+    z-index: 2;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
 }
+
+/* Modulo grafico HUD a destra */
 .cyber-right-hud {
-    position: absolute; z-index: 2; right: 25px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+    position: absolute;
+    z-index: 2;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
 }
-.cyber-hud-line { height: 2px; background-color: #00f0ff; box-shadow: 0 0 5px #00f0ff; }
-.cyber-hud-line:nth-child(1) { width: 35px; } .cyber-hud-line:nth-child(2) { width: 15px; } .cyber-hud-line:nth-child(3) { width: 50px; }
-.cyber-hud-text { color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.6rem; margin-top: 2px; font-weight: bold; opacity: 0.9; }
 
+/* Linee grafiche decorative HUD */
+.cyber-hud-line {
+    height: 2px;
+    background-color: #00f0ff;
+    box-shadow: 0 0 5px #00f0ff;
+}
+.cyber-hud-line:nth-child(1) { width: 35px; }
+.cyber-hud-line:nth-child(2) { width: 15px; }
+.cyber-hud-line:nth-child(3) { width: 50px; }
 
-/* LISTA PRODOTTI */
+/* Testo versione HUD */
+.cyber-hud-text {
+    color: #00f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6rem;
+    margin-top: 2px;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* ==========================================================================
+   GRUPPO 3: LISTA PRODOTTI E CARD ARTICOLO ACQUISTATO
+   Singole righe degli articoli appartenenti all'ordine.
+   ========================================================================== */
+
+/* Contenitore a colonna per tutte le card prodotto dell'ordine */
 .product-list-container {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
+/* Card del singolo prodotto: layout flessibile orizzontale, sfondo scuro e foro magenta */
 .product-card {
     display: flex;
     align-items: center;
@@ -123,11 +200,13 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Hover sulla card del prodotto: sollevamento e bagliore ciano */
 .product-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(0, 240, 255, 0.3);
 }
 
+/* Foro decorativo sul bordo sinistro: cerchio scavato con bordo magenta neon */
 .product-card::before {
     content: '';
     position: absolute;
@@ -143,6 +222,7 @@
     z-index: 6;
 }
 
+/* Contenitore dell'immagine miniatura del prodotto: 100x100px con bordo ciano */
 .product-img-wrapper {
     flex-shrink: 0;
     width: 100px;
@@ -154,16 +234,19 @@
     margin-right: 25px;
 }
 
+/* Immagine adattata e ritagliata */
 .product-img-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
+/* Colonna descrittiva centrale: occupa lo spazio espandibile */
 .product-info {
     flex-grow: 1;
 }
 
+/* Nome del prodotto in ciano maiuscolo */
 .product-info h3 {
     color: #00f0ff;
     margin: 0 0 10px 0;
@@ -171,11 +254,13 @@
     font-size: 1.3rem;
 }
 
+/* Paragrafi descrittivi (prezzo unitario, quantita, IVA) */
 .product-info p {
     margin: 4px 0;
     font-size: 1rem;
 }
 
+/* Subtotale della riga prodotto in verde neon */
 .product-info .subtotal {
     color: #39ff14;
     font-weight: bold;
@@ -183,12 +268,18 @@
     margin-top: 8px;
 }
 
+/* Sezione destra per azioni contestuali sul prodotto */
 .product-action {
     flex-shrink: 0;
     padding-left: 20px;
 }
 
-/* TOTALE IN FONDO */
+/* ==========================================================================
+   GRUPPO 4: BOX TOTALE DELL'ORDINE E PULSANTI
+   Card finale di riepilogo importi e pulsante di stampa fattura.
+   ========================================================================== */
+
+/* Card scura del totale finale posizionata in fondo con bordo ciano */
 .order-total-summary {
     margin-top: 40px;
     text-align: right;
@@ -199,32 +290,40 @@
     box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
 }
 
+/* Titolo del totale ordine */
 .order-total-summary h3 {
     font-size: 1.8rem;
     margin: 0 0 20px 0;
     color: #fff;
 }
 
+/* Valore numerico del prezzo totale in verde neon */
 .order-total-summary .total-price {
     color: #39ff14;
     text-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
 }
 
+/* Pulsante secondario di navigazione */
 .order-total-summary .btn-secondary {
     display: inline-block;
 }
 
+/* Pulsante dedicato alla stampa */
 .btn-print {
     margin-right: 15px;
 }
 
+/* Elementi destinati esclusivamente all'output di stampa cartacea */
 .print-only {
     display: none;
 }
 
-/* ==========================================
-   BADGE DI STATO (ORDINI)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 5: BADGE DI STATO DEGLI ORDINI
+   Indicatori visivi cromatici per identificare lo stato dell'ordine.
+   ========================================================================== */
+
+/* Struttura base del badge di stato */
 .status-badge {
     padding: 6px 12px;
     border-radius: 4px;
@@ -237,6 +336,7 @@
     display: inline-block;
 }
 
+/* Stato ordine 'In Lavorazione' / 'In Elaborazione': arancione con ombra */
 .status-badge.status-inlavorazione,
 .status-badge.status-inelaborazione {
     background: rgba(255, 170, 0, 0.1);
@@ -245,6 +345,7 @@
     box-shadow: 0 0 8px rgba(255, 170, 0, 0.3);
 }
 
+/* Stato ordine 'Spedito': ciano brillante */
 .status-badge.status-spedito {
     background: rgba(0, 240, 255, 0.1);
     color: #00f0ff;
@@ -252,6 +353,7 @@
     box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
 }
 
+/* Stato ordine 'Consegnato': verde neon */
 .status-badge.status-consegnato {
     background: rgba(57, 255, 20, 0.1);
     color: #39ff14;
@@ -259,6 +361,7 @@
     box-shadow: 0 0 8px rgba(57, 255, 20, 0.3);
 }
 
+/* Stato ordine 'Annullato': rosso neon */
 .status-badge.status-annullato {
     background: rgba(225, 29, 72, 0.1);
     color: #ff003c;
@@ -266,6 +369,7 @@
     box-shadow: 0 0 8px rgba(255, 0, 60, 0.3);
 }
 
+/* Stato ordine 'Rimborsato': magenta neon */
 .status-badge.status-rimborsato {
     background: rgba(255, 0, 255, 0.1);
     color: #ff00ff;
@@ -273,21 +377,32 @@
     box-shadow: 0 0 8px rgba(255, 0, 255, 0.3);
 }
 
-/* ==========================================
-   STAMPA FATTURA (MEDIA QUERY PRINT)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 6: STAMPA FATTURA / DOCUMENTO CARTACEO (MEDIA QUERY PRINT)
+   Ottimizzazione ad alto contrasto bianco/nero per risparmio d'inchiostro.
+   ========================================================================== */
 @media print {
-    /* Nascondi gli elementi che non devono apparire su carta */
-    .navbar, .footer, .btn, .product-action, .hide-on-print {
+    /* Occultamento degli elementi di navigazione e interazione a video */
+    .navbar,
+    .footer,
+    .btn,
+    .product-action,
+    .hide-on-print {
         display: none !important;
     }
 
+    /* Rende visibili i blocchi dedicati solo alla stampa (es. testata fattura) */
     .print-only {
         display: block !important;
     }
 
-    /* Rimuovi sfondi scuri e ombre, usa bianco e nero per risparmiare inchiostro */
-    body, .container, .main-content, .order-total-summary, .product-card, .cyber-info-line {
+    /* Rimozione degli sfondi scuri: fondo bianco e testo nero per risparmiare inchiostro */
+    body,
+    .container,
+    .main-content,
+    .order-total-summary,
+    .product-card,
+    .cyber-info-line {
         background-color: white !important;
         color: black !important;
         border: none !important;
@@ -295,47 +410,59 @@
         padding: 0 !important;
     }
 
-    /* Testi e bordi per la carta */
-    .order-header-info h2, .order-header-info p, .product-info h3, .product-info p, .product-info .subtotal, .order-total-summary h3, .order-total-summary .total-price, .cyber-label, .cyber-value {
+    /* Reset dei colori di testo luminescenti a nero solido per carta */
+    .order-header-info h2,
+    .order-header-info p,
+    .product-info h3,
+    .product-info p,
+    .product-info .subtotal,
+    .order-total-summary h3,
+    .order-total-summary .total-price,
+    .cyber-label,
+    .cyber-value {
         color: black !important;
         text-shadow: none !important;
     }
 
+    /* Linea di separazione per stampa */
     .order-header-info {
         border-bottom: 2px solid black !important;
     }
     
+    /* Righe prodotto stampate con bordo grigio sottile */
     .product-card {
         border-bottom: 1px solid #ccc !important;
         border-radius: 0 !important;
         padding: 10px 0 !important;
     }
 
-    /* Nascondi cerchietti cyberpunk */
+    /* Nasconde i fori decorativi cyberpunk */
     .product-card::before {
         display: none !important;
     }
 
+    /* Bordo immagine neutro per stampa */
     .product-img-wrapper {
         border: 1px solid #ccc !important;
     }
 
-    /* Margini del foglio */
+    /* Margini del foglio A4 di stampa */
     @page {
         margin: 1.5cm;
     }
 }
 
-/* ==========================================
-   MEDIA QUERIES (RESPONSIVE)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 7: REGOLE RESPONSIVE PER SMARTPHONE E TABLET
+   Adattamento per schermi con larghezza fino a 768px.
+   ========================================================================== */
 @media (max-width: 768px) {
     .order-header-info {
         padding-bottom: 15px;
         margin-bottom: 25px;
     }
 
-    /* Ridimensionamento scritte Data/Stato per gerarchia visiva */
+    /* Ridimensionamento etichette HUD */
     .cyber-info-line {
         padding: 5px 12px;
     }
@@ -347,17 +474,19 @@
         font-size: 0.95rem;
     }
 
+    /* Disposizione in colonna per la card del prodotto su smartphone */
     .product-card {
         flex-direction: column;
         text-align: center;
         padding: 25px 15px;
     }
 
-    /* Nascondi il cerchietto su smartphone per risparmiare spazio */
+    /* Nasconde il foro laterale su mobile */
     .product-card::before {
         display: none;
     }
 
+    /* Immagine centrata */
     .product-img-wrapper {
         margin: 0 0 15px 0;
         width: 130px;
@@ -368,9 +497,10 @@
         width: 100%;
     }
 
+    /* Titolo scalato con supporto a word-break */
     .product-info h3 {
         font-size: 1.4rem;
-        word-break: break-word; /* Evita che titoli lunghi sforino */
+        word-break: break-word;
         margin-bottom: 10px;
     }
 
@@ -379,6 +509,7 @@
         margin: 5px 0;
     }
 
+    /* Pulsanti azione estesi a piena larghezza */
     .product-action {
         width: 100%;
         padding-left: 0;
@@ -390,6 +521,7 @@
         box-sizing: border-box;
     }
 
+    /* Riepilogo totale centrato */
     .order-total-summary {
         text-align: center;
         padding: 20px 15px;
@@ -399,6 +531,7 @@
         font-size: 1.4rem;
     }
 
+    /* Pulsanti a larghezza intera */
     .order-total-summary .btn {
         width: 100%;
         margin-right: 0 !important;
@@ -406,4 +539,3 @@
         box-sizing: border-box;
     }
 }
-

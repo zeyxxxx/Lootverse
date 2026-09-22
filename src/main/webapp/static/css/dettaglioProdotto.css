@@ -1,7 +1,17 @@
-/* ==========================================
-   CSS Dettaglio Prodotto
-   ========================================== */
+/* ==========================================================================
+   FOGLIO DI STILE: dettaglioProdotto.css
+   Descrizione: Stili per la pagina della scheda dettaglio del singolo prodotto.
+                Include la visualizzazione in evidenza dell'immagine, specifiche tecniche,
+                prezzo formattato, selettore quantita, bottoni d'acquisto/carrello/desideri
+                e banner cyber-divider.
+   ========================================================================== */
 
+/* ==========================================================================
+   GRUPPO 1: SCHEDA DETTAGLIO PRODOTTO (CARD CENTRALE CYBERPUNK)
+   Contenitore centrale del prodotto con sfondo scuro e fori decorativi.
+   ========================================================================== */
+
+/* Card principale contenitore della scheda prodotto: layout flex verticale, angoli arrotondati e ombra marcata */
 .product-detail-box {
     display: flex;
     flex-direction: column;
@@ -9,7 +19,7 @@
     background-color: var(--dark-surface);
     border: 2px solid #000000;
     border-radius: 12px;
-    padding: 60px 40px 40px 40px; /* Padding top per ospitare il foro */
+    padding: 60px 40px 40px 40px; /* Spazio superiore maggiorato per accogliere il foro decorativo */
     max-width: 800px;
     margin: 0 auto;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
@@ -18,7 +28,7 @@
     position: relative;
 }
 
-/* Buco a sinistra in stile card index */
+/* Foro decorativo sinistro: simula l'aggancio a schede perforate con contorno ciano neon */
 .product-detail-box::before {
     content: '';
     position: absolute;
@@ -34,9 +44,15 @@
     z-index: 6;
 }
 
+/* ==========================================================================
+   GRUPPO 2: IMMAGINE DEL PRODOTTO E TITOLO
+   Immagine in evidenza ad alta risoluzione, titolo cyberpunk e descrizione.
+   ========================================================================== */
+
+/* Immagine principale della scheda prodotto: responsive con larghezza massima di 500px e bagliore tenue */
 .product-detail-image {
     width: 100%;
-    max-width: 500px; /* Immagine grande */
+    max-width: 500px;
     height: auto;
     object-fit: contain;
     border-radius: 8px;
@@ -44,6 +60,7 @@
     box-shadow: 0 0 25px rgba(254, 247, 47, 0.1);
 }
 
+/* Nome del prodotto in intestazione: font tecnologico Orbitron, colore ciano neon e spaziatura */
 .product-detail-box h2 {
     font-size: 2.2rem;
     color: var(--accent-color, #00f0ff);
@@ -53,6 +70,7 @@
     letter-spacing: 1px;
 }
 
+/* Paragrafo con la descrizione estesa del prodotto */
 .product-desc {
     font-size: 1.15rem;
     line-height: 1.6;
@@ -61,6 +79,12 @@
     max-width: 700px;
 }
 
+/* ==========================================================================
+   GRUPPO 3: SPECIFICHE TECNICHE E METADATI
+   Riquadro semitrasparente con caratteristiche chiave del prodotto (categoria, marca, ecc.).
+   ========================================================================== */
+
+/* Riquadro per l'elenco delle specifiche: sfondo semitrasparente scuro e bordi arrotondati */
 .product-specs {
     list-style: none;
     padding: 0;
@@ -73,22 +97,31 @@
     padding: 20px;
 }
 
+/* Singola riga della specifica con linea divisoria inferiore */
 .product-specs li {
     padding: 10px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 1.05rem;
 }
 
+/* Ultima specifica dell'elenco senza separatore */
 .product-specs li:last-child {
     border-bottom: none;
 }
 
+/* Etichetta della specifica: testo ciano neon a larghezza fissa per allineamento */
 .product-specs li strong {
     color: var(--accent-color, #00f0ff);
     display: inline-block;
     width: 120px;
 }
 
+/* ==========================================================================
+   GRUPPO 4: PREZZO E DETTAGLI ECONOMICI
+   Prezzo in evidenza, prezzo di listino barrato ed etichetta IVA inclusa.
+   ========================================================================== */
+
+/* Prezzo corrente di vendita: testo grande, in grassetto, con alone luminoso ciano */
 .product-price {
     font-size: 2rem;
     font-weight: bold;
@@ -97,6 +130,7 @@
     text-shadow: 0 0 10px var(--accent-color, #00f0ff);
 }
 
+/* Prezzo precedente scontato barrato */
 .old-price {
     text-decoration: line-through;
     color: #888;
@@ -105,6 +139,7 @@
     font-weight: normal;
 }
 
+/* Nota informativa 'IVA inclusa' accanto al prezzo */
 .tax-included {
     font-size: 0.8rem;
     font-weight: normal;
@@ -112,6 +147,12 @@
     margin-left: 10px;
 }
 
+/* ==========================================================================
+   GRUPPO 5: GRUPPO AZIONI D'ACQUISTO E CONTROLLO QUANTITA
+   Pulsanti 'Aggiungi al Carrello', 'Lista Desideri' e campo numerico quantita.
+   ========================================================================== */
+
+/* Gruppo contenitore per i pulsanti di azione e il campo quantita */
 .product-actions-group {
     display: flex;
     flex-wrap: wrap;
@@ -121,6 +162,7 @@
     width: 100%;
 }
 
+/* Campo input per la quantita: casella compatta, centrata con bordo colorato */
 .qty-input {
     width: 70px;
     padding: 12px;
@@ -133,52 +175,18 @@
     font-weight: bold;
 }
 
+/* Stato di focus del selettore quantita: bagliore neon */
 .qty-input:focus {
     outline: none;
     box-shadow: 0 0 10px var(--accent-color, #00f0ff);
 }
 
-/* ==========================================
-   MEDIA QUERIES (RESPONSIVE)
-   ========================================== */
-@media (max-width: 768px) {
-    .product-detail-box {
-        padding: 40px 20px 20px 20px;
-    }
+/* ==========================================================================
+   GRUPPO 6: INTESTAZIONE CYBERPUNK (BANNER HUD POLIGONALE)
+   Elementi visivi per il banner divisore superiore con estetica tech.
+   ========================================================================== */
 
-    .product-detail-box::before {
-        display: none; /* Nascondi il foro su mobile */
-    }
-
-    .product-detail-box h2 {
-        font-size: 1.6rem;
-    }
-
-    .product-desc {
-        font-size: 1rem;
-    }
-
-    .product-price {
-        font-size: 1.5rem;
-    }
-
-    .product-actions-group {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .product-actions-group form, .product-actions-group a {
-        width: 100%;
-    }
-    
-    .product-actions-group .btn {
-        width: 100%;
-    }
-}
-
-/* ==========================================
-   INTESTAZIONE SEZIONI (CYBERPUNK DIVIDER)
-   ========================================== */
+/* Contenitore flessibile del divisore con ombra diffusa */
 .cyber-divider-wrapper {
     position: relative;
     width: 100%;
@@ -189,28 +197,131 @@
     align-items: center;
     box-shadow: 0 0 15px rgba(252, 226, 5, 0.4);
 }
+
+/* Sfondo geometrico poligonale con pattern di punti ciano */
 .cyber-divider {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: #0b0b0c;
     clip-path: polygon(0% 10px, 10% 10px, 15% 0%, 25% 0%, 28% 15px, 45% 15px, 48% 5px, 60% 5px, 65% 20px, 75% 20px, 80% 0%, 90% 0%, 95% 10px, 100% 10px, 100% calc(100% - 10px), 85% calc(100% - 10px), 80% 100%, 65% 100%, 60% calc(100% - 15px), 45% calc(100% - 15px), 40% calc(100% - 5px), 25% calc(100% - 5px), 20% calc(100% - 20px), 10% calc(100% - 20px), 5% 100%, 0% 100%);
     background-image: radial-gradient(rgba(0, 240, 255, 0.25) 1px, transparent 1px), radial-gradient(rgba(70, 70, 70, 0.5) 1px, transparent 1px);
-    background-size: 15px 15px, 25px 25px; background-position: 0 0, 7px 7px;
+    background-size: 15px 15px, 25px 25px;
+    background-position: 0 0, 7px 7px;
 }
+
+/* Testo centrale del banner con bordo tagliato a smusso e testo luminescente */
 .cyber-center-text {
-    position: absolute; z-index: 2; color: #00f0ff; font-family: 'Inter', 'Segoe UI', sans-serif;
-    font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
+    position: absolute;
+    z-index: 2;
+    color: #00f0ff;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
     text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3);
-    border: 1px solid #00f0ff; padding: 6px 30px; background: rgba(11, 11, 12, 0.85);
+    border: 1px solid #00f0ff;
+    padding: 6px 30px;
+    background: rgba(11, 11, 12, 0.85);
     box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.2);
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 0);
 }
+
+/* Modulo di stato a sinistra del banner */
 .cyber-left-module {
-    position: absolute; z-index: 2; left: 20px; top: 50%; transform: translateY(-50%);
-    color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold; text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
+    position: absolute;
+    z-index: 2;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
 }
+
+/* Modulo indicatori HUD a destra del banner */
 .cyber-right-hud {
-    position: absolute; z-index: 2; right: 25px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+    position: absolute;
+    z-index: 2;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
 }
-.cyber-hud-line { height: 2px; background-color: #00f0ff; box-shadow: 0 0 5px #00f0ff; }
-.cyber-hud-line:nth-child(1) { width: 35px; } .cyber-hud-line:nth-child(2) { width: 15px; } .cyber-hud-line:nth-child(3) { width: 50px; }
-.cyber-hud-text { color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.6rem; margin-top: 2px; font-weight: bold; opacity: 0.9; }
+
+/* Linee grafiche decorative del modulo HUD */
+.cyber-hud-line {
+    height: 2px;
+    background-color: #00f0ff;
+    box-shadow: 0 0 5px #00f0ff;
+}
+.cyber-hud-line:nth-child(1) { width: 35px; }
+.cyber-hud-line:nth-child(2) { width: 15px; }
+.cyber-hud-line:nth-child(3) { width: 50px; }
+
+/* Testo versione HUD */
+.cyber-hud-text {
+    color: #00f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6rem;
+    margin-top: 2px;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* ==========================================================================
+   GRUPPO 7: REGOLE RESPONSIVE PER SCHERMI RIDOTTI
+   Adattamento del layout della scheda per smartphone e tablet.
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Padding ridotto per la card su schermi stretti */
+    .product-detail-box {
+        padding: 40px 20px 20px 20px;
+    }
+
+    /* Nasconde il foro decorativo per recuperare spazio */
+    .product-detail-box::before {
+        display: none;
+    }
+
+    /* Titolo scalato per dispositivi mobili */
+    .product-detail-box h2 {
+        font-size: 1.6rem;
+    }
+
+    /* Testo descrittivo compatto */
+    .product-desc {
+        font-size: 1rem;
+    }
+
+    /* Prezzo ridotto */
+    .product-price {
+        font-size: 1.5rem;
+    }
+
+    /* Disposizione in colonna dei pulsanti d'azione */
+    .product-actions-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    /* Larghezza piena per i form e i link d'azione */
+    .product-actions-group form,
+    .product-actions-group a {
+        width: 100%;
+    }
+    
+    /* Pulsanti estesi su tutta la larghezza */
+    .product-actions-group .btn {
+        width: 100%;
+    }
+}

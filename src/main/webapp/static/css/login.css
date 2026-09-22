@@ -1,6 +1,17 @@
-/* ==========================================
-   STILE AUTENTICAZIONE (LOGIN)
-   ========================================== */
+/* ==========================================================================
+   FOGLIO DI STILE: login.css
+   Descrizione: Stili per la schermata di login per gli utenti acquirenti.
+                Presenta una card centrale in stile scheda cyberpunk con fori neon
+                (azzurro e magenta), campi form a contrasto elevato con focus verde acido
+                e banner divisore HUD geometrico.
+   ========================================================================== */
+
+/* ==========================================================================
+   GRUPPO 1: CONTENITORE CENTRALE E TITOLO PRINCIPALE
+   Centratura dello spazio di autenticazione e intestazione in nero pieno.
+   ========================================================================== */
+
+/* Contenitore flessibile centrale dell'intera vista di autenticazione */
 .auth-container {
     display: flex;
     flex-direction: column;
@@ -10,25 +21,28 @@
     padding: 40px 20px;
 }
 
+/* Titolo h2 della schermata di login: colore nero a contrasto elevato, maiuscolo e centrato */
 .auth-container h2 {
     color: #000000;
-    /* Nero richiesto */
     font-size: 2.2rem;
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 30px;
     text-shadow: none;
-    /* Rimosso l'effetto ombra azzurra per evitare confusione sul nero */
     letter-spacing: 2px;
 }
 
-/* Base stile Card Prodotto di index.css */
+/* ==========================================================================
+   GRUPPO 2: CARD DEL FORM DI ACCESSO E FORI CYBERPUNK
+   Box principale scuro con doppio foro decorativo superiore (azzurro e magenta).
+   ========================================================================== */
+
+/* Struttura della card del form: superficie scura, bordo nero solido, ombra pronunciata e padding per i fori */
 .form-box {
     background-color: var(--dark-surface);
     border: 2px solid #000000;
     border-radius: 12px;
     padding: 65px 40px 40px 40px;
-    /* Padding superiore maggiorato per i fori */
     width: 100%;
     max-width: 550px;
     position: relative;
@@ -37,12 +51,13 @@
     color: var(--text-light);
 }
 
+/* Effetto al passaggio del mouse: sollevamento e bagliore azzurro */
 .form-box:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(0, 240, 255, 0.15);
 }
 
-/* Foro a sinistra (Azzurro) */
+/* Foro decorativo superiore sinistro: intaglio con contorno ciano neon */
 .form-box::before {
     content: '';
     position: absolute;
@@ -52,14 +67,13 @@
     width: 28px;
     height: 28px;
     background-color: var(--primary-bg);
-    /* Rivela il giallo di sfondo */
     border: 2px solid #00f0ff;
     border-radius: 50%;
     box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.6);
     z-index: 6;
 }
 
-/* Foro a destra (Magenta) per dettagli più colorati */
+/* Foro decorativo superiore destro: intaglio con contorno magenta neon */
 .form-box::after {
     content: '';
     position: absolute;
@@ -75,10 +89,17 @@
     z-index: 6;
 }
 
+/* ==========================================================================
+   GRUPPO 3: CAMPI DEL FORM E FOCUS LUMINOSO
+   Stili per etichette, caselle di testo con bordi luminescenti verde acido.
+   ========================================================================== */
+
+/* Spaziatura verticale per ogni gruppo di input */
 .form-group {
     margin-bottom: 25px;
 }
 
+/* Etichetta del campo: testo bianco maiuscolo in grassetto */
 .form-group label {
     font-weight: 600;
     letter-spacing: 1px;
@@ -89,6 +110,7 @@
     text-transform: uppercase;
 }
 
+/* Caselle di testo e menu a discesa: sfondo scuro con angoli smussati */
 .form-group input,
 .form-group select {
     background-color: var(--dark-card);
@@ -101,19 +123,26 @@
     width: 100%;
 }
 
+/* Segnaposto con trasparenza attenuata */
 .form-group input::placeholder {
     color: rgba(255, 255, 255, 0.4);
 }
 
+/* Stato di selezione/focus: bordo verde acido brillante (#39ff14) ed effetto alone */
 .form-group input:focus,
 .form-group select:focus {
     border-color: #39ff14;
-    /* Focus Verde Acido */
     box-shadow: 0 0 12px rgba(57, 255, 20, 0.3);
     background-color: rgba(20, 30, 20, 0.8);
     outline: none;
 }
 
+/* ==========================================================================
+   GRUPPO 4: PULSANTE DI ACCESSO VERDE ACIDO
+   Pulsante call-to-action con contorno fluorescente ed effetto riempimento al passaggio.
+   ========================================================================== */
+
+/* Pulsante principale di autenticazione: bordo e testo verde acido su fondo scuro */
 .form-box .btn-primary {
     width: 100%;
     padding: 14px;
@@ -123,7 +152,6 @@
     margin-top: 20px;
     background: transparent;
     color: #39ff14;
-    /* Verde Acido */
     border: 2px solid #39ff14;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -131,6 +159,7 @@
     transition: all 0.3s ease;
 }
 
+/* Hover sul pulsante: sfondo verde neon pieno, testo nero a contrasto e bagliore diffuso */
 .form-box .btn-primary:hover {
     background: #39ff14;
     color: #000;
@@ -138,6 +167,12 @@
     transform: translateY(-2px);
 }
 
+/* ==========================================================================
+   GRUPPO 5: SEZIONE DI REINDIRIZZAMENTO REGISTRAZIONE
+   Separatore e collegamento ipertestuale alla registrazione per i nuovi utenti.
+   ========================================================================== */
+
+/* Sezione inferiore di reindirizzamento: linea tratteggiata di separazione e testo centrato */
 .auth-redirect {
     text-align: center;
     margin-top: 30px;
@@ -147,9 +182,9 @@
     padding-top: 20px;
 }
 
+/* Link verso la pagina di registrazione: colore magenta acceso (#ff00ff) in grassetto */
 .auth-redirect a {
     color: #ff00ff;
-    /* Magenta per il link */
     text-decoration: none;
     font-weight: 700;
     transition: all 0.3s ease;
@@ -157,13 +192,18 @@
     text-transform: uppercase;
 }
 
+/* Hover sul link di registrazione: testo bianco con bagliore magenta */
 .auth-redirect a:hover {
     color: #fff;
     text-shadow: 0 0 10px #ff00ff;
-}  
-/* ==========================================
-   INTESTAZIONE SEZIONI (CYBERPUNK DIVIDER)
-   ========================================== */
+}
+
+/* ==========================================================================
+   GRUPPO 6: INTESTAZIONE CYBERPUNK (BANNER E MODULI HUD)
+   Banner a nastro orizzontale con grafica tech geometrica.
+   ========================================================================== */
+
+/* Contenitore principale del banner decorativo superiore */
 .cyber-divider-wrapper {
     position: relative;
     width: 100%;
@@ -174,66 +214,143 @@
     align-items: center;
     box-shadow: 0 0 15px rgba(252, 226, 5, 0.4);
 }
+
+/* Poligono di sfondo con pattern a punti ciano */
 .cyber-divider {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: #0b0b0c;
     clip-path: polygon(0% 10px, 10% 10px, 15% 0%, 25% 0%, 28% 15px, 45% 15px, 48% 5px, 60% 5px, 65% 20px, 75% 20px, 80% 0%, 90% 0%, 95% 10px, 100% 10px, 100% calc(100% - 10px), 85% calc(100% - 10px), 80% 100%, 65% 100%, 60% calc(100% - 15px), 45% calc(100% - 15px), 40% calc(100% - 5px), 25% calc(100% - 5px), 20% calc(100% - 20px), 10% calc(100% - 20px), 5% 100%, 0% 100%);
     background-image: radial-gradient(rgba(0, 240, 255, 0.25) 1px, transparent 1px), radial-gradient(rgba(70, 70, 70, 0.5) 1px, transparent 1px);
-    background-size: 15px 15px, 25px 25px; background-position: 0 0, 7px 7px;
+    background-size: 15px 15px, 25px 25px;
+    background-position: 0 0, 7px 7px;
 }
+
+/* Testo centrale del banner con bordo tagliato a smusso e testo ciano luminescente */
 .cyber-center-text {
-    position: absolute; z-index: 2; color: #00f0ff; font-family: 'Inter', 'Segoe UI', sans-serif;
-    font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
+    position: absolute;
+    z-index: 2;
+    color: #00f0ff;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
     text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3);
-    border: 1px solid #00f0ff; padding: 6px 30px; background: rgba(11, 11, 12, 0.85);
+    border: 1px solid #00f0ff;
+    padding: 6px 30px;
+    background: rgba(11, 11, 12, 0.85);
     box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.2);
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 0);
 }
-.cyber-left-module {
-    position: absolute; z-index: 2; left: 20px; top: 50%; transform: translateY(-50%);
-    color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold; text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
-}
-.cyber-right-hud {
-    position: absolute; z-index: 2; right: 25px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
-}
-.cyber-hud-line { height: 2px; background-color: #00f0ff; box-shadow: 0 0 5px #00f0ff; }
-.cyber-hud-line:nth-child(1) { width: 35px; } .cyber-hud-line:nth-child(2) { width: 15px; } .cyber-hud-line:nth-child(3) { width: 50px; }
-.cyber-hud-text { color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.6rem; margin-top: 2px; font-weight: bold; opacity: 0.9; }
-  
-.cyber-center-text.green-neon { color: #39ff14; border-color: #39ff14; text-shadow: 0 0 10px rgba(57, 255, 20, 0.6), 0 0 20px rgba(57, 255, 20, 0.3); box-shadow: inset 0 0 12px rgba(57, 255, 20, 0.2); }
-.green-neon .cyber-hud-line { background-color: #39ff14; box-shadow: 0 0 5px #39ff14; }
-.cyber-hud-text.green-neon { color: #39ff14; }
-.cyber-left-module.green-neon { color: #39ff14; text-shadow: 0 0 5px rgba(57, 255, 20, 0.6); }
 
-/* ==========================================
-   MEDIA QUERIES (RESPONSIVE)
-   ========================================== */
+/* Modulo di log a sinistra */
+.cyber-left-module {
+    position: absolute;
+    z-index: 2;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
+}
+
+/* Modulo grafico HUD a destra */
+.cyber-right-hud {
+    position: absolute;
+    z-index: 2;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+/* Indicatori a barre orizzontali HUD */
+.cyber-hud-line {
+    height: 2px;
+    background-color: #00f0ff;
+    box-shadow: 0 0 5px #00f0ff;
+}
+.cyber-hud-line:nth-child(1) { width: 35px; }
+.cyber-hud-line:nth-child(2) { width: 15px; }
+.cyber-hud-line:nth-child(3) { width: 50px; }
+
+/* Testo versione HUD */
+.cyber-hud-text {
+    color: #00f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6rem;
+    margin-top: 2px;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* Varianti decorative con accento verde neon */
+.cyber-center-text.green-neon {
+    color: #39ff14;
+    border-color: #39ff14;
+    text-shadow: 0 0 10px rgba(57, 255, 20, 0.6), 0 0 20px rgba(57, 255, 20, 0.3);
+    box-shadow: inset 0 0 12px rgba(57, 255, 20, 0.2);
+}
+.green-neon .cyber-hud-line {
+    background-color: #39ff14;
+    box-shadow: 0 0 5px #39ff14;
+}
+.cyber-hud-text.green-neon {
+    color: #39ff14;
+}
+.cyber-left-module.green-neon {
+    color: #39ff14;
+    text-shadow: 0 0 5px rgba(57, 255, 20, 0.6);
+}
+
+/* ==========================================================================
+   GRUPPO 7: REGOLE RESPONSIVE PER SMARTPHONE E TABLET
+   Ottimizzazione per schermi con larghezza fino a 768px.
+   ========================================================================== */
 @media (max-width: 768px) {
+    /* Dimensione ridotta del titolo */
     .auth-container h2 {
         font-size: 1.8rem;
     }
 
+    /* Padding compatto del modulo */
     .form-box {
         padding: 40px 20px 20px 20px;
     }
 
+    /* Rimozione dei fori grafici su mobile */
     .form-box::before,
     .form-box::after {
         display: none;
     }
 
+    /* Adattamento altezza e spaziatura del divisore */
     .cyber-divider-wrapper {
         height: auto;
         padding: 10px 0;
         margin: 30px 0 15px 0;
     }
 
+    /* Testo centrale ridimensionato */
     .cyber-center-text {
         font-size: 1.3rem;
         position: relative;
     }
 
-    .cyber-left-module, .cyber-right-hud {
+    /* Nasconde i moduli laterali HUD su schermi stretti */
+    .cyber-left-module,
+    .cyber-right-hud {
         display: none;
     }
 }

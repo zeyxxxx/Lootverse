@@ -1,6 +1,16 @@
-/* ==========================================
-   CSS Conferma Ordine (Stile Cyberpunk Card)
-   ========================================== */
+/* ==========================================================================
+   FOGLIO DI STILE: confermaOrdine.css
+   Descrizione: Stili per la pagina di conferma e riepilogo dell'ordine completato con successo.
+                Include la card centrale di ringraziamento con estetica cyberpunk (fori decorativi,
+                neon verde di successo) e i badge cromatici per gli stati dell'ordine.
+   ========================================================================== */
+
+/* ==========================================================================
+   GRUPPO 1: LAYOUT E CONTENITORE CENTRALE
+   Posizionamento centrato verticale e orizzontale della schermata di successo.
+   ========================================================================== */
+
+/* Contenitore flessibile centrato: dispone la card al centro dell'area visibile */
 .centered-content {
     display: flex;
     justify-content: center;
@@ -8,6 +18,7 @@
     min-height: 70vh;
 }
 
+/* Card di successo dell'ordine: box scuro con bordo netto, angoli arrotondati e padding per i fori */
 .order-success-box {
     background-color: var(--dark-surface);
     border: 2px solid #000000;
@@ -21,7 +32,7 @@
     width: 100%;
 }
 
-/* Fori stile card index */
+/* Foro decorativo sinistro: intaglio circolare con bordo ciano neon che svela il giallo di fondo */
 .order-success-box::before {
     content: '';
     position: absolute;
@@ -31,12 +42,13 @@
     width: 28px;
     height: 28px;
     background-color: var(--primary-bg);
-    border: 2px solid #00f0ff; /* Foro Azzurro */
+    border: 2px solid #00f0ff; /* Foro azzurro ciano */
     border-radius: 50%;
     box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.6);
     z-index: 6;
 }
 
+/* Foro decorativo destro: intaglio circolare con bordo verde neon celebrativo per il completamento dell'acquisto */
 .order-success-box::after {
     content: '';
     position: absolute;
@@ -46,12 +58,18 @@
     width: 28px;
     height: 28px;
     background-color: var(--primary-bg);
-    border: 2px solid #39ff14; /* Foro Verde per il successo! */
+    border: 2px solid #39ff14; /* Foro verde neon di successo */
     border-radius: 50%;
     box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.6);
     z-index: 6;
 }
 
+/* ==========================================================================
+   GRUPPO 2: TIPOGRAFIA DEL MESSAGGIO DI SUCCESSO
+   Titoli luminescenti ed evidenziazione dei dati identificativi dell'ordine.
+   ========================================================================== */
+
+/* Titolo principale di successo: colore verde neon (#39ff14) con alone luminoso d'impatto */
 .success-title {
     color: #39ff14;
     text-transform: uppercase;
@@ -60,19 +78,24 @@
     text-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
 }
 
+/* Paragrafi informativi interni al box di conferma */
 .order-success-box p {
     font-size: 1.2rem;
     margin-bottom: 15px;
 }
 
+/* Testo evidenziato in grassetto: colore ciano neon (#00f0ff) per evidenziare ID ordine e date */
 .order-success-box strong {
     color: #00f0ff;
     font-size: 1.4rem;
 }
 
-/* ==========================================
-   BADGE DI STATO (ORDINI)
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 3: BADGE DI STATO DEGLI ORDINI
+   Etichette cromatiche con bagliori per comunicare lo stato dell'ordine.
+   ========================================================================== */
+
+/* Stile base del badge di stato: testo maiuscolo, angoli smussati e bordo sottile */
 .status-badge {
     padding: 6px 12px;
     border-radius: 4px;
@@ -85,6 +108,7 @@
     display: inline-block;
 }
 
+/* Stato ordine 'In Lavorazione' / 'In Elaborazione': tonalita ambra/arancione con bagliore dedicato */
 .status-badge.status-inlavorazione,
 .status-badge.status-inelaborazione {
     background: rgba(255, 170, 0, 0.1);
@@ -93,6 +117,7 @@
     box-shadow: 0 0 8px rgba(255, 170, 0, 0.3);
 }
 
+/* Stato ordine 'Spedito': colore ciano brillante con bagliore azzurro */
 .status-badge.status-spedito {
     background: rgba(0, 240, 255, 0.1);
     color: #00f0ff;
@@ -100,6 +125,7 @@
     box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
 }
 
+/* Stato ordine 'Consegnato': colore verde neon positivo */
 .status-badge.status-consegnato {
     background: rgba(57, 255, 20, 0.1);
     color: #39ff14;
@@ -107,6 +133,7 @@
     box-shadow: 0 0 8px rgba(57, 255, 20, 0.3);
 }
 
+/* Stato ordine 'Annullato': colore rosso acceso con avviso di pericolo/cancellazione */
 .status-badge.status-annullato {
     background: rgba(225, 29, 72, 0.1);
     color: #ff003c;
@@ -114,6 +141,7 @@
     box-shadow: 0 0 8px rgba(255, 0, 60, 0.3);
 }
 
+/* Stato ordine 'Rimborsato': colore magenta neon */
 .status-badge.status-rimborsato {
     background: rgba(255, 0, 255, 0.1);
     color: #ff00ff;
@@ -121,6 +149,12 @@
     box-shadow: 0 0 8px rgba(255, 0, 255, 0.3);
 }
 
+/* ==========================================================================
+   GRUPPO 4: PULSANTE DI RITORNO E NAVIGAZIONE
+   Pulsante call-to-action per tornare allo shopping o alla home.
+   ========================================================================== */
+
+/* Pulsante principale di navigazione: gradiente ciano-blu elettrico con testo nero in contrasto */
 .order-success-box .btn-primary {
     display: inline-block;
     background: linear-gradient(135deg, #00f0ff, #0077ff);
@@ -137,6 +171,7 @@
     transition: all 0.3s ease;
 }
 
+/* Hover sul pulsante: leggero ingrandimento e bagliore diffuso */
 .order-success-box .btn-primary:hover {
     transform: translateY(-2px) scale(1.05);
     box-shadow: 0 0 25px rgba(0, 240, 255, 0.8);

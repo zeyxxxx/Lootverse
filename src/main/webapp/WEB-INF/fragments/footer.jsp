@@ -1,10 +1,27 @@
+<%--
+ ==============================================================================
+ Frammento JSP: /WEB-INF/fragments/footer.jsp
+ Descrizione: Piede di pagina condiviso dell'applicazione web Lootverse.
+              Comprende:
+              1. Fascia superiore dei vantaggi competitivi (Spedizioni e Sicurezza)
+              2. Griglia a 4 colonne (Brand e status di sistema, Navigazione rapida,
+                 Area Utente / Servizi condizionata al login, e Dati Accademici TSW UNISA)
+              3. Barra inferiore di copyright con badge chip cyberpunk
+              4. Inclusione dello script JavaScript principale (main.js)
+              5. Inclusione dei pannelli laterali a comparsa (drawer overlay):
+                 - listaDesideriOverlay.jsp
+                 - carrelloOverlay.jsp
+ Incluso tramite: <jsp:include page="/WEB-INF/fragments/footer.jsp" />
+ ==============================================================================
+--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <footer class="cyber-footer footer">
-    <!-- Barra Punti di Forza / Perks Bar -->
+    <%-- Barra Punti di Forza / Vantaggi del servizio (Trust Bar) --%>
     <div class="footer-perks-wrapper">
         <div class="footer-perks-container">
+            <%-- Vantaggio 1: Spedizioni veloci --%>
             <div class="perk-card">
                 <div class="perk-icon">
                     <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -20,6 +37,7 @@
                 </div>
             </div>
 
+            <%-- Vantaggio 2: Sicurezza e crittografia dati --%>
             <div class="perk-card">
                 <div class="perk-icon">
                     <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -34,9 +52,9 @@
         </div>
     </div>
 
-    <!-- Contenitore Principale a Colonne -->
+    <%-- Contenitore Principale a 4 Colonne --%>
     <div class="footer-main-container">
-        <!-- Colonna 1: Brand & Descrizione -->
+        <%-- Colonna 1: Brand, Mission, Indicatore Live Status di Sistema e Canali Social --%>
         <div class="footer-col brand-col">
             <a href="${pageContext.request.contextPath}/index" class="footer-brand">
                 <h2>LOOT<span>VERSE</span></h2>
@@ -44,10 +62,12 @@
             <p class="brand-desc">
                 Il marketplace definitivo per armi leggendarie, gadget cibernetici e artefatti dei multiversi. Forgiamo il futuro del tuo arsenale.
             </p>
+            <%-- Indicatore visivo di stato server online --%>
             <div class="system-status">
                 <span class="status-pulse"></span>
                 <span class="status-text">SYS.STATUS: <strong class="neon-yellow">ONLINE</strong> // V2.6</span>
             </div>
+            <%-- Icone di collegamento ai canali community ed al repository --%>
             <div class="footer-socials">
                 <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="social-icon" title="Discord" aria-label="Discord">
                     <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
@@ -68,7 +88,7 @@
             </div>
         </div>
 
-        <!-- Colonna 2: Navigazione -->
+        <%-- Colonna 2: Link rapidi di navigazione alle sezioni principali --%>
         <div class="footer-col">
             <h3 class="footer-title">Navigazione</h3>
             <ul class="footer-links">
@@ -80,22 +100,25 @@
             </ul>
         </div>
 
-        <!-- Colonna 3: Utente & Servizi -->
+        <%-- Colonna 3: Gestione Account e Servizi (dinamica in base al ruolo) --%>
         <div class="footer-col">
             <h3 class="footer-title">Area Utente</h3>
             <ul class="footer-links">
                 <c:choose>
+                    <%-- Opzioni per utente acquirente registrato --%>
                     <c:when test="${not empty sessionScope.utenteLoggato}">
                         <li><a href="${pageContext.request.contextPath}/carrello">Carrello (${sessionScope.cartBadgeCount != null ? sessionScope.cartBadgeCount : 0})</a></li>
                         <li><a href="${pageContext.request.contextPath}/lista-desideri">Lista Desideri</a></li>
                         <li><a href="${pageContext.request.contextPath}/storico-ordini">I Miei Ordini</a></li>
                         <li><a href="${pageContext.request.contextPath}/logout">Termina Sessione</a></li>
                     </c:when>
+                    <%-- Opzioni per amministratore --%>
                     <c:when test="${not empty sessionScope.adminLoggato}">
                         <li><a href="${pageContext.request.contextPath}/admin-prodotti">Gestione Prodotti</a></li>
                         <li><a href="${pageContext.request.contextPath}/admin-ordini">Gestione Ordini</a></li>
                         <li><a href="${pageContext.request.contextPath}/admin-logout">Logout Amministratore</a></li>
                     </c:when>
+                    <%-- Opzioni per visitatore ospite --%>
                     <c:otherwise>
                         <li><a href="${pageContext.request.contextPath}/login">Accedi al Terminale</a></li>
                         <li><a href="${pageContext.request.contextPath}/registrazione">Crea Nuovo Account</a></li>
@@ -103,11 +126,12 @@
                         <li><a href="${pageContext.request.contextPath}/admin-login">Accesso Admin</a></li>
                     </c:otherwise>
                 </c:choose>
+                <%-- Pulsante di ritorno rapido a inizio pagina con smooth scrolling --%>
                 <li><a href="#top" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Torna in Cima &uarr;</a></li>
             </ul>
         </div>
 
-        <!-- Colonna 4: Progetto Universitario TSW -->
+        <%-- Colonna 4: Dettagli Accademici del Progetto Universitario TSW --%>
         <div class="footer-col project-col">
             <h3 class="footer-title">Progetto Accademico</h3>
             <div class="project-badge">
@@ -124,7 +148,7 @@
         </div>
     </div>
 
-    <!-- Bottom Bar / Copyright -->
+    <%-- Barra Inferiore di Copyright e Badge di Certificazione --%>
     <div class="footer-bottom-bar">
         <div class="footer-bottom-content">
             <p class="copyright-text">
@@ -139,9 +163,11 @@
     </div>
 </footer>
 
-<%-- Script JavaScript principale del progetto --%>
+<%-- Script JavaScript principale dell'applicazione (gestione carrello, notifiche, modali) --%>
 <script src="${pageContext.request.contextPath}/static/js/main.js"></script>
 
-<%-- Inclusione del frammento per il pannello laterale (overlay) della Wishlist --%>
+<%-- Inclusione del pannello laterale (overlay drawer) per la Lista Desideri --%>
 <jsp:include page="/WEB-INF/fragments/listaDesideriOverlay.jsp" />
+
+<%-- Inclusione del pannello laterale (overlay drawer) per il Carrello --%>
 <jsp:include page="/WEB-INF/fragments/carrelloOverlay.jsp" />

@@ -1,7 +1,17 @@
-/* ==========================================
-   CSS Lista Desideri (Wishlist Page)
-   ========================================== */
+/* ==========================================================================
+   FOGLIO DI STILE: listaDesideri.css
+   Descrizione: Stili per la pagina principale della Lista Desideri (Wishlist).
+                Include il layout a griglia responsive, le card prodotto cyberpunk
+                con fori intagliati ciano, i pulsanti per aggiungere direttamente al carrello
+                o rimuovere l'articolo e il banner divisore con dettagli neon rosa/magenta.
+   ========================================================================== */
 
+/* ==========================================================================
+   GRUPPO 1: GRIGLIA PRODOTTI LISTA DESIDERI
+   Disposizione flessibile a griglia per ospitare gli articoli salvati.
+   ========================================================================== */
+
+/* Griglia ad auto-riempimento: colonne minime di 260px che si espandono per riempire lo spazio */
 .wishlist-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -10,11 +20,17 @@
     margin-bottom: 50px;
 }
 
+/* ==========================================================================
+   GRUPPO 2: STRUTTURA DELLA CARD PRODOTTO E FORO CYBERPUNK
+   Card nera con finitura lucida, bordo solido e foro decorativo stile schedario.
+   ========================================================================== */
+
+/* Card singola del prodotto salvato: layout flex a colonna centrato con padding superiore per il foro */
 .wishlist-card {
     background-color: var(--dark-surface);
     border: 2px solid #000000;
     border-radius: 12px;
-    padding: 50px 20px 20px 20px; /* Spazio top aumentato per il foro in stile index */
+    padding: 50px 20px 20px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,7 +40,7 @@
     position: relative;
 }
 
-/* Buco a sinistra in stile card index */
+/* Foro decorativo sinistro: cerchio scavato con bordo ciano neon che svela lo sfondo primario */
 .wishlist-card::before {
     content: '';
     position: absolute;
@@ -40,11 +56,18 @@
     z-index: 6;
 }
 
+/* Hover sulla card: sollevamento di 5px e bagliore diffuso ciano neon */
 .wishlist-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 240, 255, 0.2);
 }
 
+/* ==========================================================================
+   GRUPPO 3: ELEMENTI DELLA CARD (IMMAGINE, TITOLO, PREZZO E IVA)
+   Contenuti testuali e visuali per identificare l'articolo desiderato.
+   ========================================================================== */
+
+/* Immagine di anteprima: contenuta proporzionalmente su sfondo leggermente chiaro */
 .wishlist-card-img {
     width: 100%;
     height: 180px;
@@ -55,13 +78,15 @@
     padding: 10px;
 }
 
+/* Titolo del prodotto: colore bianco con flex-grow per spingere prezzo e pulsanti in basso */
 .wishlist-card h4 {
     font-size: 1.3rem;
     color: #ffffff;
     margin-bottom: 10px;
-    flex-grow: 1; /* Pushes the price and buttons to the bottom */
+    flex-grow: 1;
 }
 
+/* Prezzo di vendita: colore ciano luminescente in grassetto */
 .wishlist-card .product-price {
     font-size: 1.4rem;
     color: var(--accent-color, #00f0ff);
@@ -70,12 +95,19 @@
     text-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
 }
 
+/* Dicitura 'IVA inclusa': testo grigio chiaro di supporto */
 .wishlist-card .iva-label {
     font-size: 0.85rem;
     color: #aaaaaa;
     margin-bottom: 15px;
 }
 
+/* ==========================================================================
+   GRUPPO 4: AZIONI D'ACQUISTO E RIMOZIONE DALLA WISHLIST
+   Pulsanti verticali per spostamento nel carrello o cancellazione dall'elenco.
+   ========================================================================== */
+
+/* Contenitore verticale per i bottoni di interazione della card */
 .wishlist-actions {
     display: flex;
     flex-direction: column;
@@ -83,11 +115,15 @@
     width: 100%;
 }
 
-.wishlist-actions form, .wishlist-actions a {
+/* Estensione a larghezza totale per form e link delle azioni */
+.wishlist-actions form,
+.wishlist-actions a {
     width: 100%;
 }
 
-.wishlist-actions button, .wishlist-actions a {
+/* Stile base condiviso per pulsanti e link d'azione della card */
+.wishlist-actions button,
+.wishlist-actions a {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -98,6 +134,7 @@
     text-align: center;
 }
 
+/* Pulsante per rimuovere l'articolo dalla lista desideri: contorno rosso trasparente */
 .btn-remove-wishlist {
     background-color: transparent;
     color: #ff4444;
@@ -105,15 +142,19 @@
     transition: all 0.3s ease;
 }
 
+/* Hover sul pulsante di rimozione: sfondo rosso pieno con testo nero */
 .btn-remove-wishlist:hover {
     background-color: #ff4444;
     color: #000;
     box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
 }
-  
-/* ==========================================
-   INTESTAZIONE SEZIONI (CYBERPUNK DIVIDER)
-   ========================================== */
+
+/* ==========================================================================
+   GRUPPO 5: INTESTAZIONE CYBERPUNK (BANNER E MODULI HUD ROSA/MAGENTA NEON)
+   Elementi visivi del banner divisore con accenti cromatici rosa neon (#ff0055).
+   ========================================================================== */
+
+/* Contenitore flessibile del banner divisore superiore */
 .cyber-divider-wrapper {
     position: relative;
     width: 100%;
@@ -124,40 +165,112 @@
     align-items: center;
     box-shadow: 0 0 15px rgba(252, 226, 5, 0.4);
 }
+
+/* Sfondo poligonale geometrico con trama punteggiata ciano */
 .cyber-divider {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: #0b0b0c;
     clip-path: polygon(0% 10px, 10% 10px, 15% 0%, 25% 0%, 28% 15px, 45% 15px, 48% 5px, 60% 5px, 65% 20px, 75% 20px, 80% 0%, 90% 0%, 95% 10px, 100% 10px, 100% calc(100% - 10px), 85% calc(100% - 10px), 80% 100%, 65% 100%, 60% calc(100% - 15px), 45% calc(100% - 15px), 40% calc(100% - 5px), 25% calc(100% - 5px), 20% calc(100% - 20px), 10% calc(100% - 20px), 5% 100%, 0% 100%);
     background-image: radial-gradient(rgba(0, 240, 255, 0.25) 1px, transparent 1px), radial-gradient(rgba(70, 70, 70, 0.5) 1px, transparent 1px);
-    background-size: 15px 15px, 25px 25px; background-position: 0 0, 7px 7px;
+    background-size: 15px 15px, 25px 25px;
+    background-position: 0 0, 7px 7px;
 }
+
+/* Testo centrale del banner ritagliato a smusso con bagliore */
 .cyber-center-text {
-    position: absolute; z-index: 2; color: #00f0ff; font-family: 'Inter', 'Segoe UI', sans-serif;
-    font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
+    position: absolute;
+    z-index: 2;
+    color: #00f0ff;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
     text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3);
-    border: 1px solid #00f0ff; padding: 6px 30px; background: rgba(11, 11, 12, 0.85);
+    border: 1px solid #00f0ff;
+    padding: 6px 30px;
+    background: rgba(11, 11, 12, 0.85);
     box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.2);
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 0);
 }
-.cyber-left-module {
-    position: absolute; z-index: 2; left: 20px; top: 50%; transform: translateY(-50%);
-    color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold; text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
-}
-.cyber-right-hud {
-    position: absolute; z-index: 2; right: 25px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
-}
-.cyber-hud-line { height: 2px; background-color: #00f0ff; box-shadow: 0 0 5px #00f0ff; }
-.cyber-hud-line:nth-child(1) { width: 35px; } .cyber-hud-line:nth-child(2) { width: 15px; } .cyber-hud-line:nth-child(3) { width: 50px; }
-.cyber-hud-text { color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.6rem; margin-top: 2px; font-weight: bold; opacity: 0.9; }
-  
-.cyber-center-text.pink-neon { color: #ff0055; border-color: #ff0055; text-shadow: 0 0 10px rgba(255, 0, 85, 0.6), 0 0 20px rgba(255, 0, 85, 0.3); box-shadow: inset 0 0 12px rgba(255, 0, 85, 0.2); }
-.pink-neon .cyber-hud-line { background-color: #ff0055; box-shadow: 0 0 5px #ff0055; }
-.cyber-hud-text.pink-neon { color: #ff0055; }
-.cyber-left-module.pink-neon { color: #ff0055; text-shadow: 0 0 5px rgba(255, 0, 85, 0.6); }
 
-/* ==========================================
-   MEDIA QUERIES (RESPONSIVE)
-   ========================================== */
+/* Modulo di log a sinistra */
+.cyber-left-module {
+    position: absolute;
+    z-index: 2;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
+}
+
+/* Modulo grafico HUD a destra */
+.cyber-right-hud {
+    position: absolute;
+    z-index: 2;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+/* Linee orizzontali decorative HUD */
+.cyber-hud-line {
+    height: 2px;
+    background-color: #00f0ff;
+    box-shadow: 0 0 5px #00f0ff;
+}
+.cyber-hud-line:nth-child(1) { width: 35px; }
+.cyber-hud-line:nth-child(2) { width: 15px; }
+.cyber-hud-line:nth-child(3) { width: 50px; }
+
+/* Testo versione HUD */
+.cyber-hud-text {
+    color: #00f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6rem;
+    margin-top: 2px;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* Variante cromatica rosa neon ('pink-neon') specifica per la wishlist */
+.cyber-center-text.pink-neon {
+    color: #ff0055;
+    border-color: #ff0055;
+    text-shadow: 0 0 10px rgba(255, 0, 85, 0.6), 0 0 20px rgba(255, 0, 85, 0.3);
+    box-shadow: inset 0 0 12px rgba(255, 0, 85, 0.2);
+}
+.pink-neon .cyber-hud-line {
+    background-color: #ff0055;
+    box-shadow: 0 0 5px #ff0055;
+}
+.cyber-hud-text.pink-neon {
+    color: #ff0055;
+}
+.cyber-left-module.pink-neon {
+    color: #ff0055;
+    text-shadow: 0 0 5px rgba(255, 0, 85, 0.6);
+}
+
+/* ==========================================================================
+   GRUPPO 6: REGOLE RESPONSIVE PER TABLET E SMARTPHONE
+   Adattamento della griglia per schermi di medie e piccole dimensioni.
+   ========================================================================== */
+
+/* Schermi tablet (fino a 768px): riduzione colonne e occultamento moduli secondari */
 @media (max-width: 768px) {
     .wishlist-grid {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -169,7 +282,7 @@
     }
 
     .wishlist-card::before {
-        display: none; /* Nascondi foro laterale */
+        display: none; /* Nasconde il foro per massimizzare la larghezza */
     }
 
     .cyber-divider-wrapper {
@@ -183,11 +296,13 @@
         position: relative;
     }
 
-    .cyber-left-module, .cyber-right-hud {
+    .cyber-left-module,
+    .cyber-right-hud {
         display: none;
     }
 }
 
+/* Schermi smartphone (fino a 647px): disposizione a 2 colonne compatte */
 @media (max-width: 647px) {
     .wishlist-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -225,7 +340,8 @@
         gap: 5px;
     }
 
-    .wishlist-actions button, .wishlist-actions a {
+    .wishlist-actions button,
+    .wishlist-actions a {
         padding: 8px 5px;
         font-size: 0.75rem;
         letter-spacing: 0;

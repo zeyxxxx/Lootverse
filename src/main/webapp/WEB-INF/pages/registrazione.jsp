@@ -1,12 +1,36 @@
+<%-- ==============================================================================
+     Pagina JSP: Registrazione Nuovo Utente
+     Descrizione: Schermata di registrazione per la creazione di un nuovo account cliente.
+                  Raccoglie i dati personali: nome, cognome, email (con supporto a validazione
+                  asincrona AJAX per verifica unicità), prefisso internazionale e numero di telefono,
+                  password e conferma password per verifica corrispondenza.
+                  Gestisce la visualizzazione granulare degli errori di validazione per singolo campo
+                  e mantiene i valori inseriti nei campi in caso di ricaricamento a seguito di errori.
+     Inoltrata da: RegistrazioneServlet (GET /registrazione)
+     Dati in ingresso:
+       - requestScope.nome, cognome, email, prefisso, telefono: campi reinseriti per precompilazione
+       - requestScope.errore, erroreCampiVuoti, erroreGiàPresente: alert globali di errore
+       - requestScope.erroreEmail, erroreTelefono, errorePassword, erroreConfermaPassword: messaggi puntuali
+     Form Action:
+       - POST /registrazione: sottomissione dati di registrazione alla servlet
+     ============================================================================== --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="it">
+<%-- Inclusione dell'header comune contenente font, icone e meta-tag viewport --%>
 <jsp:include page="/WEB-INF/fragments/header.jsp" />
+
+<%-- Foglio di stile dedicato per il modulo di registrazione --%>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/registrazione.css">
+
 <body>
+    <%-- Barra di navigazione principale del portale --%>
     <jsp:include page="/WEB-INF/fragments/navbar.jsp" />
+
+    <%-- Sezione centrale contenente il modulo di registrazione --%>
     <main class="container auth-container">
+        <%-- Barra superiore decorativa HUD Cyberpunk con accenti neon verdi --%>
         <div class="cyber-divider-wrapper">
             <div class="cyber-divider"></div>
             <div class="cyber-left-module green-neon">// MODULE.REG loading...</div>
@@ -19,6 +43,7 @@
             </div>
         </div>
 
+        <%-- Notifiche di errore generiche a livello di form --%>
         <c:if test="${not empty errore}">
             <div class="alert alert-danger">${errore}</div>
         </c:if>
@@ -29,17 +54,21 @@
             <div class="alert alert-danger">${erroreGiàPresente}</div>
         </c:if>
 
+        <%-- Modulo di registrazione nuovo utente con controlli di validazione --%>
         <form action="${pageContext.request.contextPath}/registrazione" method="post" class="form-box" id="registrationForm">
+            <%-- Campo Nome --%>
             <div class="form-group">
                 <label for="nome">Nome</label>
                 <input type="text" id="nome" name="nome" value="${nome}" required>
             </div>
 
+            <%-- Campo Cognome --%>
             <div class="form-group">
                 <label for="cognome">Cognome</label>
                 <input type="text" id="cognome" name="cognome" value="${cognome}" required>
             </div>
 
+            <%-- Campo Email con span per feedback asincrono AJAX e gestione errore lato server --%>
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" value="${email}" required>
@@ -49,29 +78,31 @@
                 </c:if>
             </div>
 
+            <%-- Campo Telefono con selettore del prefisso internazionale per i paesi supportati --%>
             <div class="form-group">
-    <label for="telefono">Telefono</label>
-    <div class="phone-input-container">
-        <select id="prefisso" name="prefisso" class="select-prefisso">
-            <option value="+39" ${prefisso == '+39' || empty prefisso ? 'selected' : ''}>🇮🇹 +39 (Italia)</option>
-            <option value="+34" ${prefisso == '+34' ? 'selected' : ''}>🇪🇸 +34 (Spagna)</option>
-            <option value="+33" ${prefisso == '+33' ? 'selected' : ''}>🇫🇷 +33 (Francia)</option>
-            <option value="+49" ${prefisso == '+49' ? 'selected' : ''}>🇩🇪 +49 (Germania)</option>
-            <option value="+44" ${prefisso == '+44' ? 'selected' : ''}>🇬🇧 +44 (Regno Unito)</option>
-            <option value="+41" ${prefisso == '+41' ? 'selected' : ''}>🇨🇭 +41 (Svizzera)</option>
-            <option value="+43" ${prefisso == '+43' ? 'selected' : ''}>🇦🇹 +43 (Austria)</option>
-            <option value="+1"  ${prefisso == '+1'  ? 'selected' : ''}>🇺🇸 +1 (USA / Canada)</option>
-            <option value="+351" ${prefisso == '+351' ? 'selected' : ''}>🇵🇹 +351 (Portogallo)</option>
-            <option value="+31" ${prefisso == '+31' ? 'selected' : ''}>🇳🇱 +31 (Paesi Bassi)</option>
-        </select>
-        
-        <input type="tel" id="telefono" name="telefono" value="${telefono}" placeholder="3123456789" required>
-    </div>
-    <c:if test="${not empty erroreTelefono}">
-        <span class="error-msg">${erroreTelefono}</span>
-    </c:if>
-</div>
+                <label for="telefono">Telefono</label>
+                <div class="phone-input-container">
+                    <select id="prefisso" name="prefisso" class="select-prefisso">
+                        <option value="+39" ${prefisso == '+39' || empty prefisso ? 'selected' : ''}>🇮🇹 +39 (Italia)</option>
+                        <option value="+34" ${prefisso == '+34' ? 'selected' : ''}>🇪🇸 +34 (Spagna)</option>
+                        <option value="+33" ${prefisso == '+33' ? 'selected' : ''}>🇫🇷 +33 (Francia)</option>
+                        <option value="+49" ${prefisso == '+49' ? 'selected' : ''}>🇩🇪 +49 (Germania)</option>
+                        <option value="+44" ${prefisso == '+44' ? 'selected' : ''}>🇬🇧 +44 (Regno Unito)</option>
+                        <option value="+41" ${prefisso == '+41' ? 'selected' : ''}>🇨🇭 +41 (Svizzera)</option>
+                        <option value="+43" ${prefisso == '+43' ? 'selected' : ''}>🇦🇹 +43 (Austria)</option>
+                        <option value="+1"  ${prefisso == '+1'  ? 'selected' : ''}>🇺🇸 +1 (USA / Canada)</option>
+                        <option value="+351" ${prefisso == '+351' ? 'selected' : ''}>🇵🇹 +351 (Portogallo)</option>
+                        <option value="+31" ${prefisso == '+31' ? 'selected' : ''}>🇳🇱 +31 (Paesi Bassi)</option>
+                    </select>
+                    
+                    <input type="tel" id="telefono" name="telefono" value="${telefono}" placeholder="3123456789" required>
+                </div>
+                <c:if test="${not empty erroreTelefono}">
+                    <span class="error-msg">${erroreTelefono}</span>
+                </c:if>
+            </div>
 
+            <%-- Campo Password --%>
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
@@ -80,6 +111,7 @@
                 </c:if>
             </div>
 
+            <%-- Campo Conferma Password --%>
             <div class="form-group">
                 <label for="confermaPassword">Conferma Password</label>
                 <input type="password" id="confermaPassword" name="confermaPassword" required>
@@ -88,10 +120,14 @@
                 </c:if>
             </div>
 
+            <%-- Pulsante di sottomissione registrazione --%>
             <button type="submit" class="btn btn-primary">Registrati</button>
+            <%-- Link di redirect rapido per gli utenti che possiedono già un profilo --%>
             <p class="auth-redirect">Hai già un account? <a href="${pageContext.request.contextPath}/login">Accedi qui</a>.</p>
         </form>
     </main>
+
+    <%-- Piè di pagina standard del sito --%>
     <jsp:include page="/WEB-INF/fragments/footer.jsp" />
 </body>
 </html>

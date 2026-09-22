@@ -1,7 +1,19 @@
-/* ==========================================
-   CSS Carrello
-   ========================================== */
+/* ==========================================================================
+   FOGLIO DI STILE: carrello.css
+   Descrizione: Stili per la pagina principale del Carrello della spesa.
+                Gestisce la tabella responsive dei prodotti (con conversione automatica
+                a schede per mobile via pseudo-elementi data-label), pulsanti per aggiornamento
+                quantita e rimozione, card del totale con foro decorativo cyberpunk,
+                pulsante di checkout ad alta visibilita con animazione pulseGlow
+                e banner divisore HUD.
+   ========================================================================== */
 
+/* ==========================================================================
+   GRUPPO 1: TABELLA DEL CARRELLO
+   Struttura tabellare per visualizzare gli articoli acquistabili su desktop.
+   ========================================================================== */
+
+/* Tabella principale del carrello: larghezza 100%, sfondo scuro con angoli arrotondati ed ombra */
 .cart-table {
     width: 100%;
     border-collapse: collapse;
@@ -9,17 +21,20 @@
     background-color: var(--dark-surface);
     border: 2px solid #000000;
     border-radius: 12px;
-    overflow: hidden; /* For rounded corners on the table */
+    overflow: hidden; /* Garantisce il ritaglio circolare degli angoli della tabella */
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
 }
 
-.cart-table th, .cart-table td {
+/* Celle di intestazione e corpo: spaziatura interna, allineamento centrato e linea divisoria sottile */
+.cart-table th,
+.cart-table td {
     padding: 20px;
     text-align: center;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     vertical-align: middle;
 }
 
+/* Intestazione della tabella: sfondo semitrasparente, testo ciano neon in font Orbitron */
 .cart-table th {
     background-color: rgba(255, 255, 255, 0.05);
     color: var(--accent-color, #00f0ff);
@@ -29,15 +44,23 @@
     font-family: 'Orbitron', sans-serif;
 }
 
+/* Rimozione del bordo divisore inferiore nell'ultima riga della tabella */
 .cart-table tbody tr:last-child td {
     border-bottom: none;
 }
 
+/* Testo base per le celle del corpo: colore bianco e dimensione 1.1rem */
 .cart-table td {
     color: #ffffff;
     font-size: 1.1rem;
 }
 
+/* ==========================================================================
+   GRUPPO 2: INFORMAZIONI PRODOTTO E DETTAGLIO PREZZI
+   Visualizzazione miniatura, titolo e breakdown prezzi parziali/IVA.
+   ========================================================================== */
+
+/* Contenitore a colonna per allineare prezzo parziale e nota IVA */
 .cart-price-info {
     display: flex;
     flex-direction: column;
@@ -45,6 +68,7 @@
     gap: 4px;
 }
 
+/* Riga orizzontale per i prezzi */
 .prices-row {
     display: flex;
     flex-direction: row;
@@ -53,17 +77,19 @@
     gap: 8px;
 }
 
-
-.cart-table th:nth-child(2), .cart-table td:nth-child(2) {
+/* Allineamento al centro per la seconda colonna della tabella (quantita) */
+.cart-table th:nth-child(2),
+.cart-table td:nth-child(2) {
     text-align: center;
 }
 
+/* Dicitura dell'aliquota IVA applicata all'articolo */
 .cart-price-info .iva-info {
     font-size: 0.8rem;
     color: #aaa;
 }
 
-
+/* Riquadro informativo del prodotto: layout flessibile orizzontale con immagine e testo */
 .cart-product-info {
     display: flex;
     align-items: center;
@@ -71,21 +97,90 @@
     text-align: left;
 }
 
+/* Miniatura del prodotto: immagine quadrata 120x120px con bordo ciano neon e sfondo scuro */
 .cart-product-img {
     width: 120px;
     height: 120px;
     object-fit: contain;
     border-radius: 8px;
     border: 1px solid var(--accent-color, #00f0ff);
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0, 0, 0, 0.3);
     box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
 }
 
+/* ==========================================================================
+   GRUPPO 3: CONTROLLI QUANTITA E PULSANTI DI AZIONE
+   Pulsanti per aggiornare la quantita, eliminare l'articolo e campo numerico.
+   ========================================================================== */
+
+/* Stile base condiviso per pulsante di aggiornamento e rimozione */
+.btn-update,
+.btn-remove {
+    padding: 10px 15px;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* Pulsante aggiorna quantita: colore ciano neon con testo nero */
+.btn-update {
+    background-color: var(--accent-color, #00f0ff);
+    color: #000;
+}
+
+/* Hover sul pulsante aggiorna: bagliore ciano e leggero sollevamento */
+.btn-update:hover {
+    box-shadow: 0 0 15px var(--accent-color, #00f0ff);
+    transform: translateY(-2px);
+}
+
+/* Pulsante elimina prodotto dal carrello: sfondo rosso di allerta */
+.btn-remove {
+    background-color: #ff3333;
+    color: #ffffff;
+}
+
+/* Hover sul pulsante elimina: rosso piu scuro con bagliore intenso */
+.btn-remove:hover {
+    background-color: #e60000;
+    box-shadow: 0 0 15px rgba(255, 51, 51, 0.8);
+    transform: translateY(-2px);
+}
+
+/* Campo input numerico per la quantita: bordo grigio e testo centrato */
+.qty-input {
+    width: 70px;
+    padding: 10px;
+    margin-right: 10px;
+    background: #111;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 1.05rem;
+}
+
+/* Focus sul campo quantita: contorno ciano neon */
+.qty-input:focus {
+    outline: none;
+    border-color: var(--accent-color, #00f0ff);
+    box-shadow: 0 0 10px var(--accent-color, #00f0ff);
+}
+
+/* ==========================================================================
+   GRUPPO 4: BOX DI RIEPILOGO TOTALE CON FORO CYBERPUNK
+   Card orizzontale di riepilogo con totale finale e dicitura IVA.
+   ========================================================================== */
+
+/* Card del riepilogo: superficie scura, allineamento space-between e padding superiore per il foro */
 .cart-summary {
     background-color: var(--dark-surface);
     border: 2px solid #000000;
     border-radius: 12px;
-    padding: 50px 30px 30px 30px; /* Padding top per ospitare il foro */
+    padding: 50px 30px 30px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -93,7 +188,7 @@
     position: relative;
 }
 
-/* Buco a sinistra in stile card index */
+/* Foro decorativo sinistro: intaglio circolare con contorno ciano neon */
 .cart-summary::before {
     content: '';
     position: absolute;
@@ -109,6 +204,7 @@
     z-index: 6;
 }
 
+/* Totale economico: testo bianco con ombra ciano neon */
 .cart-summary h3 {
     margin: 0;
     color: #ffffff;
@@ -116,58 +212,19 @@
     text-shadow: 0 0 10px var(--accent-color, #00f0ff);
 }
 
-.btn-update, .btn-remove {
-    padding: 10px 15px;
-    font-size: 0.95rem;
-    border-radius: 6px;
-    cursor: pointer;
-    border: none;
-    font-weight: bold;
-    transition: all 0.3s ease;
+/* Etichetta informativa 'IVA inclusa' */
+.tax-included {
+    font-size: 1rem;
+    color: #ccc;
+    font-weight: normal;
 }
 
-.btn-update {
-    background-color: var(--accent-color, #00f0ff);
-    color: #000;
-}
+/* ==========================================================================
+   GRUPPO 5: PULSANTE DI CHECKOUT AD ALTA VISIBILITA CON ANIMAZIONE
+   Pulsante call-to-action con sfumatura verde/ciano e animazione pulsante.
+   ========================================================================== */
 
-.btn-update:hover {
-    box-shadow: 0 0 15px var(--accent-color, #00f0ff);
-    transform: translateY(-2px);
-}
-
-.btn-remove {
-    background-color: #ff3333;
-    color: #ffffff;
-}
-
-.btn-remove:hover {
-    background-color: #e60000;
-    box-shadow: 0 0 15px rgba(255, 51, 51, 0.8);
-    transform: translateY(-2px);
-}
-
-.qty-input {
-    width: 70px;
-    padding: 10px;
-    margin-right: 10px;
-    background: #111;
-    color: #fff;
-    border: 1px solid #555;
-    border-radius: 6px;
-    text-align: center;
-    font-size: 1.05rem;
-}
-
-.qty-input:focus {
-    outline: none;
-    border-color: var(--accent-color, #00f0ff);
-    box-shadow: 0 0 10px var(--accent-color, #00f0ff);
-}
-
-/* ==========================================
-   PULSANTE CHECKOUT (Alta Visibilità)
-   ========================================== */
+/* Pulsante principale di checkout: gradiente fluorescente verde/ciano, testo nero e animazione */
 .btn-checkout {
     background: linear-gradient(135deg, #39ff14, #00f0ff);
     color: #000000;
@@ -185,6 +242,7 @@
     text-align: center;
 }
 
+/* Hover sul pulsante checkout: ingrandimento e bagliore potenziato */
 .btn-checkout:hover {
     transform: scale(1.05) translateY(-3px);
     box-shadow: 0 0 30px rgba(57, 255, 20, 0.9), 0 0 60px rgba(0, 240, 255, 0.7);
@@ -192,6 +250,7 @@
     text-decoration: none;
 }
 
+/* Animazione di pulsazione continua per attirare l'attenzione sul pagamento */
 @keyframes pulseGlow {
     0% {
         box-shadow: 0 0 15px rgba(57, 255, 20, 0.5), 0 0 30px rgba(0, 240, 255, 0.3);
@@ -200,10 +259,13 @@
         box-shadow: 0 0 25px rgba(57, 255, 20, 0.8), 0 0 50px rgba(0, 240, 255, 0.6);
     }
 }
-  
-/* ==========================================
-   INTESTAZIONE SEZIONI (CYBERPUNK DIVIDER)
-   ========================================== */
+
+/* ==========================================================================
+   GRUPPO 6: INTESTAZIONE CYBERPUNK (BANNER HUD VERDE NEON)
+   Banner a nastro geometrico con grafica hud poligonale.
+   ========================================================================== */
+
+/* Contenitore flessibile del divisore superiore */
 .cyber-divider-wrapper {
     position: relative;
     width: 100%;
@@ -214,64 +276,134 @@
     align-items: center;
     box-shadow: 0 0 15px rgba(252, 226, 5, 0.4);
 }
+
+/* Sfondo geometrico poligonale con pattern ciano */
 .cyber-divider {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: #0b0b0c;
     clip-path: polygon(0% 10px, 10% 10px, 15% 0%, 25% 0%, 28% 15px, 45% 15px, 48% 5px, 60% 5px, 65% 20px, 75% 20px, 80% 0%, 90% 0%, 95% 10px, 100% 10px, 100% calc(100% - 10px), 85% calc(100% - 10px), 80% 100%, 65% 100%, 60% calc(100% - 15px), 45% calc(100% - 15px), 40% calc(100% - 5px), 25% calc(100% - 5px), 20% calc(100% - 20px), 10% calc(100% - 20px), 5% 100%, 0% 100%);
     background-image: radial-gradient(rgba(0, 240, 255, 0.25) 1px, transparent 1px), radial-gradient(rgba(70, 70, 70, 0.5) 1px, transparent 1px);
-    background-size: 15px 15px, 25px 25px; background-position: 0 0, 7px 7px;
+    background-size: 15px 15px, 25px 25px;
+    background-position: 0 0, 7px 7px;
 }
+
+/* Testo centrale del banner */
 .cyber-center-text {
-    position: absolute; z-index: 2; color: #00f0ff; font-family: 'Inter', 'Segoe UI', sans-serif;
-    font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
+    position: absolute;
+    z-index: 2;
+    color: #00f0ff;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
     text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3);
-    border: 1px solid #00f0ff; padding: 6px 30px; background: rgba(11, 11, 12, 0.85);
+    border: 1px solid #00f0ff;
+    padding: 6px 30px;
+    background: rgba(11, 11, 12, 0.85);
     box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.2);
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 0);
 }
+
+/* Modulo di log sinistro */
 .cyber-left-module {
-    position: absolute; z-index: 2; left: 20px; top: 50%; transform: translateY(-50%);
-    color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold; text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
+    position: absolute;
+    z-index: 2;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
 }
+
+/* Modulo grafico HUD destro */
 .cyber-right-hud {
-    position: absolute; z-index: 2; right: 25px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
-}
-.cyber-hud-line { height: 2px; background-color: #00f0ff; box-shadow: 0 0 5px #00f0ff; }
-.cyber-hud-line:nth-child(1) { width: 35px; } .cyber-hud-line:nth-child(2) { width: 15px; } .cyber-hud-line:nth-child(3) { width: 50px; }
-.cyber-hud-text { color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.6rem; margin-top: 2px; font-weight: bold; opacity: 0.9; }
-  
-.cyber-center-text.green-neon { color: #39ff14; border-color: #39ff14; text-shadow: 0 0 10px rgba(57, 255, 20, 0.6), 0 0 20px rgba(57, 255, 20, 0.3); box-shadow: inset 0 0 12px rgba(57, 255, 20, 0.2); }
-.green-neon .cyber-hud-line { background-color: #39ff14; box-shadow: 0 0 5px #39ff14; }
-.cyber-hud-text.green-neon { color: #39ff14; }
-.cyber-left-module.green-neon { color: #39ff14; text-shadow: 0 0 5px rgba(57, 255, 20, 0.6); }
-
-.tax-included {
-    font-size: 1rem;
-    color: #ccc;
-    font-weight: normal;
+    position: absolute;
+    z-index: 2;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
 }
 
-/* ==========================================
-   MEDIA QUERIES (RESPONSIVE)
-   ========================================== */
+/* Linee grafiche decorative HUD */
+.cyber-hud-line {
+    height: 2px;
+    background-color: #00f0ff;
+    box-shadow: 0 0 5px #00f0ff;
+}
+.cyber-hud-line:nth-child(1) { width: 35px; }
+.cyber-hud-line:nth-child(2) { width: 15px; }
+.cyber-hud-line:nth-child(3) { width: 50px; }
+
+/* Testo versione HUD */
+.cyber-hud-text {
+    color: #00f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6rem;
+    margin-top: 2px;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* Variante cromatica verde neon ('green-neon') per il carrello */
+.cyber-center-text.green-neon {
+    color: #39ff14;
+    border-color: #39ff14;
+    text-shadow: 0 0 10px rgba(57, 255, 20, 0.6), 0 0 20px rgba(57, 255, 20, 0.3);
+    box-shadow: inset 0 0 12px rgba(57, 255, 20, 0.2);
+}
+.green-neon .cyber-hud-line {
+    background-color: #39ff14;
+    box-shadow: 0 0 5px #39ff14;
+}
+.cyber-hud-text.green-neon {
+    color: #39ff14;
+}
+.cyber-left-module.green-neon {
+    color: #39ff14;
+    text-shadow: 0 0 5px rgba(57, 255, 20, 0.6);
+}
+
+/* ==========================================================================
+   GRUPPO 7: TRASFORMAZIONE RESPONSIVE A SCHEDE PER DISPLAY STRETTI
+   Riorganizzazione fluida della tabella HTML in card verticali per mobile.
+   ========================================================================== */
 @media (max-width: 950px) {
-    /* Tabella Responsive - Layout a schede */
-    .cart-table, .cart-table tbody, .cart-table tr, .cart-table td {
+    /* Conversione degli elementi tabellari in blocchi indipendenti */
+    .cart-table,
+    .cart-table tbody,
+    .cart-table tr,
+    .cart-table td {
         display: block;
         width: 100%;
         box-sizing: border-box;
     }
 
+    /* Rimozione dello sfondo della tabella contenitrice */
     .cart-table {
         background-color: transparent;
         border: none;
         box-shadow: none;
     }
 
+    /* Oculatamento dell'intestazione thead classica */
     .cart-table thead {
-        display: none; /* Nasconde l'intestazione classica */
+        display: none;
     }
 
+    /* Ogni riga tr diventa una card autonoma con bordo ciano */
     .cart-table tr {
         margin-bottom: 25px;
         border: 2px solid var(--accent-color, #00f0ff);
@@ -279,6 +411,7 @@
         background-color: var(--dark-surface);
     }
 
+    /* Cella td: testo allineato a destra con spazio sinistro per l'etichetta generata */
     .cart-table td {
         text-align: right;
         padding: 15px 15px 15px 40%;
@@ -291,10 +424,12 @@
         align-items: flex-end;
     }
 
+    /* Rimozione del bordo divisore sull'ultima cella della card */
     .cart-table tr td:last-child {
         border-bottom: none;
     }
 
+    /* Etichetta generata dal valore attributo 'data-label' della cella */
     .cart-table td::before {
         content: attr(data-label);
         position: absolute;
@@ -310,24 +445,26 @@
         font-size: 0.85rem;
     }
 
-    /* Prodotto in riga (Immagine + Nome) */
+    /* Disposizione orizzontale di anteprima e titolo prodotto su mobile */
     .cart-product-info {
-        flex-direction: row-reverse; /* Immagine a destra, nome a sinistra */
+        flex-direction: row-reverse;
         align-items: center;
         justify-content: flex-end;
         gap: 15px;
     }
 
+    /* Allineamento a destra del prezzo */
     .cart-price-info {
         align-items: flex-end;
     }
 
+    /* Miniatura compatta su mobile */
     .cart-product-img {
         width: 60px;
         height: 60px;
     }
 
-    /* Allinea il form della quantità sulla stessa riga (Input Group) */
+    /* Gruppo di input unificato per quantita e pulsante aggiorna */
     .cart-table td form {
         display: flex;
         flex-direction: row;
@@ -336,17 +473,19 @@
         gap: 0;
     }
 
+    /* Campo quantita con bordi arrotondati solo a sinistra */
     .qty-input {
         margin: 0;
         width: 60px;
-        border-radius: 6px 0 0 6px; /* Solo angoli a sinistra */
+        border-radius: 6px 0 0 6px;
         border-right: none;
         height: 40px;
         box-sizing: border-box;
     }
 
+    /* Pulsante aggiorna con bordi arrotondati solo a destra */
     .btn-update {
-        border-radius: 0 6px 6px 0; /* Solo angoli a destra */
+        border-radius: 0 6px 6px 0;
         height: 40px;
         box-sizing: border-box;
         margin: 0;
@@ -356,6 +495,7 @@
         justify-content: center;
     }
 
+    /* Pulsante rimuovi centrato */
     .btn-remove {
         width: auto;
         padding: 0 15px;
@@ -366,7 +506,7 @@
         justify-content: center;
     }
 
-    /* Riepilogo */
+    /* Disposizione a colonna del box totale riepilogo su mobile */
     .cart-summary {
         flex-direction: column;
         text-align: center;
@@ -374,21 +514,25 @@
         padding: 40px 20px 20px 20px;
     }
 
+    /* Centratura orizzontale del foro decorativo */
     .cart-summary::before {
         top: 20px;
         left: 50%;
         transform: translateX(-50%);
     }
 
+    /* Totale ridotto */
     .cart-summary h3 {
         font-size: 1.5rem;
     }
 
+    /* Pulsante checkout a larghezza intera */
     .btn-checkout {
         width: 100%;
         font-size: 1.1rem;
     }
 
+    /* Banner HUD responsive */
     .cyber-divider-wrapper {
         height: auto;
         padding: 10px 0;
@@ -400,7 +544,8 @@
         position: relative;
     }
 
-    .cyber-left-module, .cyber-right-hud {
+    .cyber-left-module,
+    .cyber-right-hud {
         display: none;
     }
 }

@@ -1,6 +1,18 @@
-/* ==========================================
-   STILE AUTENTICAZIONE (REGISTRAZIONE)
-   ========================================== */
+/* ==========================================================================
+   FOGLIO DI STILE: registrazione.css
+   Descrizione: Stili per la pagina di registrazione dei nuovi utenti acquirenti.
+                Include la card del modulo di iscrizione con fori laterali cyberpunk,
+                gestione avanzata dell'input telefonico con prefisso internazionale,
+                feedback visivo per errori di validazione (compresa la verifica AJAX dell'email)
+                e banner HUD geometrico.
+   ========================================================================== */
+
+/* ==========================================================================
+   GRUPPO 1: CONTENITORE CENTRALE E TITOLO PRINCIPALE
+   Allineamento centrato verticale/orizzontale e tipografia dell'intestazione.
+   ========================================================================== */
+
+/* Contenitore flessibile centrale dell'intera schermata di registrazione */
 .auth-container {
     display: flex;
     flex-direction: column;
@@ -10,22 +22,28 @@
     padding: 40px 20px;
 }
 
+/* Titolo principale h2: testo nero a contrasto pieno, maiuscolo, centrato e spaziato */
 .auth-container h2 {
-    color: #000000; /* Nero richiesto */
+    color: #000000;
     font-size: 2.2rem;
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 30px;
-    text-shadow: none; /* Rimosso l'effetto ombra azzurra per evitare confusione sul nero */
+    text-shadow: none;
     letter-spacing: 2px;
 }
 
-/* Base stile Card Prodotto di index.css */
+/* ==========================================================================
+   GRUPPO 2: CARD DEL FORM DI REGISTRAZIONE E FORI CYBERPUNK
+   Box principale scuro con doppio foro decorativo (azzurro e magenta).
+   ========================================================================== */
+
+/* Struttura della card del form: superficie scura, bordo nero solido e angoli arrotondati */
 .form-box {
     background-color: var(--dark-surface);
     border: 2px solid #000000;
     border-radius: 12px;
-    padding: 65px 40px 40px 40px; /* Padding superiore maggiorato per i fori */
+    padding: 65px 40px 40px 40px; /* Padding superiore maggiorato per alloggiare i fori decorativi */
     width: 100%;
     max-width: 550px;
     position: relative;
@@ -34,12 +52,13 @@
     color: var(--text-light);
 }
 
+/* Effetto al passaggio del mouse: leggero sollevamento verso l'alto e bagliore ciano */
 .form-box:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(0, 240, 255, 0.15);
 }
 
-/* Foro a sinistra (Azzurro) */
+/* Foro decorativo sinistro: intaglio circolare con bordo ciano neon che svela lo sfondo giallo */
 .form-box::before {
     content: '';
     position: absolute;
@@ -48,14 +67,14 @@
     left: 25px;
     width: 28px;
     height: 28px;
-    background-color: var(--primary-bg); /* Rivela il giallo di sfondo */
+    background-color: var(--primary-bg);
     border: 2px solid #00f0ff;
     border-radius: 50%;
     box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.6);
     z-index: 6;
 }
 
-/* Foro a destra (Magenta) per dettagli più colorati */
+/* Foro decorativo destro: intaglio circolare con bordo magenta neon di contrasto */
 .form-box::after {
     content: '';
     position: absolute;
@@ -71,10 +90,17 @@
     z-index: 6;
 }
 
+/* ==========================================================================
+   GRUPPO 3: CAMPI DEL FORM E FOCUS LUMINOSO
+   Etichette e caselle di testo con evidenziazione verde acido su stato attivo.
+   ========================================================================== */
+
+/* Spaziatura inferiore per separare i gruppi di campi */
 .form-group {
     margin-bottom: 25px;
 }
 
+/* Etichetta del campo: testo bianco maiuscolo in grassetto */
 .form-group label {
     font-weight: 600;
     letter-spacing: 1px;
@@ -85,6 +111,7 @@
     text-transform: uppercase;
 }
 
+/* Caselle di testo e selettori a discesa: sfondo scuro e angoli smussati */
 .form-group input,
 .form-group select {
     background-color: var(--dark-card);
@@ -97,18 +124,26 @@
     width: 100%;
 }
 
+/* Testo segnaposto (placeholder) all'interno degli input */
 .form-group input::placeholder {
     color: rgba(255, 255, 255, 0.4);
 }
 
+/* Stato di focus: bordo verde acido fluorescente (#39ff14) ed effetto alone */
 .form-group input:focus,
 .form-group select:focus {
-    border-color: #39ff14; /* Focus Verde Acido */
+    border-color: #39ff14;
     box-shadow: 0 0 12px rgba(57, 255, 20, 0.3);
     background-color: rgba(20, 30, 20, 0.8);
     outline: none;
 }
 
+/* ==========================================================================
+   GRUPPO 4: PULSANTE DI CONFERMA REGISTRAZIONE
+   Bottone call-to-action con contorno verde fluorescente ed effetto hover pieno.
+   ========================================================================== */
+
+/* Pulsante principale di invio iscrizione: contorno verde neon su sfondo trasparente */
 .form-box .btn-primary {
     width: 100%;
     padding: 14px;
@@ -117,7 +152,7 @@
     border-radius: 8px;
     margin-top: 20px;
     background: transparent;
-    color: #39ff14; /* Verde Acido */
+    color: #39ff14;
     border: 2px solid #39ff14;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -125,6 +160,7 @@
     transition: all 0.3s ease;
 }
 
+/* Hover sul pulsante: riempimento verde brillante pieno e testo nero */
 .form-box .btn-primary:hover {
     background: #39ff14;
     color: #000;
@@ -132,6 +168,12 @@
     transform: translateY(-2px);
 }
 
+/* ==========================================================================
+   GRUPPO 5: LINK DI ACCESSO PER UTENTI GIA REGISTRATI
+   Separatore tratteggiato e rimando alla schermata di login.
+   ========================================================================== */
+
+/* Sezione inferiore di login per chi ha gia un account */
 .auth-redirect {
     text-align: center;
     margin-top: 30px;
@@ -141,8 +183,9 @@
     padding-top: 20px;
 }
 
+/* Link verso la pagina di login: colore magenta acceso (#ff00ff) */
 .auth-redirect a {
-    color: #ff00ff; /* Magenta per il link */
+    color: #ff00ff;
     text-decoration: none;
     font-weight: 700;
     transition: all 0.3s ease;
@@ -150,14 +193,18 @@
     text-transform: uppercase;
 }
 
+/* Hover sul link di login: testo bianco con bagliore magenta */
 .auth-redirect a:hover {
     color: #fff;
     text-shadow: 0 0 10px #ff00ff;
 }
 
-/* ==========================================
-   STILI CAMPO TELEFONO CON PREFISSO AFFIANCATO E BUGFIX
-   ========================================== */
+/* ==========================================================================
+   GRUPPO 6: CAMPO TELEFONO CON PREFISSO AFFIANCATO E MESSAGGI ERRORE
+   Disposizione orizzontale di prefisso internazionale e numero, con testi di errore.
+   ========================================================================== */
+
+/* Contenitore flessibile orizzontale per affiancare il selettore prefisso e l'input del numero */
 .phone-input-container {
     display: flex;
     gap: 15px;
@@ -165,6 +212,7 @@
     width: 100%;
 }
 
+/* Menu a tendina per il prefisso nazionale: larghezza fissa di 140px */
 .form-group select.select-prefisso {
     width: auto;
     flex: 0 0 140px; 
@@ -172,22 +220,28 @@
     padding: 14px 10px;
 }
 
+/* Campo input del numero telefonico: occupa tutto lo spazio orizzontale rimanente */
 .phone-input-container input[type="tel"] {
     flex: 1;
     min-width: 0;
 }
 
+/* Messaggio di errore sotto il campo (es. email gia in uso o formato errato): colore magenta neon */
 .error-msg {
-    color: #ff00ff; /* Errore in stile magenta */
+    color: #ff00ff;
     font-size: 0.9rem;
     margin-top: 8px;
     display: block;
     font-weight: 600;
     text-shadow: 0 0 5px rgba(255, 0, 255, 0.4);
-}  
-/* ==========================================
-   INTESTAZIONE SEZIONI (CYBERPUNK DIVIDER)
-   ========================================== */
+}
+
+/* ==========================================================================
+   GRUPPO 7: INTESTAZIONE CYBERPUNK (BANNER E MODULI HUD)
+   Banner a nastro orizzontale con grafica geometrica poligonale.
+   ========================================================================== */
+
+/* Contenitore principale del divisore cyberpunk */
 .cyber-divider-wrapper {
     position: relative;
     width: 100%;
@@ -198,76 +252,155 @@
     align-items: center;
     box-shadow: 0 0 15px rgba(252, 226, 5, 0.4);
 }
+
+/* Sfondo geometrico poligonale con texture a punti luminosi */
 .cyber-divider {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: #0b0b0c;
     clip-path: polygon(0% 10px, 10% 10px, 15% 0%, 25% 0%, 28% 15px, 45% 15px, 48% 5px, 60% 5px, 65% 20px, 75% 20px, 80% 0%, 90% 0%, 95% 10px, 100% 10px, 100% calc(100% - 10px), 85% calc(100% - 10px), 80% 100%, 65% 100%, 60% calc(100% - 15px), 45% calc(100% - 15px), 40% calc(100% - 5px), 25% calc(100% - 5px), 20% calc(100% - 20px), 10% calc(100% - 20px), 5% 100%, 0% 100%);
     background-image: radial-gradient(rgba(0, 240, 255, 0.25) 1px, transparent 1px), radial-gradient(rgba(70, 70, 70, 0.5) 1px, transparent 1px);
-    background-size: 15px 15px, 25px 25px; background-position: 0 0, 7px 7px;
+    background-size: 15px 15px, 25px 25px;
+    background-position: 0 0, 7px 7px;
 }
+
+/* Badge centrale del titolo del banner con bordo tagliato ad angolo e bagliore ciano */
 .cyber-center-text {
-    position: absolute; z-index: 2; color: #00f0ff; font-family: 'Inter', 'Segoe UI', sans-serif;
-    font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
+    position: absolute;
+    z-index: 2;
+    color: #00f0ff;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
     text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3);
-    border: 1px solid #00f0ff; padding: 6px 30px; background: rgba(11, 11, 12, 0.85);
+    border: 1px solid #00f0ff;
+    padding: 6px 30px;
+    background: rgba(11, 11, 12, 0.85);
     box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.2);
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 0);
 }
-.cyber-left-module {
-    position: absolute; z-index: 2; left: 20px; top: 50%; transform: translateY(-50%);
-    color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold; text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
-}
-.cyber-right-hud {
-    position: absolute; z-index: 2; right: 25px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
-}
-.cyber-hud-line { height: 2px; background-color: #00f0ff; box-shadow: 0 0 5px #00f0ff; }
-.cyber-hud-line:nth-child(1) { width: 35px; } .cyber-hud-line:nth-child(2) { width: 15px; } .cyber-hud-line:nth-child(3) { width: 50px; }
-.cyber-hud-text { color: #00f0ff; font-family: 'Courier New', Courier, monospace; font-size: 0.6rem; margin-top: 2px; font-weight: bold; opacity: 0.9; }
-  
-.cyber-center-text.green-neon { color: #39ff14; border-color: #39ff14; text-shadow: 0 0 10px rgba(57, 255, 20, 0.6), 0 0 20px rgba(57, 255, 20, 0.3); box-shadow: inset 0 0 12px rgba(57, 255, 20, 0.2); }
-.green-neon .cyber-hud-line { background-color: #39ff14; box-shadow: 0 0 5px #39ff14; }
-.cyber-hud-text.green-neon { color: #39ff14; }
-.cyber-left-module.green-neon { color: #39ff14; text-shadow: 0 0 5px rgba(57, 255, 20, 0.6); }
 
-/* ==========================================
-   MEDIA QUERIES (RESPONSIVE)
-   ========================================== */
+/* Modulo di log a sinistra */
+.cyber-left-module {
+    position: absolute;
+    z-index: 2;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(252, 226, 5, 0.6);
+}
+
+/* Modulo grafico HUD a destra */
+.cyber-right-hud {
+    position: absolute;
+    z-index: 2;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+/* Linee grafiche decorative del modulo HUD */
+.cyber-hud-line {
+    height: 2px;
+    background-color: #00f0ff;
+    box-shadow: 0 0 5px #00f0ff;
+}
+.cyber-hud-line:nth-child(1) { width: 35px; }
+.cyber-hud-line:nth-child(2) { width: 15px; }
+.cyber-hud-line:nth-child(3) { width: 50px; }
+
+/* Testo versione HUD */
+.cyber-hud-text {
+    color: #00f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6rem;
+    margin-top: 2px;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* Varianti decorative con accento verde neon */
+.cyber-center-text.green-neon {
+    color: #39ff14;
+    border-color: #39ff14;
+    text-shadow: 0 0 10px rgba(57, 255, 20, 0.6), 0 0 20px rgba(57, 255, 20, 0.3);
+    box-shadow: inset 0 0 12px rgba(57, 255, 20, 0.2);
+}
+.green-neon .cyber-hud-line {
+    background-color: #39ff14;
+    box-shadow: 0 0 5px #39ff14;
+}
+.cyber-hud-text.green-neon {
+    color: #39ff14;
+}
+.cyber-left-module.green-neon {
+    color: #39ff14;
+    text-shadow: 0 0 5px rgba(57, 255, 20, 0.6);
+}
+
+/* ==========================================================================
+   GRUPPO 8: REGOLE RESPONSIVE PER SMARTPHONE E TABLET
+   Adattamento per schermi con larghezza fino a 768px.
+   ========================================================================== */
 @media (max-width: 768px) {
+    /* Dimensione ridotta del titolo */
     .auth-container h2 {
         font-size: 1.8rem;
     }
 
+    /* Padding compatto del form */
     .form-box {
         padding: 40px 20px 20px 20px;
     }
 
+    /* Nasconde i fori laterali per risparmiare spazio */
     .form-box::before,
     .form-box::after {
         display: none;
     }
 
+    /* Disposizione in colonna di prefisso e numero su mobile */
     .phone-input-container {
         flex-direction: column;
         align-items: stretch;
     }
 
+    /* Menu prefisso a larghezza intera su mobile */
     .form-group select.select-prefisso {
         flex: none;
         width: 100%;
     }
 
+    /* Altezza flessibile per il banner su schermi stretti */
     .cyber-divider-wrapper {
         height: auto;
         padding: 10px 0;
         margin: 30px 0 15px 0;
     }
 
+    /* Testo centrale ridimensionato */
     .cyber-center-text {
         font-size: 1.3rem;
         position: relative;
     }
 
-    .cyber-left-module, .cyber-right-hud {
+    /* Nasconde i moduli laterali HUD */
+    .cyber-left-module,
+    .cyber-right-hud {
         display: none;
     }
 }
